@@ -55,7 +55,8 @@ docker run <이미지>
 docker exec -it <컨테이너 이름-mysql> bash
 
 # Myslq Use
-mysql -u root -p -h 121.140.69.95 -P 3308 = mysql
+mysql -u root -p -h 121.140.69.95 -P 3308
+# 비밀번호 문의하세요
 # python은 바로 사용하시면 됩니다. 
 ```
 mysql 포트는 3308 입니다.

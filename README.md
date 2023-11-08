@@ -56,7 +56,12 @@ host='121.140.69.95' # loopback # localhost
 port = '3308'
 database = 'coin_db' # DB 만들면 그거 이름
 engine = sqlalchemy.create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}") # MYSQL오류 발생 => # sqlalchemy 의존성 패키지 설치
-engine
+
+csv_file_path = f"tc_codea_코드A.csv"
+df = pd.read_csv(csv_file_path)
+df.to_sql(name='tc_codea_코드A', con=engine, if_exists='append', index=False)
+
+print("CSV 파일을 데이터베이스에 저장 완료!")
 ```
 넣어서 사용하시면 바로 데이터 베이스 연결될겁니다. 
 

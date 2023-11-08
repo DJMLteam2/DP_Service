@@ -48,6 +48,17 @@ mysql -u root -p -h 121.140.69.95 -P 3308 = mysql
 ```
 mysql 포트는 3308 입니다.
 flask 포트는 5000 입니다.
+### Python mysql
+```
+user = 'root'
+password = '1234'
+host='121.140.69.95' # loopback # localhost
+port = '3308'
+database = 'coin_db' # DB 만들면 그거 이름
+engine = sqlalchemy.create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}") # MYSQL오류 발생 => # sqlalchemy 의존성 패키지 설치
+engine
+```
+넣어서 사용하시면 바로 데이터 베이스 연결될겁니다. 
 
 ### .env
 ```

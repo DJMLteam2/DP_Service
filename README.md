@@ -8,9 +8,21 @@ docker pull jiugnim/dp_mysql
 ### Mysql
 mysql 주소 : https://hub.docker.com/r/jiugnim/dp_mysql
 docker pull jiugnim/dp_python
-
 ## Docker Compose
 ### Compose.yml
+git clone 사용시 
+```
+# 모든 컨테이너 실행
+docker compose up -d
+# 모든 컨테이너 다운
+docker compose down
+# 도커 컨테이너 정지
+docker stop <컨테이너 이름>
+# 도커 컨테이너 삭제
+docker rm <컨테이너 이름>
+# 도커 이미지 삭제
+docekr irm <이미지 이름>
+```
 ```
 version: '2'
 services:

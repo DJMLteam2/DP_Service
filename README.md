@@ -63,6 +63,7 @@ mysql 포트는 3308 입니다.
 flask 포트는 5000 입니다.
 ### Python mysql
 ```
+#데이터 저장
 user = 'root'
 password = '1234'
 host='121.140.69.95' # loopback # localhost
@@ -75,6 +76,31 @@ df = pd.read_csv(csv_file_path)
 df.to_sql(name='tc_codea_코드A', con=engine, if_exists='append', index=False)
 
 print("CSV 파일을 데이터베이스에 저장 완료!")
+
+# 데이터 불러오기
+
+connection = pymysql.connect(
+    host='121.140.69.95',
+    user='root',
+    password='1234',
+    database='coin_db',
+    port=3308,
+    cursorclass=pymysql.cursors.DictCursor
+)
+
+try:
+    with connection.cursor() as cursor:
+        # sql 문으로 작성
+        sql = "show databases;"
+        cursor.execute(sql)
+        
+        # 결과 가져오기
+        result = cursor.fetchall()
+        for row in result:
+            print(row)  # 가져온 데이터 출력 (여기서는 딕셔너리 형태)
+finally:
+    connection.close()
+
 ```
 넣어서 사용하시면 바로 데이터 베이스 연결될겁니다. 
 

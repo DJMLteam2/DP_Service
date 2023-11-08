@@ -1,0 +1,19 @@
+version: '2'
+services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_HOST=121.140.69.95
+      - MYSQL_PORT=3308
+    ports:
+      - 3308:3306
+  python-app:
+    build: ./python/
+    volumes:
+      - $PWD/data:/home/code/python/data
+    ports:
+      - "5000:5000"
+    command: sh -c 'sh etl.sh && python -m flask run --host=0.0.0.0'

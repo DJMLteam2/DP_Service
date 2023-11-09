@@ -1,4 +1,6 @@
 # DP_Service
+## System Architecture
+![System Architecture](https://github.com/DJMLteam2/DP_Service/assets/135206238/cebda86c-e8df-4bee-bf3a-18be9d2b7024)
 ### dockerfile
 https://github.com/Sam1000won/dp_docker 
 ## Docker Hub

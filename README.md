@@ -68,24 +68,26 @@ flask 포트는 5000 입니다.
 #데이터 저장
 user = 'root'
 password = '1234'
-host='121.140.69.95' # loopback # localhost
+host='121.140.69.95' # localhost
 port = '3308'
 database = 'coin_db' # DB 만들면 그거 이름
-engine = sqlalchemy.create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}") # MYSQL오류 발생 => # sqlalchemy 의존성 패키지 설치
+engine = sqlalchemy.create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}")
+# MYSQL오류 발생 => # sqlalchemy 의존성 패키지 설치
 
-csv_file_path = f"tc_codea_코드A.csv"
+csv_file_path = f"tc_codea_코드A.csv" # 실제 데이터 장소 기입
 df = pd.read_csv(csv_file_path)
 df.to_sql(name='tc_codea_코드A', con=engine, if_exists='append', index=False)
 
 print("CSV 파일을 데이터베이스에 저장 완료!")
 
+---------------------------------------------------------------------
 # 데이터 불러오기
 
 connection = pymysql.connect(
     host='121.140.69.95',
     user='root',
     password='1234',
-    database='coin_db',
+    database='<table_name>', # 테이블 이름을 넣어주시면 됩니다.
     port=3308,
     cursorclass=pymysql.cursors.DictCursor
 )

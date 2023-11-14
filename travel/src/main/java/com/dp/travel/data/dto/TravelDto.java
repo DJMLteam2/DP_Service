@@ -1,11 +1,11 @@
-package main.java.com.dp.travel.data.dto;
+package com.dp.travel.data.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.minip.store.data.entity.Store;
+import com.dp.travel.data.entity.Travel;
 
 @Data
 @AllArgsConstructor

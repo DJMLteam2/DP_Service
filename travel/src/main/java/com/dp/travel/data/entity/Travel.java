@@ -1,9 +1,8 @@
-package main.java.com.dp.travel.data.entity;
+package com.dp.travel.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +16,7 @@ import lombok.ToString;
 @Getter
 public class Travel {
     @Id
-    private long id;
+    private Long id;
 
     @Column(name = "Location")
     private String location;

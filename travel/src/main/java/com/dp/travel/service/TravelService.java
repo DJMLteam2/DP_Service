@@ -1,7 +1,7 @@
-package main.java.com.dp.travel.service;
+package com.dp.travel.service;
 
-import main.java.com.dp.travel.data.dto.TravelDto;
-import main.java.com.dp.travel.data.entity.Travel;
+import com.dp.travel.data.dto.TravelDto;
+
 
 import java.util.List;
 

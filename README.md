@@ -82,7 +82,13 @@ print("CSV 파일을 데이터베이스에 저장 완료!")
 
 ---------------------------------------------------------------------
 # 데이터 불러오기
+from sqlalchemy import create_engine
+import pandas as pd
 
+engine = create_engine('mysql+pymysql://root:1234@121.140.69.95:3308/sam_db')
+df = pd.read_sql_query("SELECT * FROM tr_df;", engine)
+print(df['VISIT_AREA_NM'].value_counts())
+# 혹은
 connection = pymysql.connect(
     host='121.140.69.95',
     user='root',

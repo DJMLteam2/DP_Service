@@ -37,4 +37,6 @@ public class TravelServiceImpl implements TravelService{
         dto.setLongitude(travel.getLongitude());
         return dto;
     }
+
+    
 }

@@ -1,0 +1,28 @@
+{{>layouts/header}}
+
+<div class="table-responsive mt-4 mb-4">
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Latitude</th>
+                    <th scope="col">Longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#travelList}}
+                <tr>
+                    <th>{{id}}</th>
+                    <th>{{location}}</th>
+                    <th>{{latitude}}</th>
+                    <th>{{longitude}}</th>
+                </tr>
+                {{/travelList}}
+            </tbody>
+        </table>
+     </div>
+</div>
+
+{{>layouts/footer}}

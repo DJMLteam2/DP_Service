@@ -46,6 +46,6 @@ public class TravelController {
         model.addAttribute("radioOptions", radioOptions);
 
         return "travel/radio";
-    }  
+    }
 
 }

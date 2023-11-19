@@ -1,20 +1,11 @@
 FROM python:3.9
 
-WORKDIR /home/code/python
+WORKDIR /code
 
-COPY . .
+COPY ./requirements.txt /code/requirements.txt
 
-# 실제 사용하실때는 풀어야 합니다.
-RUN apt-get update \
-    && apt-get install -y software-properties-common \
-    && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-RUN pip install --upgrade pip
-RUN python -m pip install --upgrade pip
-RUN pip3 install --no-cache-dir -r requirements.txt
+COPY ./app /code/app
 
-EXPOSE 5000
-
-COPY etl.sh etl.sh
-
-CMD ["sh", "etl.sh"]
+CMD ["uvicorn","app.main:app","--host","0.0.0.0","--port","3000"]

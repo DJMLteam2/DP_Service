@@ -2,6 +2,8 @@ package com.dp.travel.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -16,14 +18,15 @@ import lombok.ToString;
 @Data
 public class Travel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "location")
     private String location;
-    
+
     @Column(name = "latitude")
     private double latitude;
-    
+
     @Column(name = "longitude")
     private double longitude;
 

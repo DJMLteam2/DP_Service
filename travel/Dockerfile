@@ -17,7 +17,7 @@ FROM openjdk:11-jre-slim
 COPY --from=build /app/target/*.jar /app.jar
 
 # 컨테이너 포트 설정
-EXPOSE 8080
+EXPOSE 8085
 
 # JAR 파일 실행
 ENTRYPOINT ["java", "-jar", "/app.jar"]

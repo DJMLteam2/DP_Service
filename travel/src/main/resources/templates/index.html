@@ -199,4 +199,51 @@
     <script type="text/javascript" src="assets/js/jquery.themepunch.tools.min.js"></script>
      
   </body>
+  
+  <!--
+    Google Map API 설정 부분
+  -->
+  <head>
+    <!--
+      첫 번째 script 요소:
+      Google Maps API를 사용하기 위해 로컬에서 작성할 코드를 불러옴.
+    -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- 
+      두 번째 script 요소:
+      원격에 있는 구글 서버로부터 Google Maps API의 코드를 내려받음.
+    -->
+    <script type="text/javascript">
+      google.charts.load("current", {
+        "packages":["map"],
+        // Note: 아래 키에 구글 맵에서 발급받은 API key를 입력해야 합니다.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        "mapsApiKey": "AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ"
+      });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Lat', 'Long', 'Name'],
+          [33.5070537, 126.492776, '제주국제공항'],
+          [33.5162323, 126.5120637, '용두암']
+        ]);
+
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {
+          showTooltip: true,
+          showInfoWindow: true
+        });
+      }
+
+    </script>
+  </head>
+
+  <body>
+    <!-- 필수:
+      이 부분에서 width와 height를 반드시 CSS 형식에 따라 지정해야 합니다.
+      비어있는 div 요소는 기본값이 0인 높이를 가지기 때문에
+      구글 지도가 화면 상에 나타나지 않을 겁니다.
+    -->
+    <div id="map_div" style="width: 1200px; height: 675px"></div>
+  </body>
 </html>

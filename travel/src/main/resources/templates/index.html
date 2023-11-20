@@ -104,25 +104,25 @@
                       <div class="search-category-container">
                         <label class="styled-select">
 
-                          <select id="Area_Spot" class="dropdown-product selectpicker">
+                          <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
                             <option value="">지역</option>
-                            <option value="1">서울</option>
-                            <option value="2">인천</option>
-                            <option value="3">대전</option>
-                            <option value="4">대구</option>
-                            <option value="5">광주</option>
-                            <option value="6">부산</option>
-                            <option value="7">울산</option>                             
-                            <option value="8">세종시</option>
-                            <option value="9">경기</option>
-                            <option value="10">강원</option>
-                            <option value="11">충북</option>
-                            <option value="12">충남</option>
-                            <option value="13">경북</option>
-                            <option value="14">경남</option>
-                            <option value="15">전북</option>
-                            <option value="16">전남</option>
-                            <option value="17">제주</option>  
+                            <option value="서울">서울</option>
+                            <option value="인천">인천</option>
+                            <option value="대전">대전</option>
+                            <option value="대구">대구</option>
+                            <option value="광주">광주</option>
+                            <option value="부산">부산</option>
+                            <option value="울산">울산</option>                             
+                            <option value="세종시">세종시</option>
+                            <option value="경기">경기</option>
+                            <option value="강원">강원</option>
+                            <option value="충북">충북</option>
+                            <option value="충남">충남</option>
+                            <option value="경북">경북</option>
+                            <option value="경남">경남</option>
+                            <option value="전북">전북</option>
+                            <option value="전남">전남</option>
+                            <option value="제주">제주</option>  
 
                           </select>
                         </label>
@@ -143,7 +143,13 @@
                                         
                   </div>
                 </form>
-              </div>  
+                {{#response}}
+                <div>
+                  <p>Response from FastAPI: {{similar_tags}}</p>
+                </div>
+                {{/response}}
+
+              </div>
                 <!--  출력 부분 Start-->
                 <div id="search-results"></div>
             </div>

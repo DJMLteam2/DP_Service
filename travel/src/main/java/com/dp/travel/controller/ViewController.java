@@ -28,8 +28,8 @@ public class ViewController {
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         // QuestionForm을 JSON으로 변환
-        String requestBody = "{\"question\": \"" + form.getQuestion() + "\"}";
-
+        String requestBody = "{\"question\": \"" + form.getQuestion() + "\", \"area\": \"" + form.getArea() + "\"}";
+        System.out.println(requestBody);
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -40,6 +40,6 @@ public class ViewController {
 
         model.addAttribute("response", response);
 
-        return "redirect:/travel/view";  // 적절한 리다이렉션 처리
+        return "redirect:/index";  // 적절한 리다이렉션 처리
     }
 }

@@ -1,3 +1,4 @@
+import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -9,52 +10,85 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-
-
 class Question(BaseModel):
     question: str
+    area: str
 
 df = pd.read_csv('./travel_spot.csv', index_col=0)
 okt = Okt()
 app = FastAPI()
 
 # model load
+
 try:
-    # 미리 계산된 tfidf_matrix를 로드.
-    with open('travel_model.pkl', 'rb') as file:
+    with open('./travel_model.pkl', 'rb') as file:
         loaded_data = pickle.load(file)
         
-    # 불러온 tfidf_vectorizer와 tfidf_matrix를 사용
     tfidf_vectorizer = loaded_data["tfidf_vectorizer"]
     tfidf_matrix = loaded_data["tfidf_matrix"]
 
+    # 미리 계산된 모든 지역의 TF-IDF 행렬
+    city_tfidf_matrices = loaded_data["city_tfidf_matrices"]
 
-except FileNotFoundError:
-    # 파일이 없으면 tfidf_vectorizer를 새로 피팅하고 저장
-    
-
+except Exception as e:
+    print(e)
     tfidf_vectorizer = TfidfVectorizer()
-    
+
     tag_list = [' '.join([j for j in okt.morphs(i) if len(j) > 1]) for i in df['tagName'].tolist()]
     tfidf_matrix = tfidf_vectorizer.fit_transform(tag_list)
-    
-    # 피팅된 tfidf_vectorizer를 저장
-    with open('travel_model.pkl', 'wb') as file:
-        pickle.dump({"tfidf_vectorizer": tfidf_vectorizer, "tfidf_matrix": tfidf_matrix}, file)
 
+    # 각 지역에 대한 TF-IDF 행렬 계산
+    city_tfidf_matrices = {}    
+    for city in df['city'].unique():
+        city_df = df[df['city'] == city]
+        city_tag_list = [' '.join([j for j in okt.morphs(i) if len(j) > 1]) for i in city_df['tagName'].tolist()]
+        city_tfidf_matrices[city] = tfidf_vectorizer.transform(city_tag_list)
+        
+    print(city_tfidf_matrices)
+
+    # 저장
+    with open('travel_model.pkl', 'wb') as file:
+        pickle.dump({
+            "tfidf_vectorizer": tfidf_vectorizer,
+            "tfidf_matrix": tfidf_matrix,
+            "city_tfidf_matrices": city_tfidf_matrices
+        }, file)
 
 @app.post("/getAnswer")
 def getAnswer(question: Question):
-    
-    question_tfidf = tfidf_vectorizer.transform(okt.morphs(question.question))
-    cos_similarities = cosine_similarity(question_tfidf, tfidf_matrix)
-    sorted_indices = np.argsort(cos_similarities[0])[::-1][:5]
+    # 미리 계산된 해당 지역의 TF-IDF 행렬 사용
+    city_tfidf_matrix = city_tfidf_matrices.get(question.area)
 
-    similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index])} for index in sorted_indices]
+    if city_tfidf_matrix is None:
+        return JSONResponse(content={"error": f"No data found for city: {question.area}"}, status_code=404)
+
+    # 질문과 선택된 지역의 TF-IDF로 유사도 계산
+    question_tfidf = tfidf_vectorizer.transform(okt.morphs(question.question))
+    cos_similarities = cosine_similarity(question_tfidf, city_tfidf_matrix)
+    sorted_indices = np.argsort(cos_similarities[0])[::-1][:5]
+    
+    # 선택된 지역의 상위 5개 여행 스팟 반환
+    similar_tags = [
+        {
+            "title": str(df[df['city']== f'{question.area}'].iloc[index, ]['title']),
+
+            "area" : str(df[df['city']== f'{question.area}'].iloc[index, ]['city']),
+
+            "overView": str(df[df['city']== f'{question.area}'].iloc[index, ]['overView']),
+
+            "detail": str(df[df['city']== f'{question.area}'].iloc[index, ]['detail']),
+
+            "tagName": str(df[df['city']== f'{question.area}'].iloc[index, ]['tagName']),
+
+            "lat": str(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
+
+            "lon": str(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
+
+            "similarity": float(cos_similarities[0][index])
+        } for index in sorted_indices
+    ]
 
     return JSONResponse(content={"question": question.question, "similar_tags": similar_tags})
-
-
 
 
 @app.get("/test")
@@ -74,9 +108,9 @@ def test():
     similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index])} for index in sorted_indices]
 
     return JSONResponse(content={"question": question, "similar_tags": similar_tags})
-
+    
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run("app:app", host="127.0.0.1", port=3000, reload=True)

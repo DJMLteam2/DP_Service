@@ -92,15 +92,18 @@
             <div class="col-md-12">
               <h1>Travelling without Moving</h1><br>
                 <h4>jamiroquai</h4><br>
-​
-              <div class="content">
-                <form method="" action="">
+
+
+              <div class="container">
+                <form method="post" action="create">
+
                     
                   <div class="row">
                     
                     <div class="col-md-3 col-sm-6">              
                       <div class="search-category-container">
                         <label class="styled-select">
+
                           <select id="Area_Spot" class="dropdown-product selectpicker">
                             <option value="">지역</option>
                             <option value="1">서울</option>
@@ -120,18 +123,21 @@
                             <option value="15">전북</option>
                             <option value="16">전남</option>
                             <option value="17">제주</option>  
+
                           </select>
                         </label>
                       </div>
                     </div>
-                      
+
                     <div class="col-md-9 col-sm-6">
                      <div class="form-group">
-                      <input type="text" class="form-control" id="searchArea" placeholder="어떤 곳을 찾고 있나요?">
+                      <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">
+
                      </div>
                     </div>
                     
                     <div class="col-md-3 col-sm-6">
+                      <button type="submit" class="btn btn-primary" >제출</button>
                       <button type="button" class="btn btn-search-icon" onclick="searchResult()"><i class="ti-search"></i></button>
                     </div>
                                         

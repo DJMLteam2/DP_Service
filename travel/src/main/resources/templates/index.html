@@ -8,7 +8,7 @@
     <meta name="author" content="Jobboard">
     
     <title>DP FINAL PAGE</title>    
-
+​
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/logo2.png">
     <!-- Bootstrap CSS -->
@@ -20,7 +20,7 @@
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" type="text/css"> 
     <link rel="stylesheet" href="assets/fonts/themify-icons.css"> 
-
+​
     <!-- Animate CSS -->
     <link rel="stylesheet" href="assets/extras/animate.css" type="text/css">
     <!-- Owl Carousel -->
@@ -34,12 +34,12 @@
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
     <!-- Responsive CSS Styles -->
     <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
-
+​
     <!-- Color CSS Styles  -->
     <link rel="stylesheet" type="text/css" href="assets/css/colors/red.css" media="screen" />
     
   </head>
-
+​
   <body>  
       <!-- Header Section Start -->
       <div class="header">    
@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                     </button>                  
                 </div>
-
+​
                 <div class="collapse navbar-collapse" id="navbar">              
                 <!-- Start Navigation List -->
                 <ul class="nav navbar-nav">
@@ -80,12 +80,12 @@
         </div>
        </section>
       </div>
-
+​
           
       <!-- Header Section End -->
       
       <!-- Main Section Start -->
-
+​
       <div class="search-container">
         <div class="container">
           <div class="row">              
@@ -93,33 +93,37 @@
               <h1>Travelling without Moving</h1><br>
                 <h4>jamiroquai</h4><br>
 
+
               <div class="container">
                 <form method="post" action="create">
+
                     
                   <div class="row">
                     
                     <div class="col-md-3 col-sm-6">              
                       <div class="search-category-container">
                         <label class="styled-select">
-                          <select class="dropdown-product selectpicker">
-                            <option>지역</option>
-                            <option>서울</option>
-                            <option>인천</option>
-                            <option>대전</option>
-                            <option>대구</option>
-                            <option>광주</option>
-                            <option>부산</option>
-                            <option>울산</option>                             
-                            <option>세종시</option>
-                            <option>경기</option>
-                            <option>강원</option>
-                            <option>충북</option>
-                            <option>충남</option>
-                            <option>경북</option>
-                            <option>경남</option>
-                            <option>전북</option>
-                            <option>전남</option>
-                            <option>제주</option>  
+
+                          <select id="Area_Spot" class="dropdown-product selectpicker">
+                            <option value="">지역</option>
+                            <option value="1">서울</option>
+                            <option value="2">인천</option>
+                            <option value="3">대전</option>
+                            <option value="4">대구</option>
+                            <option value="5">광주</option>
+                            <option value="6">부산</option>
+                            <option value="7">울산</option>                             
+                            <option value="8">세종시</option>
+                            <option value="9">경기</option>
+                            <option value="10">강원</option>
+                            <option value="11">충북</option>
+                            <option value="12">충남</option>
+                            <option value="13">경북</option>
+                            <option value="14">경남</option>
+                            <option value="15">전북</option>
+                            <option value="16">전남</option>
+                            <option value="17">제주</option>  
+
                           </select>
                         </label>
                       </div>
@@ -127,7 +131,8 @@
 
                     <div class="col-md-9 col-sm-6">
                      <div class="form-group">
-                      <input type="text" class="form-control" id="searchInput" name="question" placeholder="어떤 곳을 찾고 있나요?">
+                      <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">
+
                      </div>
                     </div>
                     
@@ -145,19 +150,23 @@
           </div>
         </div>
       </div>
-
+​
       <!-- AJAX 요청 스크립트 -->
             <script>
               function searchResult() {
-                var searchInputValue = document.getElementById("searchInput").value;
-
+                var searchInput = document.getElementById("searchArea");
+                var Area_Spot = document.getElementById("Area_Spot");
+                
                 // AJAX 요청 보내기
                 fetch("/api/search", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json;charset=UTF-8"
                   },
-                  body: JSON.stringify({ searchTerms: searchInputValue })
+                  body: JSON.stringify({ 
+                    question: searchInput.value,
+                    area: Area_Spot.options[Area_Spot.selectedIndex].value
+                  })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -178,12 +187,12 @@
             <script>
               function searchResult() {
                 var searchInputValue = document.getElementById("searchInput").value;
-
+​
                 // AJAX 요청 보내기
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "/api/search", true);
                 xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
+​
                 xhr.onreadystatechange = function () {
                   if (xhr.readyState === 4) {
                     // 요청이 완료되었을 때 결과를 표시하는 부분
@@ -191,7 +200,7 @@
                     searchResultsDiv.innerHTML = "<p>검색 결과: " + xhr.responseText + "</p>";
                   }
                 };
-
+​
                 // JSON 형태로 검색어 전달
                 var searchData = {
                   searchTerms: searchInputValue

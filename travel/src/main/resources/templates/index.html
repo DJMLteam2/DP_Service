@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Jobboard">
+    
+    <title>DP FINAL PAGE</title>    
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/logo2.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">    
+    <link rel="stylesheet" href="assets/css/jasny-bootstrap.min.css" type="text/css">  
+    <link rel="stylesheet" href="assets/css/bootstrap-select.min.css" type="text/css">  
+    <!-- Material CSS -->
+    <link rel="stylesheet" href="assets/css/material-kit.css" type="text/css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css" type="text/css"> 
+    <link rel="stylesheet" href="assets/fonts/themify-icons.css"> 
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="assets/extras/animate.css" type="text/css">
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="assets/extras/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="assets/extras/owl.theme.css" type="text/css">
+    <!-- Rev Slider CSS -->
+    <link rel="stylesheet" href="assets/extras/settings.css" type="text/css"> 
+    <!-- Slicknav js -->
+    <link rel="stylesheet" href="assets/css/slicknav.css" type="text/css">
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+    <!-- Responsive CSS Styles -->
+    <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
+
+    <!-- Color CSS Styles  -->
+    <link rel="stylesheet" type="text/css" href="assets/css/colors/red.css" media="screen" />
+    
+  </head>
+
+  <body>  
+      <!-- Header Section Start -->
+      <div class="header">    
+        <!-- Start intro section -->
+        <section id="intro" class="section-intro">
+          <div class="logo-menu">
+            <nav class="navbar navbar-default" role="navigation" data-spy="affix" data-offset-top="50">
+              <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>                  
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbar">              
+                <!-- Start Navigation List -->
+                <ul class="nav navbar-nav">
+                  <li>
+                    <a class="active" href="index.html">
+                    Home
+                    </a>                    
+                  </li>
+                  <li>
+                    <a href="about.html">
+                    Review?
+                    </a>                    
+                  </li>
+                  <li class="active"><a href="sample.html"><i class="ti-lock"></i>  Log In</a></li>                  
+                  
+                </ul>                
+              </div>                           
+            </div>            
+          </nav>
+        </div>
+       </section>
+      </div>
+
+          
+      <!-- Header Section End -->
+      
+      <!-- Main Section Start -->
+
+      <div class="search-container">
+        <div class="container">
+          <div class="row">              
+            <div class="col-md-12">
+              <h1>Travelling without Moving</h1><br>
+                <h4>jamiroquai</h4><br>
+
+              <div class="content">
+                <form method="" action="">
+                    
+                  <div class="row">
+                    
+                    <div class="col-md-3 col-sm-6">              
+                      <div class="search-category-container">
+                        <label class="styled-select">
+                          <select class="dropdown-product selectpicker">
+                            <option>지역</option>
+                            <option>서울</option>
+                            <option>인천</option>
+                            <option>대전</option>
+                            <option>대구</option>
+                            <option>광주</option>
+                            <option>부산</option>
+                            <option>울산</option>                             
+                            <option>세종시</option>
+                            <option>경기</option>
+                            <option>강원</option>
+                            <option>충북</option>
+                            <option>충남</option>
+                            <option>경북</option>
+                            <option>경남</option>
+                            <option>전북</option>
+                            <option>전남</option>
+                            <option>제주</option>  
+                          </select>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-9 col-sm-6">
+                     <div class="form-group">
+                      <input type="text" class="form-control" id="searchInput" placeholder="어떤 곳을 찾고 있나요?">
+                     </div>
+                    </div>
+                    
+                    <div class="col-md-3 col-sm-6">
+                      <button type="button" class="btn btn-search-icon" onclick="searchResult()"><i class="ti-search"></i></button>
+                    </div>
+                                        
+                  </div>
+                </form>
+              </div>  
+                <!--  출력 부분 Start-->
+                <div id="search-results"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AJAX 요청 스크립트 -->
+            <script>
+              function searchResult() {
+                var searchInputValue = document.getElementById("searchInput").value;
+
+                // AJAX 요청 보내기
+                fetch("/api/search", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json;charset=UTF-8"
+                  },
+                  body: JSON.stringify({ searchTerms: searchInputValue })
+                })
+                .then(response => response.json())
+                .then(data => {
+                  // 요청이 완료되었을 때 결과를 표시하는 부분
+                  var searchResultsDiv = document.getElementById("search-results");
+                  searchResultsDiv.innerHTML = "<p>검색 결과: " + data + "</p>";
+                })
+                .catch(error => {
+                  // 에러 핸들링 부분
+                  console.error('Error:', error);
+                  var searchResultsDiv = document.getElementById("search-results");
+                  searchResultsDiv.innerHTML = "<p>검색 중 오류가 발생했습니다.</p>";
+                });
+              }
+            </script>
+      
+<!--
+            <script>
+              function searchResult() {
+                var searchInputValue = document.getElementById("searchInput").value;
+
+                // AJAX 요청 보내기
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/api/search", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+                xhr.onreadystatechange = function () {
+                  if (xhr.readyState === 4) {
+                    // 요청이 완료되었을 때 결과를 표시하는 부분
+                    var searchResultsDiv = document.getElementById("search-results");
+                    searchResultsDiv.innerHTML = "<p>검색 결과: " + xhr.responseText + "</p>";
+                  }
+                };
+
+                // JSON 형태로 검색어 전달
+                var searchData = {
+                  searchTerms: searchInputValue
+                };
+                xhr.send(JSON.stringify(searchData));
+              }
+            </script>
+-->
+                
+                
+                <!--  출력 부분 End-->
+          
+      
+      <!-- Main Section End -->
+  
+            
+    <!-- Main JS  -->
+    <script type="text/javascript" src="assets/js/jquery-min.js"></script>      
+    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>    
+    <script type="text/javascript" src="assets/js/material.min.js"></script>
+    <script type="text/javascript" src="assets/js/material-kit.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.parallax.js"></script>
+    <script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.slicknav.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.counterup.min.js"></script>
+    <script type="text/javascript" src="assets/js/waypoints.min.js"></script>
+    <script type="text/javascript" src="assets/js/jasny-bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="assets/js/form-validator.min.js"></script>
+    <script type="text/javascript" src="assets/js/contact-form-script.js"></script>    
+    <script type="text/javascript" src="assets/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.themepunch.tools.min.js"></script>
+     
+  </body>
+</html>

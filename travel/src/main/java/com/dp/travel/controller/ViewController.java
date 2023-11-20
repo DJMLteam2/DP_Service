@@ -29,6 +29,6 @@ public class ViewController {
     @PostMapping("/create")
     public String answer(QuestionForm questionForm, Model model) {
         List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.SearchViewController(questionForm);
-        return "redirect:/travel/view";  // 적절한 리다이렉션 처리
+        return "redirect:/index";  // 적절한 리다이렉션 처리
     }
 }

@@ -8,8 +8,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234 # root password
       MYSQL_DATABASE: project # data bases name
-    volumes:
-      - ./mysql_data:/var/lib/mysql
+    # volumes:
+    #   - ./mysql_data:/var/lib/mysql
     networks:
       - dp_service_backend_network  
 

@@ -1,0 +1,70 @@
+{{>layouts/header}}
+    <form method="post" action="create">
+        <div class="search container">
+            <section id="Search" class="Search-intro">
+                <div class="Area Select">
+                    <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
+                        <option value="">지역</option>
+                        <option value="서울">서울</option>
+                        <option value="인천">인천</option>
+                        <option value="대전">대전</option>
+                        <option value="대구">대구</option>
+                        <option value="광주">광주</option>
+                        <option value="부산">부산</option>
+                        <option value="울산">울산</option>                             
+                        <option value="세종시">세종시</option>
+                        <option value="경기">경기</option>
+                        <option value="강원">강원</option>
+                        <option value="충북">충북</option>
+                        <option value="충남">충남</option>
+                        <option value="경북">경북</option>
+                        <option value="경남">경남</option>
+                        <option value="전북">전북</option>
+                        <option value="전남">전남</option>
+                        <option value="제주">제주</option>  
+                    </select>
+                </div>
+                <div class="col-md-9 col-sm-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button type="submit" class="btn btn-primary" >제출</button>
+                </div>
+            </section>
+        </div>
+        <div class = "Result">
+            <section id="Result" class="Result-info">
+                <div class="AreaTableContainer">
+                    <table class="AreaTable">
+                        <thread>
+                            <tr>
+                                <th scope="col">Title</th>
+                                <th scope="col">Area</th>
+                                <th scope="col">OverView</th>
+                                <th scope="col">Detail</th>
+                                <th scope="col">Lat</th>
+                                <th scope="col">Lon</th>
+                                <th scope="col">Similarity</th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            {{#articles}}
+                            <tr>
+                                <th>{{Title}}</th>
+                                <th>{{Area}}</th>
+                                <th>{{OverView}}</th>
+                                <th>{{Detail}}</th>
+                                <th>{{Lat}}</th>
+                                <th>{{Lon}}</th>
+                                <th>{{Similarity}}</th>
+                            </tr>
+                            {{/articles}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </action>
+{{>layouts/footer}}

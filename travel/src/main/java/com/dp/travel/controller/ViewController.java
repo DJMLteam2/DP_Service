@@ -1,5 +1,6 @@
 package com.dp.travel.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,28 @@ import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
 import com.dp.travel.service.SearchService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class ViewController {
 
-    @Autowired
     private SearchService searchService;
+
+    @Autowired
+    public ViewController(SearchService searchService){
+        this.searchService = searchService;
+    }
 
     @GetMapping("/view")
     public String index() {
-        return "index"; // index.html
+        return "travel/index";
     }
 
     @PostMapping("/create")
     public String answer(QuestionForm questionForm, Model model) {
         List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.SearchViewController(questionForm);
-        return "redirect:/index";  // 적절한 리다이렉션 처리
+        model.addAttribute("articles", fastAPIAnswerDTOs);
+        return "redirect:/view";  // 적절한 리다이렉션 처리
     }
 }

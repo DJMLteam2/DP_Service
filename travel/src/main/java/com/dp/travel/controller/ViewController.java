@@ -38,6 +38,12 @@ public class ViewController {
     public String answer(QuestionForm questionForm, Model model) {
         List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.SearchViewController(questionForm);
         model.addAttribute("articles", fastAPIAnswerDTOs);
-        return "redirect:/view";  // 적절한 리다이렉션 처리
+        if(fastAPIAnswerDTOs.isEmpty()){
+            log.info("비었음");
+        }
+        else{
+            log.info("차있음");
+        }
+        return "travel/index";  // 적절한 리다이렉션 처리
     }
 }

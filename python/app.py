@@ -9,6 +9,8 @@ from typing import List
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
+import haversine
+import dijkstra
 
 class Question(BaseModel):
     question: str
@@ -88,6 +90,7 @@ def getAnswer(question: Question):
         } for index in sorted_indices
     ]
 
+    dijkstra.dijkstra(similar_tags, start=0)
     return JSONResponse(content={"question": question.question, "similar_tags": similar_tags})
 
 
@@ -105,7 +108,8 @@ def test():
         similarity = cos_similarities[0][index]
         print(f"{i + 1}위, index:{index}, 유사도: {similarity}")
     
-    similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index])} for index in sorted_indices]
+    similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index]),
+                     "latitude": float(df.loc[index, 'latitude']), "longitude": float(df.loc[index, 'longitude'])} for index in sorted_indices]
 
     return JSONResponse(content={"question": question, "similar_tags": similar_tags})
     

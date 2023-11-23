@@ -29,7 +29,22 @@ public class ViewController {
     // main 페이지
     @GetMapping("/")
     public String main() {
+        return "travel/main";
+    }
+
+    @GetMapping("/index")
+    public String index() {
         return "travel/index";
+    }
+
+    @GetMapping("/detail")
+    public String detail() {
+        return "travel/detail";
+    }
+
+    @GetMapping("/dash")
+    public String dash() {
+        return "travel/dashboard";
     }
 
 
@@ -42,6 +57,6 @@ public class ViewController {
         redirectAttributes.addFlashAttribute("articles", fastAPIAnswerDTOs);
 
         // 리디렉션
-        return "redirect:/";
+        return "redirect:/index";
     }
 }

@@ -82,9 +82,9 @@ def getAnswer(question: Question):
 
             "tagName": str(df[df['city']== f'{question.area}'].iloc[index, ]['tagName']),
 
-            "lat": str(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
+            "lat": str(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
 
-            "lon": str(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
+            "lon": str(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
 
             "similarity": float(cos_similarities[0][index])
         } for index in sorted_indices
@@ -109,7 +109,7 @@ def test():
         print(f"{i + 1}위, index:{index}, 유사도: {similarity}")
     
     similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index]),
-                     "latitude": float(df.loc[index, 'latitude']), "longitude": float(df.loc[index, 'longitude'])} for index in sorted_indices]
+                     "lat": float(df.loc[index, 'lon']), "lon": float(df.loc[index, 'lat'])} for index in sorted_indices]
 
     return JSONResponse(content={"question": question, "similar_tags": similar_tags})
     

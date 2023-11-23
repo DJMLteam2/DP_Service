@@ -1,5 +1,5 @@
 import heapq
-import haversine
+from haversine import haversine
 import numpy as np
 
 def dijkstra(similar_tags, start=0):

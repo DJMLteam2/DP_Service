@@ -82,9 +82,9 @@ def getAnswer(question: Question):
 
             "tagName": str(df[df['city']== f'{question.area}'].iloc[index, ]['tagName']),
 
-            "lat": str(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
+            "lat": str(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
 
-            "lon": str(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
+            "lon": str(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
 
             "similarity": float(cos_similarities[0][index])
         } for index in sorted_indices
@@ -109,9 +109,16 @@ def test():
         print(f"{i + 1}위, index:{index}, 유사도: {similarity}")
     
     similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index]),
-                     "lat": float(df.loc[index, 'lon']), "lon": float(df.loc[index, 'lat'])} for index in sorted_indices]
+                     "lat": float(df.loc[index, 'lat']), "lon": float(df.loc[index, 'lon'])} for index in sorted_indices]
+    
+    # 여행지 방문 순서, 각 여행지로부터 다른 여행지까지의 거리
+    travel_order, travel_distances = dijkstra.dijkstra(similar_tags, start=0)
+    travel_spots_in_order = [similar_tags[order]['title'] for order in travel_order]
+    travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
+                                for i in range(len(travel_order) - 1)]
 
-    return JSONResponse(content={"question": question, "similar_tags": similar_tags})
+    return JSONResponse(content={"question": question, "similar_tags": similar_tags,
+                                 "travel_spots": travel_spots_in_order})
     
 
 

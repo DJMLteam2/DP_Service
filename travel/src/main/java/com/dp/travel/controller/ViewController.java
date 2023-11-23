@@ -36,10 +36,12 @@ public class ViewController {
     // fastapi 연동하여 모델값 받아오기
     @PostMapping("/create")
     public String answer(QuestionForm questionForm, RedirectAttributes redirectAttributes) {
-        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.SearchViewController(questionForm);
+        System.out.println(questionForm);
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm);
         
         // Flash 속성 추가
-        redirectAttributes.addFlashAttribute("articles", fastAPIAnswerDTOs);
+        redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
+        System.out.println("서비스로 돌아왔다");
 
         // 리디렉션
         return "redirect:/";

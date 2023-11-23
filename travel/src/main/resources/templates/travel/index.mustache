@@ -1,17 +1,17 @@
 {{>layouts/header}}
-    <form method="post" action="create">
+    <form method="post" action="/create">
         <div class="search container">
             <section id="Search" class="Search-intro">
                 <div class="Area Select">
                     <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
-                        <option value="">지역</option>
+                        <option value="전체">전체</option>
                         <option value="서울">서울</option>
                         <option value="인천">인천</option>
                         <option value="대전">대전</option>
                         <option value="대구">대구</option>
                         <option value="광주">광주</option>
                         <option value="부산">부산</option>
-                        <option value="울산">울산</option>                             
+                        <option value="울산">울산</option>
                         <option value="세종시">세종시</option>
                         <option value="경기">경기</option>
                         <option value="강원">강원</option>
@@ -21,7 +21,7 @@
                         <option value="경남">경남</option>
                         <option value="전북">전북</option>
                         <option value="전남">전남</option>
-                        <option value="제주">제주</option>  
+                        <option value="제주">제주</option>
                     </select>
                 </div>
                 <div class="col-md-9 col-sm-6">
@@ -34,33 +34,56 @@
                 </div>
             </section>
         </div>
+        
+        {{! 이미지 추가 테스트
+        <div class = "image">
+            <img src="https://cdn.visitkorea.or.kr/img/call?cmd=VIEW&id=d3e61fb1-47e1-481a-841a-e3d33f2bbb30" alt="이미지">
+            <a href="https://www.instagram.com/27cheesecake/"target="_blank" title="새창 : C27 다운타운 사이트로 이동">https://www.instagram.com/27cheesecake/</a>
+            <a href="https://www.instagram.com/27cheesecake/" target="_blank" title="새창 : C27 다운타운 사이트로 이동">https://www.instagram.com/27cheesecake/</a>
+            <p></P
+        </div> }}
+
         <div class = "Result">
             <section id="Result" class="Result-info">
                 <div class="AreaTableContainer">
                     <table class="AreaTable">
                         <thead>
                             <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Area</th>
-                                <th scope="col">OverView</th>
-                                <th scope="col">Detail</th>
-                                <th scope="col">Lat</th>
-                                <th scope="col">Lon</th>
-                                <th scope="col">Similarity</th>
+                                <th>Area</th>
+                                <th>Title</th>
+                                <th>Similarity</th>
+                                <th>Catch Title</th>
+                                <th>Treat Menu</th>
+                                <th>Tag Name</th>
+                                <th>Address</th>
+                                <th>Information</th>
+                                <th>Use Time</th>
+                                <th>Like Count</th>
+                                <th>Read Count</th>
+                                <th>Share Count</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#articles}}
-                            <tr>
-                                <th>{{Title}}</th>
-                                <th>{{Area}}</th>
-                                <th>{{OverView}}</th>
-                                <th>{{Detail}}</th>
-                                <th>{{Lat}}</th>
-                                <th>{{Lon}}</th>
-                                <th>{{Similarity}}</th>
-                            </tr>
-                            {{/articles}}
+                            {{#searchResults}}
+                                <tr>
+                                    <th>{{area}}</th>
+                                    <th>{{title}}</th>
+                                    <th>{{similarity}}</th>
+                                    <th>{{catchtitle}}</th>
+                                    <th>{{treatMenu}}</th>
+                                    <th>{{tagName}}</th>
+                                    <th>{{addr}}</th>
+                                    <th>{{info}}</th>
+                                    <th>{{useTime}}</th>
+                                    <th>{{conLike}}</th>
+                                    <th>{{conRead}}</th>
+                                    <th>{{conShare}}</th>
+                                    <th>{{lat}}</th>
+                                    <th>{{lon}}</th>
+                                </tr>
+                            {{/searchResults}}
                         </tbody>
                     </table>
                 </div>

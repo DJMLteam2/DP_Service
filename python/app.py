@@ -90,8 +90,18 @@ def getAnswer(question: Question):
         } for index in sorted_indices
     ]
 
-    dijkstra.dijkstra(similar_tags, start=0)
-    return JSONResponse(content={"question": question.question, "similar_tags": similar_tags})
+    travel_order, travel_distances = dijkstra.dijkstra(similar_tags, start=0)
+    
+    travel_spots_in_order = [similar_tags[order]['title'] for order in travel_order]
+    travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
+                                for i in range(len(travel_order) - 1)]
+    lats = [similar_tags[order]['lat'] for order in travel_order]
+    lons = [similar_tags[order]['lon'] for order in travel_order]
+    return JSONResponse(content={"question": question.question, "similar_tags": similar_tags,
+                                 "travel_spots": travel_spots_in_order,
+                                 "travel_distance": travel_distance_in_order,
+                                 "spot_latitudes": lats,
+                                 "spot_longitudes": lons})
 
 
 @app.get("/test")
@@ -116,11 +126,14 @@ def test():
     travel_spots_in_order = [similar_tags[order]['title'] for order in travel_order]
     travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
                                 for i in range(len(travel_order) - 1)]
+    lats = [similar_tags[order]['lat'] for order in travel_order]
+    lons = [similar_tags[order]['lon'] for order in travel_order]
 
     return JSONResponse(content={"question": question, "similar_tags": similar_tags,
-                                 "travel_spots": travel_spots_in_order})
-    
-
+                                 "travel_spots": travel_spots_in_order,
+                                 "travel_distance": travel_distance_in_order,
+                                 "spot_latitudes": lats,
+                                 "spot_longitudes": lons})
 
 if __name__ == "__main__":
     import uvicorn

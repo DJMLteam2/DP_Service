@@ -82,9 +82,9 @@ def getAnswer(question: Question):
 
             "tagName": str(df[df['city']== f'{question.area}'].iloc[index, ]['tagName']),
 
-            "lat": str(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
+            "lat": float(df[df['city']== f'{question.area}'].iloc[index, ]['lat']),
 
-            "lon": str(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
+            "lon": float(df[df['city']== f'{question.area}'].iloc[index, ]['lon']),
 
             "similarity": float(cos_similarities[0][index])
         } for index in sorted_indices

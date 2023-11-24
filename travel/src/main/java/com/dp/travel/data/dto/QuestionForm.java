@@ -13,5 +13,4 @@ import lombok.Setter;
 public class QuestionForm {
     private String question;
     private String area;
-
 }

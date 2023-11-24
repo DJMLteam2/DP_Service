@@ -25,28 +25,19 @@ public class SearchService {
 
     private final String FASTAPI_MODEL_URL = "http://localhost:3000/getAnswer"; // FastAPI 모델의 엔드포인트 URL
 
-    private final RestTemplate restTemplate;
-
-    public SearchService(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
-    }
-    public QuestionForm search(QuestionForm questionForm) {
-        // RestTemplate를 사용하여 FastAPI 모델에 검색어를 전달하고 결과를 받아옴
-        log.info("service Quest: "+questionForm.getQuestion());
-        log.info("service Area: "+questionForm.getArea());
-        QuestionForm result = restTemplate.postForObject(FASTAPI_MODEL_URL, questionForm, QuestionForm.class);
-
-        // 받아온 결과를 처리하거나 가공할 수 있음
-
-        return result;
-    }
-
-    public List<FastAPIAnswerDTO> SearchViewController(QuestionForm questionForm){
+    public List<FastAPIAnswerDTO> SearchViewController(QuestionForm questionForm, String TagName){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        String requestBody = "";
 
-        // QuestionForm을 JSON으로 변환
-        String requestBody = "{\"question\": \"" + questionForm.getQuestion() + "\", \"area\": \"" + questionForm.getArea() + "\"}";
+        if(TagName == null){
+            // QuestionForm을 JSON으로 변환
+            requestBody = "{\"question\": \"" + questionForm.getQuestion() + "\", \"area\": \"" + questionForm.getArea() + "\"}";
+        }
+        else{
+            requestBody = "{\"question\": \"" + questionForm.getQuestion() + ", " + TagName + "\", \"area\": \"" + questionForm.getArea() + "\"}";
+        }
+        log.info(requestBody);
 
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 

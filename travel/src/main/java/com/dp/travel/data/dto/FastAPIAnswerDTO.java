@@ -12,11 +12,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FastAPIAnswerDTO {
-    String title;
-    String area;
-    String overView;
-    String detail;
-    String lat;
-    String lon;
-    String similarity;
+    private String title;
+    private String area;
+    private String overView;
+    private String detail;
+    private String lat;
+    private String lon;
+    private String similarity;
 }

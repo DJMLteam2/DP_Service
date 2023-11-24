@@ -14,106 +14,95 @@ class Question(BaseModel):
     question: str
     area: str
 
-df = pd.read_csv('./travel_spot_v1.csv', index_col=0)
+
 okt = Okt()
 app = FastAPI()
+df = pd.read_csv('./travel_spot_v1.csv', index_col=0)
+spot_df = df[df['contentType'] != 39]
+food_df = df[df['contentType'] == 39]
 
 # model load
 
 try:
-    with open('./travel_model_v1.pkl', 'rb') as file:
+    with open('./travel_model_v2.pkl', 'rb') as file:
         loaded_data = pickle.load(file)
         
-    tfidf_vectorizer = loaded_data["tfidf_vectorizer"]
-    tfidf_matrix = loaded_data["tfidf_matrix"]
+        vectorizer_spot = loaded_data["spot"]["vectorizer"]
+        matrix_spot = loaded_data["spot"]["matrix"]
+        city_matrices_spot = loaded_data["spot"]["city_matrices"]
 
-    # 미리 계산된 모든 지역의 TF-IDF 행렬
-    city_tfidf_matrices = loaded_data["city_tfidf_matrices"]
+        vectorizer_food = loaded_data["food"]["vectorizer"]
+        matrix_food = loaded_data["food"]["matrix"]
+        city_matrices_food = loaded_data["food"]["city_matrices"]
 
 except Exception as e:
     print(e)
-    tfidf_vectorizer = TfidfVectorizer()
-    df['tf'] = df['tagName'] + df['treatMenu']
 
-    tag_list = [' '.join([j for j in okt.morphs(str(i)) if len(j) > 1]) for i in df['tf'].tolist()]
-    tfidf_matrix = tfidf_vectorizer.fit_transform(tag_list)
 
-    # 각 지역에 대한 TF-IDF 행렬 계산
-    city_tfidf_matrices = {}
-    for city in df['city'].unique():
-        city_df = df[df['city'] == city]
-        city_tag_list = [' '.join([j for j in okt.morphs(str(i)) if len(j) > 1]) for i in city_df['tf'].tolist()]
-        city_tfidf_matrices[city] = tfidf_vectorizer.transform(city_tag_list)
-        
-
-    # 저장
-    with open('travel_model_v1.pkl', 'wb') as file:
-        pickle.dump({
-            "tfidf_vectorizer": tfidf_vectorizer,
-            "tfidf_matrix": tfidf_matrix,
-            "city_tfidf_matrices": city_tfidf_matrices
-        }, file)
+def add_to_similar_tags(df, sorted_indices, cos_similarities, similar_tags):
+    bag = []
+    for index in sorted_indices:
+        bag.append({
+            "id": str(df.iloc[index]['id']),
+            "area": str(df.iloc[index]['city']),
+            "title": str(df.iloc[index]['title']),
+            "similarity": float(cos_similarities[0][index]),
+            "catchtitle": str(df.iloc[index]['catchtitle']),
+            # "detail": str(df.iloc[index]['detail']),
+            "treatMenu": str(df.iloc[index]['treatMenu']),
+            "tagName": str(df.iloc[index]['tagName']),
+            "addr": str(df.iloc[index]['addr']),
+            "info": str(df.iloc[index]['info']),
+            # "lat": str(df.iloc[index]['parking']),
+            "useTime": str(df.iloc[index]['useTime']),
+            "conLike": str(df.iloc[index]['conLike']),
+            "conRead": str(df.iloc[index]['conRead']),
+            "conShare": str(df.iloc[index]['conShare']),
+            # "overView": str(df.iloc[index]['overView']),
+            "lat": str(df.iloc[index]['lat']),
+            "lon": str(df.iloc[index]['lon'])
+            
+            })
+    similar_tags.append(bag)
 
 @app.post("/getAnswer")
 def getAnswer(question: Question):
-    global df
-
+    global df, spot_df, food_df, city_matrices_spot, city_matrices_food
     # 미리 계산된 해당 지역의 TF-IDF 행렬 사용
     if question.area == '전체':
-        city_tfidf_matrix = tfidf_matrix
+        city_matrices_spot = matrix_spot
+        city_matrices_food = matrix_food
     else:
-        city_tfidf_matrix = city_tfidf_matrices.get(question.area)
+        city_matrices_spot = city_matrices_spot[(question.area)]
+        city_matrices_food = city_matrices_food[(question.area)]
+
         df = df[df['city']== f'{question.area}']
+        food_df = food_df[food_df['city']== f'{question.area}']
+        spot_df = spot_df[spot_df['city']== f'{question.area}']
 
     print('여기여기')
 
-    if city_tfidf_matrix is None:
-        return JSONResponse(content={"error": f"No data found for city: {question.area}"}, status_code=404)
-
     # 질문과 선택된 지역의 TF-IDF로 유사도 계산
-    question_tfidf = tfidf_vectorizer.transform(okt.morphs(question.question))
-    cos_similarities = cosine_similarity(question_tfidf, city_tfidf_matrix)
-    sorted_indices = np.argsort(cos_similarities[0])[::-1]
-    print('여기여기2')
-    from itertools import islice
-    # 식당인 것, 아닌 것
-    restaurant = islice((index for index in sorted_indices if df.iloc[index]['contentType'] == 39 ), 5)
-    non_restaurant = islice((index for index in sorted_indices if df.iloc[index]['contentType'] != 39 ), 5)
+    question_spot = vectorizer_spot.transform(okt.morphs(f'{question.question}'))
+    question_food = vectorizer_food.transform(okt.morphs(f'{question.question}'))
 
+    #spot 인덱스 추출
+    cos_similarities_spot = cosine_similarity(question_spot, city_matrices_spot)
+    sorted_indices_spot = np.argsort(cos_similarities_spot[0])[::-1][:5]
+
+    #food 인덱스 추출
+    cos_similarities_food = cosine_similarity(question_food, city_matrices_food)
+    sorted_indices_food = np.argsort(cos_similarities_food[0])[::-1][:5]
+    
     # 결과를 저장할 리스트 초기화
     similar_tags = []
-    print('여기여기 3')
     # 리스트로 추가
-    def add_to_similar_tags(sorted_indices, similar_tags):
-        bag = []
-        for index in sorted_indices:
-            bag.append({
-                "id": str(df.iloc[index]['id']),
-                "area": str(df.iloc[index]['city']),
-                "title": str(df.iloc[index]['title']),
-                "similarity": float(cos_similarities[0][index]),
-                "catchtitle": str(df.iloc[index]['catchtitle']),
-                # "detail": str(df.iloc[index]['detail']),
-                "treatMenu": str(df.iloc[index]['treatMenu']),
-                "tagName": str(df.iloc[index]['tagName']),
-                "addr": str(df.iloc[index]['addr']),
-                "info": str(df.iloc[index]['info']),
-                # "lat": str(df.iloc[index]['parking']),
-                "useTime": str(df.iloc[index]['useTime']),
-                "conLike": str(df.iloc[index]['conLike']),
-                "conRead": str(df.iloc[index]['conRead']),
-                "conShare": str(df.iloc[index]['conShare']),
-                # "overView": str(df.iloc[index]['overView']),
-                "lat": str(df.iloc[index]['lat']),
-                "lon": str(df.iloc[index]['lon'])
-                
-                })
-        similar_tags.append(bag)
+
     print('여기여기4')
 
     # 함수를 사용
-    add_to_similar_tags(non_restaurant, similar_tags)
-    add_to_similar_tags(restaurant, similar_tags)
+    add_to_similar_tags(spot_df, sorted_indices_spot, cos_similarities_spot, similar_tags)
+    add_to_similar_tags(food_df, sorted_indices_food, cos_similarities_food, similar_tags)
     
 
     return JSONResponse(content={"question": question.question, "recommend": similar_tags})
@@ -127,8 +116,8 @@ def test():
 
     question = "bts 효도여행 가고싶어"
 
-    question_tfidf = tfidf_vectorizer.transform(okt.morphs(question))
-    cos_similarities = cosine_similarity(question_tfidf, tfidf_matrix)
+    question_tfidf = vectorizer_spot.transform(okt.morphs(question))
+    cos_similarities = cosine_similarity(question_tfidf, matrix_spot)
     sorted_indices = np.argsort(cos_similarities[0])[::-1][:5]
 
     print('질문 = ', question)
@@ -144,4 +133,4 @@ def test():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="127.0.0.1", port=3000, reload=True)
+    uvicorn.run("app:app", host="127.0.0.1", port=3000, workers=4)

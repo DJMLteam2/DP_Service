@@ -3,6 +3,7 @@ package com.dp.travel.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,13 +28,15 @@ public class SearchService {
 
     private final RestTemplate restTemplate;
 
+    @Autowired
     public SearchService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
+
     public QuestionForm search(QuestionForm questionForm) {
         // RestTemplate를 사용하여 FastAPI 모델에 검색어를 전달하고 결과를 받아옴
-        log.info("service Quest: "+questionForm.getQuestion());
-        log.info("service Area: "+questionForm.getArea());
+        log.info("service Quest: " + questionForm.getQuestion());
+        log.info("service Area: " + questionForm.getArea());
         QuestionForm result = restTemplate.postForObject(FASTAPI_MODEL_URL, questionForm, QuestionForm.class);
 
         // 받아온 결과를 처리하거나 가공할 수 있음
@@ -41,25 +44,26 @@ public class SearchService {
         return result;
     }
 
-    public List<FastAPIAnswerDTO> SearchViewController(QuestionForm questionForm){
+    public List<FastAPIAnswerDTO> SearchViewController(QuestionForm questionForm) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         // QuestionForm을 JSON으로 변환
-        String requestBody = "{\"question\": \"" + questionForm.getQuestion() + "\", \"area\": \"" + questionForm.getArea() + "\"}";
+        String requestBody = "{\"question\": \"" + questionForm.getQuestion() + "\", \"area\": \""
+                + questionForm.getArea() + "\"}";
 
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.postForObject(FASTAPI_MODEL_URL, request, String.class);
-        
+
         List<FastAPIAnswerDTO> fastAPIAnswerDTOs = new ArrayList<>();
-        
+
         try {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(response);
             JSONArray destinationInfoArray = (JSONArray) jsonObject.get("similar_tags");
-            for(int i = 0; i < destinationInfoArray.size(); i++){
+            for (int i = 0; i < destinationInfoArray.size(); i++) {
                 JSONObject destinationInfo = (JSONObject) destinationInfoArray.get(i);
                 FastAPIAnswerDTO fastAPIAnswerDTO = new FastAPIAnswerDTO();
                 fastAPIAnswerDTO.setTitle(destinationInfo.get("title").toString());
@@ -88,24 +92,16 @@ public class SearchService {
         return fastAPIAnswerDTOs;
     }
 
-    // public String search(String Name) {
-    //     // RestTemplate를 사용하여 FastAPI 모델에 검색어를 전달하고 결과를 받아옴
-    //     String result = restTemplate.postForObject(FASTAPI_MODEL_URL, Name, String.class);
+    public List<String> processFastAPIResult(List<FastAPIAnswerDTO> fastAPIAnswerDTOs) {
+        List<String> titles = new ArrayList<>();
 
-    //     // 받아온 결과를 처리하거나 가공할 수 있음
+        int itemsToProcess = Math.min(fastAPIAnswerDTOs.size(), 5);
 
-    //     return result;
-    // }
+        for (int i = 0; i < itemsToProcess; i++) {
+            FastAPIAnswerDTO article = fastAPIAnswerDTOs.get(i);
+            titles.add(article.getTitle());
+        }
 
-
-
-    // public String search(String searchTerms) {
-    //     // FastAPI 모델에 검색어를 전달하고 결과를 받아옴
-    //     RestTemplate restTemplate = new RestTemplate();
-    //     String result = restTemplate.postForObject(FASTAPI_MODEL_URL, searchTerms, String.class);
-
-    //     // 받아온 결과를 처리하거나 가공할 수 있음
-
-    //     return result;
-    // }
+        return titles;
+    }
 }

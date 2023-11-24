@@ -1,71 +1,141 @@
-{{>layouts/header}}
-    <form method="post" action="create">
-        <div class="search container">
-            <section id="Search" class="Search-intro">
-                <div class="Area Select">
-                    <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
-                        <option value="">지역</option>
-                        <option value="서울">서울</option>
-                        <option value="인천">인천</option>
-                        <option value="대전">대전</option>
-                        <option value="대구">대구</option>
-                        <option value="광주">광주</option>
-                        <option value="부산">부산</option>
-                        <option value="울산">울산</option>                             
-                        <option value="세종시">세종시</option>
-                        <option value="경기">경기</option>
-                        <option value="강원">강원</option>
-                        <option value="충북">충북</option>
-                        <option value="충남">충남</option>
-                        <option value="경북">경북</option>
-                        <option value="경남">경남</option>
-                        <option value="전북">전북</option>
-                        <option value="전남">전남</option>
-                        <option value="제주">제주</option>  
-                    </select>
-                </div>
-                <div class="col-md-9 col-sm-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <button type="submit" class="btn btn-primary" >제출</button>
-                </div>
-            </section>
-        </div>
-        <div class = "Result">
-            <section id="Result" class="Result-info">
-                <div class="AreaTableContainer">
-                    <table class="AreaTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">Title</th>
-                                <th scope="col">Area</th>
-                                <th scope="col">OverView</th>
-                                <th scope="col">Detail</th>
-                                <th scope="col">Lat</th>
-                                <th scope="col">Lon</th>
-                                <th scope="col">Similarity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#articles}}
-                            <tr>
-                                <th>{{Title}}</th>
-                                <th>{{Area}}</th>
-                                <th>{{OverView}}</th>
-                                <th>{{Detail}}</th>
-                                <th>{{Lat}}</th>
-                                <th>{{Lon}}</th>
-                                <th>{{Similarity}}</th>
-                            </tr>
-                            {{/articles}}
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>
-</form>
-    
-{{>layouts/footer}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Search Box, Search Panel Like Amazon</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bootstrap search box or search panel like amazon.com">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Satyendra Kumar Singh">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        /* 추가된 CSS 스타일 */
+        .swiper-container {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 200px;
+            height: 150px;
+            padding: 5px;
+        }
+
+        .swiper-content {
+            background-color: #fff;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide.tabel_info_1 {
+            background: url("https://daytripsontario.files.wordpress.com/2017/03/img_6859-copy.jpg");
+        }
+
+        .swiper-slide.tabel_info_2 {
+            background: url("http://s3.envato.com/files/241747423/20171202-North-Beach-p4p-0197-4mp.jpg");
+        }
+
+        .swiper-slide.tabel_info_3 {
+            background: url("https://i2.wp.com/www.maven.co/wp-content/uploads/2014/07/Chicago-Skyline.jpg?ssl=1");
+        }
+    </style>
+</head>
+	{{> layouts/header}}
+		<form method="post" action="create">
+			<div class="search container">
+				<div id = 'Search' class="Search-intro">
+					<div class="input-group">
+						<select id="Area_Spot" name="area" class="dropdown-product selectpicker">
+							<option value="서울">서울</option>
+							<option value="인천">인천</option>
+							<option value="대전">대전</option>
+							<option value="대구">대구</option>
+							<option value="광주">광주</option>
+							<option value="부산">부산</option>
+							<option value="울산">울산</option>
+							<option value="세종시">세종시</option>
+							<option value="경기">경기</option>
+							<option value="강원">강원</option>
+							<option value="충북">충북</option>
+							<option value="충남">충남</option>
+							<option value="경북">경북</option>
+							<option value="경남">경남</option>
+							<option value="전북">전북</option>
+							<option value="전남">전남</option>
+							<option value="제주">제주</option>
+						</select>
+						<input type="hidden" name="search_param" value="all" id="search_param">
+						<input type="text" class="form-control" name="x" id="search" placeholder="당신의 여행은 어떻게 떠나나요?">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+    	</form>
+</div>
+<div class="Result">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			{{#article_1}}
+				<div class="swiper-slide tabel_info_1">
+					<h1>{{title}}</h1>
+					<h3>{{area}}</h3>
+					<p>{{detail}}</p>
+				</div>
+			{{/article_1}}
+			{{#article_2}}
+				<div class="swiper-slide tabel_info_2">
+					<h1>{{title}}</h1>
+					<h3>{{area}}</h3>
+					<p>{{detail}}</p>
+				</div>
+			{{/article_2}}
+			{{#article_3}}
+				<div class="swiper-slide tabel_info_3">
+					<h1>{{title}}</h1>
+					<h3>{{area}}</h3>
+					<p>{{detail}}</p>
+				</div>
+			{{/article_3}}    
+		</div>
+		<div class="swiper-pagination"></div>
+	</div>
+	</div>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        });
+    });
+</script>
+</body>
+</html>

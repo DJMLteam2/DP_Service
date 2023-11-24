@@ -1,10 +1,9 @@
 package com.dp.travel.controller;
 
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,33 +12,30 @@ import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
 import com.dp.travel.service.SearchService;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Controller
-@Slf4j
 public class ViewController {
 
     private SearchService searchService;
 
     @Autowired
-    public ViewController(SearchService searchService){
+    public ViewController(SearchService searchService) {
         this.searchService = searchService;
     }
 
-    // main 페이지
     @GetMapping("/")
-    public String main() {
+    public String index(Model model) {
         return "travel/index";
     }
 
-
-    // fastapi 연동하여 모델값 받아오기
     @PostMapping("/create")
     public String answer(QuestionForm questionForm, RedirectAttributes redirectAttributes) {
         List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.SearchViewController(questionForm);
-        
+
         // Flash 속성 추가
-        redirectAttributes.addFlashAttribute("articles", fastAPIAnswerDTOs);
+        for (int i = 0; i < Math.min(fastAPIAnswerDTOs.size(), 5); i++) {
+            FastAPIAnswerDTO article = fastAPIAnswerDTOs.get(i);
+            redirectAttributes.addFlashAttribute("article_" + (i + 1), article);
+        }
 
         // 리디렉션
         return "redirect:/";

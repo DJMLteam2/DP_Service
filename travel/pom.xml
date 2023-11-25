@@ -33,7 +33,8 @@
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
+<!-- 			<scope>runtime</scope> edit-> 
+			<version>8.0.26</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

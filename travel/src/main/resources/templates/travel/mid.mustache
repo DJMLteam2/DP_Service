@@ -1,0 +1,113 @@
+{{>layouts/header}}
+    
+    
+    <form method="post" action="tagAdd">
+        <input type="hidden" name="question" value="{{questionForm.question}}" />
+        <input type="hidden" name="area" value="{{questionForm.area}}" />
+        <div class="Tag Container">
+            <div id = "spot_tag" class= "spot_tag">
+                <span>관광지:</span>
+                <span id = "spot_tag_1">
+                    <button type="submit" name="tagName" value="쇼핑">쇼핑</button>
+                </span>
+                <span id = "spot_tag_2">
+                    <button type="submit" name="tagName" value="이색체험">이색체험</button>
+                </span>
+                <span id = "spot_tag_3">
+                    <button type="submit" name="tagName" value="역사">역사</button>
+                </span>
+                <span id = "spot_tag_4">
+                    <button type="submit" name="tagName" value="자연좋은곳">자연좋은곳</button>
+                </span>
+                <span id = "spot_tag_5">
+                    <button type="submit" name="tagName" value="휴식공간">휴식공간</button>
+                </span>
+            </div>
+            <div id = "rest_tag" class= "rest_tag">
+                <span>음식점:</span>
+                <span id = "rest_tag_1">
+                    <button type="submit" name="tagName" value="가성비맛집">가성비맛집</button>
+                </span>
+                <span id = "rest_tag_2">
+                    <button type="submit" name="tagName" value="가족외식추천">가족외식추천</button>
+                </span>
+                <span id = "rest_tag_3">
+                    <button type="submit" name="tagName" value="데이트코스">데이트코스</button>
+                </span>
+                <span id = "rest_tag_4">
+                    <button type="submit" name="tagName" value="분위기좋은">분위기좋은</button>
+                </span>
+                <span id = "rest_tag_5">
+                    <button type="submit" name="tagName" value="나들이">나들이</button>
+                </span>
+            </div>
+            <div id = "menu_tag" class= "menu_tag">
+                <span>메  뉴:</span>
+                <span id = "menu_tag_1">
+                    <button type="submit" name="tagName" value="아메리카노">아메리카노</button>
+                </span>
+                <span id = "menu_tag_2">
+                    <button type="submit" name="tagName" value="정식">정식</button>
+                </span>
+                <span id = "menu_tag_3">
+                    <button type="submit" name="tagName" value="파스타">파스타</button>
+                </span>
+                <span id = "menu_tag_4">
+                    <button type="submit" name="tagName" value="한우">한우</button>
+                </span>
+                <span id = "menu_tag_5">
+                    <button type="submit" name="tagName" value="갈비탕">갈비탕</button>
+                </span>
+            </div>
+        </div>
+        {{#tagName}}
+        <h2><b>#{{tagName}}</b></h2>
+        {{/tagName}}
+    </form>
+
+    <div class = "Result">
+        <section id="Result" class="Result-info">
+            <div class="AreaTableContainer">
+                <table class="AreaTable">
+                    <thead>
+                        <tr>
+                            <th>Area</th>
+                            <th>Title</th>
+                            <th>Similarity</th>
+                            <th>Catch Title</th>
+                            <th>Treat Menu</th>
+                            <th>Tag Name</th>
+                            <th>Address</th>
+                            <th>Information</th>
+                            <th>Use Time</th>
+                            <th>Like Count</th>
+                            <th>Read Count</th>
+                            <th>Share Count</th>
+                            <th>Latitude</th>
+                            <th>Longitude</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#searchResults}}
+                            <tr>
+                                <th>{{area}}</th>
+                                <th>{{title}}</th>
+                                <th>{{similarity}}</th>
+                                <th>{{catchtitle}}</th>
+                                <th>{{treatMenu}}</th>
+                                <th>{{tagName}}</th>
+                                <th>{{addr}}</th>
+                                <th>{{info}}</th>
+                                <th>{{useTime}}</th>
+                                <th>{{conLike}}</th>
+                                <th>{{conRead}}</th>
+                                <th>{{conShare}}</th>
+                                <th>{{lat}}</th>
+                                <th>{{lon}}</th>
+                            </tr>
+                        {{/searchResults}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>

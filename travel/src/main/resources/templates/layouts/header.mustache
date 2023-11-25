@@ -5,10 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- 검색바 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Bootstrap search box or search panel like amazon.com"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="author" content="Satyendra Kumar Singh"/>
+
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <!-- 구글 폰트 api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+
+    <title>DP Travel</title>
+
+    
 
 <!-- Costom CSS -->
     <style>
@@ -73,16 +87,106 @@ table.table td {
 table.table th {
     border-top: 2px solid #dee2e6;
 }
-    </style>
+    
+.error-message {
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin: 20px; /* 상하좌우 여백 조절 */
+    padding: 10px; /* 내부 여백 조절 */
+    border: 1px solid #ff0000; /* 테두리 스타일 및 색상 설정 */
+    background-color: #ffeeee; /* 배경색 설정 */
+    font-size: 20px;
+}
 
+/* 검색바 css */
+.Tag.Container {
+    text-align: center;
+}
+
+.Tag.Container button {
+    margin: 5px; /* 여백을 조절하려면 이 값을 조정하세요. */
+    display: inline-block;
+}
+
+.container{
+    margin-top:5%;
+  }
+  /* Style to create scroll bar in dropdown */ 
+  .scrollable-dropdown{
+      height: auto;
+      max-height:320px;  /* Increase / Decrease value as per your need */
+      overflow-x: hidden;
+  }
+h3 {
+	font-size: 1.3rem;
+	padding: 0;
+	margin: 5px 0 15px 0;
+	color: darkred;
+}
+p {
+	padding: 0;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	color: graytext;
+}
+.swiper-container {
+	width: 100%;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+.swiper-slide {
+	width: 400px;
+	height: 500px;
+	padding: 5px;
+}
+
+</style>
 </head>
 <body>
 
 
-{{#msg}}
-<div class="alert alert-primary alert-dismissible">
-    {{msg}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"
+{{#errorMessage}}
+<div class="error-message">
+    {{errorMessage}}
+    <button type="button" class="btn-close m-1" data-bs-dismiss="alert"
             aria-label="Close"></button>
 </div>
-{{/msg}}
+{{/errorMessage}}
+
+    <form method="post" action="/create">
+        <div class="search container">
+            <section id="Search" class="Search-intro">
+                <div class="Area Select">
+                    <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
+                        <option value="전체">전체</option>
+                        <option value="서울">서울</option>
+                        <option value="인천">인천</option>
+                        <option value="대전">대전</option>
+                        <option value="대구">대구</option>
+                        <option value="광주">광주</option>
+                        <option value="부산">부산</option>
+                        <option value="울산">울산</option>
+                        <option value="세종시">세종시</option>
+                        <option value="경기">경기</option>
+                        <option value="강원">강원</option>
+                        <option value="충북">충북</option>
+                        <option value="충남">충남</option>
+                        <option value="경북">경북</option>
+                        <option value="경남">경남</option>
+                        <option value="전북">전북</option>
+                        <option value="전남">전남</option>
+                        <option value="제주">제주</option>
+                    </select>
+                </div>
+                <div class="col-md-9 col-sm-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <button type="submit" class="btn btn-primary" >제출</button>
+                </div>
+            </section>
+        </div>
+    </form>

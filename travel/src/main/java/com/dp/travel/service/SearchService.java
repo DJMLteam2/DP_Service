@@ -7,7 +7,7 @@ import com.dp.travel.data.dto.QuestionForm;
 
 public interface SearchService {
 
-    List<FastAPIAnswerDTO> searchViewController(QuestionForm questionForm);
+    List<FastAPIAnswerDTO> searchViewController(QuestionForm questionForm, String TagName);
     
 
 }

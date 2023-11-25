@@ -14,7 +14,7 @@ public class FastAPIAnswerDTO {
     private Long id;
     private String area;
     private String title;
-    private float similarity;
+    private String similarity;
     private String catchtitle;
     private String treatMenu;
     private String tagName;

@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
+import com.dp.travel.data.repository.TravelRepository;
 import com.dp.travel.service.SearchService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,34 +24,46 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SearchServiceImpl implements SearchService{
     
+    private TravelRepository travelRepository;
+
     private static final String FASTAPI_MODEL_URL = "http://localhost:3000/getAnswer";
 
-    public List<FastAPIAnswerDTO> searchViewController(QuestionForm questionForm) {
+    
+
+    public List<FastAPIAnswerDTO> searchViewController(QuestionForm questionForm, String TagName) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON); 
 
         // QuestionForm을 JSON으로 변환
-        JSONObject requestBodyJson = new JSONObject();
-        requestBodyJson.put("question", questionForm.getQuestion());
-        requestBodyJson.put("area", questionForm.getArea());
-        log.info("response: {}", requestBodyJson.toJSONString());
+        String requestBody;
+
+        if(TagName == null){
+            requestBody = "{\"question\": \"" + questionForm.getQuestion() + "\", \"area\": \"" + questionForm.getArea() + "\"}";
+            log.info("requestBody = {}", requestBody);
+        }
+        else{
+            requestBody = "{\"question\": \"" + questionForm.getQuestion() + ", " + TagName + "\", \"area\": \"" + questionForm.getArea() + "\"}";
+            log.info("requestBody = {}", requestBody);
+        }
 
 
-        HttpEntity<String> request = new HttpEntity<>(requestBodyJson.toJSONString(), headers);
+        HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        try {
-            String response = restTemplate.postForObject(FASTAPI_MODEL_URL, request, String.class);
-            log.info("response: {}", response);
+    
+        String response = restTemplate.postForObject(FASTAPI_MODEL_URL, request, String.class);
 
-            List<FastAPIAnswerDTO> fastAPIAnswerDTOs = parseFastAPIResponse(response);
-            log.info("Parsed response: {}", fastAPIAnswerDTOs);
+        if (response != null && !response.isEmpty()) {
+            log.info("fastapi responsed !");
+        } else {
+            log.error("null or empty...");
+}
 
-            return fastAPIAnswerDTOs;
-        } catch (Exception e) {
-            log.error("Error while calling FastAPI: {}", e.getMessage());
-            return new ArrayList<>();
-        }
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = parseFastAPIResponse(response);
+        log.info("response Parsed !");
+
+        return fastAPIAnswerDTOs;
+   
     }
 
     private List<FastAPIAnswerDTO> parseFastAPIResponse(String response) {
@@ -60,19 +73,29 @@ public class SearchServiceImpl implements SearchService{
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(response);
             JSONArray recommendArray = (JSONArray) jsonObject.get("recommend");
+            
+            
 
             for (int i = 0; i < recommendArray.size(); i++) {
                 JSONArray innerArray = (JSONArray) recommendArray.get(i);
 
+                if (innerArray.isEmpty()) {
+                    log.warn("Inner array is empty at index {}", i);
+                    continue;
+                }
                 for (int j = 0; j < innerArray.size(); j++) {
                     JSONObject recommendObject = (JSONObject) innerArray.get(j);
 
+                    if (recommendObject.isEmpty()) {
+                        log.warn("recommendObject is empty at index {}", j);
+                        continue;
+                }
                     FastAPIAnswerDTO fastAPIAnswerDTO = new FastAPIAnswerDTO();
 
                     fastAPIAnswerDTO.setId(Long.parseLong(recommendObject.get("id").toString()));
                     fastAPIAnswerDTO.setArea(recommendObject.get("area").toString());
                     fastAPIAnswerDTO.setTitle(recommendObject.get("title").toString());
-                    fastAPIAnswerDTO.setSimilarity(Float.parseFloat(recommendObject.get("similarity").toString()));
+                    fastAPIAnswerDTO.setSimilarity((recommendObject.get("similarity").toString()));
                     fastAPIAnswerDTO.setCatchtitle(recommendObject.get("catchtitle").toString());
                     fastAPIAnswerDTO.setTreatMenu(recommendObject.get("treatMenu").toString());
                     fastAPIAnswerDTO.setTagName(recommendObject.get("tagName").toString());

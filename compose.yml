@@ -18,8 +18,8 @@ services:
       context: ./travel
       dockerfile: Dockerfile
     image: spring_boot
-    volumes:
-      - ./travel/target:/app
+    # volumes:
+    #   - ./travel/target:/app
     ports:
       - "8080:8080"
     # depends_on:

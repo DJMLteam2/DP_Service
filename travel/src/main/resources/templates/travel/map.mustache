@@ -1,0 +1,57 @@
+<!--
+    Google Map API 설정 부분
+  -->
+  <head>
+    <!--
+      첫 번째 script 요소:
+      Google Maps API를 사용하기 위해 로컬에서 작성할 코드를 불러옴.
+    -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- 
+      두 번째 script 요소:
+      원격에 있는 구글 서버로부터 Google Maps API의 코드를 내려받음.
+    -->
+    <script type="text/javascript">
+      google.charts.load("current", {
+        "packages":["map"],
+        // Note: 아래 키에 구글 맵에서 발급받은 API key를 입력해야 합니다.
+        // 참고: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        "mapsApiKey": "AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ"
+      });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        // articles 배열을 통해 데이터를 구성
+        var dataArray = [];
+        {{#articles}}
+            dataArray.push([{{lat}}, {{Long}}, '{{Title}}']);
+        {{/articles}}
+    
+        // DataTable 객체 생성
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Lat');
+        data.addColumn('number', 'Long');
+        data.addColumn('string', 'Title');
+        data.addRows(dataArray);
+    
+        // Google Map 그리기
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+    map.draw(data, {
+        showTooltip: true,
+        showInfoWindow: true
+    });
+
+    // 클릭 이벤트 처리
+    google.visualization.events.addListener(map, 'select', function() {
+        var selection = map.getSelection()[0];
+        if (selection) {
+            var url = data.getValue(selection.row, 3); // 3은 URL 열의 인덱스
+            if (url) {
+                window.location.href = url;
+            }
+        }
+    });
+}
+
+  <body>
+    <div id="map_div" style="width: 1200px; height: 675px"></div>
+  </body>

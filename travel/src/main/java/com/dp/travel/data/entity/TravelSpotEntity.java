@@ -76,10 +76,10 @@ public class TravelSpotEntity implements Serializable {
     private String spotDetail;
 
     @Column(name = "SPOT_LON")
-    private BigDecimal spotLon;
+    private String spotLon;
 
     @Column(name = "SPOT_LAT")
-    private BigDecimal spotLat;
+    private String spotLat;
 
     public TravelSpotEntity() {
     }

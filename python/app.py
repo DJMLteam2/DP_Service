@@ -80,7 +80,7 @@ def add_to_similar_tags(df, sorted_indices, cos_similarities, similar_tags):
             "title": str(df.iloc[index]['title']),
             "similarity": str(("{:.1f}".format(cos_similarities[0][index]*100))) + '%',
             "catchtitle": str(df.iloc[index]['catchtitle']),
-            # "detail": str(df.iloc[index]['detail']),
+            "detail": str(df.iloc[index]['detail']),
             "treatMenu": str(df.iloc[index]['treatMenu']),
             "tagName": str(df.iloc[index]['tagName']),
             "addr": str(df.iloc[index]['addr']),
@@ -90,7 +90,8 @@ def add_to_similar_tags(df, sorted_indices, cos_similarities, similar_tags):
             "conLike": str(df.iloc[index]['conLike']),
             "conRead": str(df.iloc[index]['conRead']),
             "conShare": str(df.iloc[index]['conShare']),
-            # "overView": str(df.iloc[index]['overView']),
+            "imgPath": str(df.iloc[index]['imgPath']),
+            "overView": str(df.iloc[index]['overView'][:100]),
             "lat": str(df.iloc[index]['lat']),
             "lon": str(df.iloc[index]['lon'])
             })
@@ -192,6 +193,7 @@ def getAnswer(question: Question):
                 "conLike": str(spot_city_df.iloc[index]['conLike']),
                 "conRead": str(spot_city_df.iloc[index]['conRead']),
                 "conShare": str(spot_city_df.iloc[index]['conShare']),
+                "imgPath": str(df.iloc[index]['imgPath']),
                 # "overView": str(spot_city_df.iloc[index]['overView']),
                 "lat": str(spot_city_df.iloc[index]['lat']),
                 "lon": str(spot_city_df.iloc[index]['lon'])
@@ -216,6 +218,7 @@ def getAnswer(question: Question):
                 "conLike": str(food_city_df.iloc[index]['conLike']),
                 "conRead": str(food_city_df.iloc[index]['conRead']),
                 "conShare": str(food_city_df.iloc[index]['conShare']),
+                "imgPath": str(df.iloc[index]['imgPath']),
                 # "overView": str(food_city_df.iloc[index]['overView']),
                 "lat": str(food_city_df.iloc[index]['lat']),
                 "lon": str(food_city_df.iloc[index]['lon'])

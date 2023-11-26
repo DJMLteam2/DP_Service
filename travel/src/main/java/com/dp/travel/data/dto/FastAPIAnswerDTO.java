@@ -14,6 +14,7 @@ public class FastAPIAnswerDTO {
     private Long id;
     private String area;
     private String title;
+    private String overView;
     private String similarity;
     private String catchtitle;
     private String treatMenu;
@@ -24,6 +25,9 @@ public class FastAPIAnswerDTO {
     private String conLike;
     private String conRead;
     private String conShare;
+    private String imgPath;
+    private String detail;
     private String lat;
     private String lon;
 }
+

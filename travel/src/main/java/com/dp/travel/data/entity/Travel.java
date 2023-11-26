@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.dp.travel.data.dto.TravelDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -77,4 +79,57 @@ public class Travel {
 
     @Column(name = "SPOT_LAT")
     private Double SPOT_LAT;
+
+
+     // TravelDTO로 변환하는 메서드
+    public TravelDTO toDTO(Travel travel) {
+        TravelDTO dto = new TravelDTO();
+        dto.setSpotId(this.SPOT_ID);
+        dto.setSpotCity(this.SPOT_CITY);
+        dto.setSpotCityCode(this.SPOT_CITY_CODE);
+        dto.setSpotCityContentType(this.SPOT_CITY_CONTENT_TYPE);
+        dto.setSpotTitle(this.SPOT_TITLE);
+        dto.setSpotCatchTitle(this.SPOT_CATCHTITLE);
+        dto.setSpotOverview(this.SPOT_OVERVIEW);
+        dto.setSpotTreatMenu(this.SPOT_TREATMENU);
+        dto.setSpotConLike(this.SPOT_CONLIKE);
+        dto.setSpotConRead(this.SPOT_CONREAD);
+        dto.setSpotConShare(this.SPOT_CONSHARE);
+        dto.setSpotImgPath(this.SPOT_IMGPATH);
+        dto.setSpotAddr(this.SPOT_ADDR);
+        dto.setSpotInfoCenter(this.SPOT_INFOCENTER);
+        dto.setSpotParking(this.SPOT_PARKING);
+        dto.setSpotUseTime(this.SPOT_USETIME);
+        dto.setSpotTagName(this.SPOT_TAGNAME);
+        dto.setSpotDetail(this.SPOT_DETAIL);
+        dto.setSpotLon(this.SPOT_LON);
+        dto.setSpotLat(this.SPOT_LAT);
+        return dto;
+    }
+
+    // DTO를 Travel로 변환하는 메서드
+    public static Travel fromDTO(TravelDTO dto) {
+        Travel entity = new Travel();
+        entity.SPOT_ID = dto.getSpotId();
+        entity.SPOT_CITY = dto.getSpotCity();
+        entity.SPOT_CITY_CODE = dto.getSpotCityCode();
+        entity.SPOT_CITY_CONTENT_TYPE = dto.getSpotCityContentType();
+        entity.SPOT_TITLE = dto.getSpotTitle();
+        entity.SPOT_CATCHTITLE = dto.getSpotCatchTitle();
+        entity.SPOT_OVERVIEW = dto.getSpotOverview();
+        entity.SPOT_TREATMENU = dto.getSpotTreatMenu();
+        entity.SPOT_CONLIKE = dto.getSpotConLike();
+        entity.SPOT_CONREAD = dto.getSpotConRead();
+        entity.SPOT_CONSHARE = dto.getSpotConShare();
+        entity.SPOT_IMGPATH = dto.getSpotImgPath();
+        entity.SPOT_ADDR = dto.getSpotAddr();
+        entity.SPOT_INFOCENTER = dto.getSpotInfoCenter();
+        entity.SPOT_PARKING = dto.getSpotParking();
+        entity.SPOT_USETIME = dto.getSpotUseTime();
+        entity.SPOT_TAGNAME = dto.getSpotTagName();
+        entity.SPOT_DETAIL = dto.getSpotDetail();
+        entity.SPOT_LON = dto.getSpotLon();
+        entity.SPOT_LAT = dto.getSpotLat();
+        return entity;
+    }
 }

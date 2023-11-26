@@ -87,7 +87,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -103,6 +102,7 @@
                         <p style="text-align: left;">이용시간: {{useTime}}</p>
                     </div>
                 <h4 id="myText">{{overView}}...더보기</h4>
+                <a src="https://www.naver.com/">test</a>
                 <p>{{treatMenu}}</p>
 
             </div>
@@ -118,7 +118,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -149,7 +148,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -180,7 +178,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -211,7 +208,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -254,7 +250,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -285,7 +280,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -316,7 +310,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -347,7 +340,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -378,7 +370,6 @@
             </div>
             
 			<div class="swiper-content">
-                    <a href="/search/{{id}}" class="slide-link">
                     <div class="icon" style="text-align: right; margin-top:-10px;">
                         <div>
                             <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
@@ -433,17 +424,5 @@
             },
         });
     });
-
-        // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
-    var slideLinks = document.querySelectorAll('.swiper-container .slide-link');
-    slideLinks.forEach(function (link) {
-        link.addEventListener('click', function (event) {
-            // 클릭 시에 기본 동작(링크 이동) 방지
-            event.preventDefault();
-            // 링크의 href 속성 값으로 페이지 이동
-            window.location.href = link.getAttribute('href');
-        });
-     });
-
 
     </script>

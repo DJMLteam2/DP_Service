@@ -19,13 +19,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- pagination -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
+    <!-- 아이콘 api -->
+    <script src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
     <title>DP Travel</title>
 
     
 
 <!-- Costom CSS -->
     <style>
+
+.time {
+			display: inline-block;
+		}
+
 body {
             background-color: #FFDFDE;          
         }
@@ -35,49 +46,6 @@ body {
     color: #6A7BA2;
 }
 
-.btn-outline-success {
-    min-width: 100px;
-    color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-outline-success:hover {
-    background-color: #000000;
-    border-color: #04B45F;
-    color: white;
-}
-
-.btn-outline-success.button {
-    min-width: 100px;
-    border-color: #6A7BA2;
-    background-color: #6A7BA2;
-}
-
-.no-underline {
-    text-decoration: none;
-}
-
-.bold-text {
-    font-weight: bold;
-}
-
-.intro-logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-    text-align: center;
-}
-
-.intro-logo-container p {
-    margin: 5px 0;
-    font-size: 22px;
-}
-
-.intro-logo-container img {
-    margin-top: 10px;
-}
 
 table.table th,
 table.table td {
@@ -116,18 +84,50 @@ table.table th {
       max-height:320px;  /* Increase / Decrease value as per your need */
       overflow-x: hidden;
   }
-h3 {
-	font-size: 1.3rem;
+h2 {
+    
+    font-size: 2rem;
 	padding: 0;
-	margin: 5px 0 15px 0;
+	margin: 15px 0 5px 5px;
+	color: black;
+    font-weight: bold;
+
+}
+h3 {
+	font-size: 1.4rem;
+	padding: 0;
+	margin: 0 0 5px 5px;
 	color: darkred;
 }
 p {
 	padding: 0;
 	margin: 0;
-	font-size: 1rem;
-	line-height: 1.5rem;
+	font-size: 0.7rem;
 	color: graytext;
+    overflow: hidden; /* 넘치는 부분을 감출 수 있도록 설정 */
+    text-overflow: ellipsis; 
+}
+
+h4 {
+	padding: 0;
+	margin-top: 10px;
+	font-size: 0.9rem;
+	color: graytext;
+    
+}
+.more-link:hover {
+    color: darkblue;
+    text-decoration: bold;
+}
+
+.infobox{
+    text-align: right;
+    margin: 0;
+    padding: 0;
+
+}
+span {
+    font-size: 0.9rem;
 }
 .swiper-container {
 	width: 100%;
@@ -139,7 +139,25 @@ p {
 	width: 400px;
 	height: 500px;
 	padding: 5px;
+    border-radius: 4px;
 }
+.swiper-head {
+    background-color: #fff;
+    width: 100%;
+    height: 40%;
+}
+
+.swiper-content {
+    background-color: #fff;
+    width: 100%;
+    height: 60%;
+    padding: 10px;
+}
+.swiper-container .slide-link {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크의 색상을 상속받음 */
+}
+
 
 </style>
 </head>

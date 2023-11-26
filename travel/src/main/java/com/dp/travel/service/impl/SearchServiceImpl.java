@@ -2,11 +2,13 @@ package com.dp.travel.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,6 +17,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
+import com.dp.travel.data.dto.TravelDTO;
+import com.dp.travel.data.entity.Travel;
 import com.dp.travel.data.repository.TravelRepository;
 import com.dp.travel.service.SearchService;
 
@@ -24,17 +28,25 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SearchServiceImpl implements SearchService{
     
+    @Autowired
     private TravelRepository travelRepository;
 
     // 로컬용
-    // private static final String FASTAPI_MODEL_URL = "http://localhost:3000/getAnswer";
-    
+    private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
     // 도커 컴포즈용
-    private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
+    // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
 
 
-    
+    @Override
+    public TravelDTO searchInfo(Long id){
+        Optional<Travel> optionalTravel = Optional.ofNullable(travelRepository.queryBySpotId(id));
+        Travel travel = optionalTravel.orElseThrow(() -> new RuntimeException("Travel not found for ID: " + id));
+        TravelDTO travelDto = travel.toDTO(travel);
 
+        return travelDto;
+    }
+
+    @Override
     public List<FastAPIAnswerDTO> searchViewController(QuestionForm questionForm, String TagName) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); 
@@ -102,6 +114,7 @@ public class SearchServiceImpl implements SearchService{
                     fastAPIAnswerDTO.setTitle(recommendObject.get("title").toString());
                     fastAPIAnswerDTO.setSimilarity((recommendObject.get("similarity").toString()));
                     fastAPIAnswerDTO.setCatchtitle(recommendObject.get("catchtitle").toString());
+                    fastAPIAnswerDTO.setOverView(recommendObject.get("overView").toString());
                     fastAPIAnswerDTO.setTreatMenu(recommendObject.get("treatMenu").toString());
                     fastAPIAnswerDTO.setTagName(recommendObject.get("tagName").toString());
                     fastAPIAnswerDTO.setAddr(recommendObject.get("addr").toString());
@@ -110,6 +123,8 @@ public class SearchServiceImpl implements SearchService{
                     fastAPIAnswerDTO.setConLike(recommendObject.get("conLike").toString());
                     fastAPIAnswerDTO.setConRead(recommendObject.get("conRead").toString());
                     fastAPIAnswerDTO.setConShare(recommendObject.get("conShare").toString());
+                    fastAPIAnswerDTO.setImgPath(recommendObject.get("imgPath").toString());
+                    fastAPIAnswerDTO.setDetail(recommendObject.get("detail").toString());
                     fastAPIAnswerDTO.setLat(recommendObject.get("lat").toString());
                     fastAPIAnswerDTO.setLon(recommendObject.get("lon").toString());
 

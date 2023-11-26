@@ -61,31 +61,26 @@ body {
     font-weight: bold;
 }
 
-.intro-logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-    text-align: center;
+.Result {
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+  height: 800px;
+  border: 3px solid;
+  overflow: auto;
+  border-radius: 30px;
 }
 
-.intro-logo-container p {
-    margin: 5px 0;
-    font-size: 22px;
-}
-
-.intro-logo-container img {
-    margin-top: 10px;
-}
-
-table.table th,
-table.table td {
-    border: none;
-}
-
-table.table th {
-    border-top: 2px solid #dee2e6;
+.ad-stage {
+  display: block;
+  width: 100px;
+  height: 200px;
+  background: white;
+  position:relative;
+  top: -800px;
+  left: 1500px;
 }
     
 .error-message {
@@ -107,9 +102,10 @@ table.table th {
     display: inline-block;
 }
 
-.container{
-    margin-top:5%;
-  }
+.container {
+    margin-top: 5%;
+}
+
   /* Style to create scroll bar in dropdown */ 
   .scrollable-dropdown{
       height: auto;
@@ -121,7 +117,29 @@ h3 {
 	padding: 0;
 	margin: 5px 0 15px 0;
 	color: darkred;
+    text-align: center; /* 텍스트 가운데 정렬 추가 */
 }
+
+#Search .form-group {
+    display: flex;
+    align-items: center;
+}
+
+#Search .form-group select,
+#Search .form-group input,
+#Search .form-group button {
+    height: 40px; /* 원하는 높이로 조정 */
+    margin: 0px; /* 원하는 여백으로 조정 */
+}
+
+#Search .form-group select {
+    flex: 1; /* 남은 공간을 균등하게 나눠가짐 */
+}
+
+#Search .form-group input {
+    flex: 3; /* 남은 공간을 균등하게 나눠가짐 */
+}
+
 p {
 	padding: 0;
 	margin: 0;
@@ -141,6 +159,60 @@ p {
 	padding: 5px;
 }
 
+
+/* 그리드 컨테이너 스타일 */
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* 각 article 요소의 스타일 */
+.article {
+    border: 3px solid #6A7BA2;
+    padding: 10px;
+    text-align: center;
+    max-width: 200px; /* 각 article이 차지할 수 있는 최대 폭 지정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+}    
+
+/* 각 이미지의 스타일 */
+
+.image img {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+    display: block; /* 가운데 정렬을 위해 블록 요소로 설정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+    transition: opacity 0.5s; /* 투명도 전환 효과를 부드럽게 적용 */
+}
+
+/* 이미지 위에 나타날 텍스트 스타일 */
+.image-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000000;
+    font-size: 16px;
+    opacity: 0; /* 초기에는 투명 상태로 설정 */
+    transition: opacity 0.5s; /* 투명도 전환 효과를 부드럽게 적용 */
+    z-index: 2; /* 텍스트의 z-index 설정 */
+}
+
+/* hover 효과 추가 */
+.image:hover img {
+    opacity: 0.7; /* 마우스 오버 시 투명도 조절 */
+}
+
+.image:hover .image-text {
+    opacity: 1; /* 마우스 오버 시 텍스트 나타나도록 설정 */
+}
+
+
 </style>
 </head>
 <body>
@@ -156,8 +228,9 @@ p {
 
     <form method="post" action="/create">
         <div class="search container">
-            <section id="Search" class="Search-intro">
-                <div class="Area Select">
+            <section id="Search" class="Search-intro">            
+                    <div class="form-group" style="display: flex;">
+                    <div class="Area Select">
                     <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
                         <option value="전체">전체</option>
                         <option value="서울">서울</option>
@@ -178,15 +251,10 @@ p {
                         <option value="전남">전남</option>
                         <option value="제주">제주</option>
                     </select>
-                </div>
-                <div class="col-md-9 col-sm-6">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
+                </div>   
+                        <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">                                    
                     <button type="submit" class="btn btn-primary" >제출</button>
-                </div>
+                    </div>                
             </section>
         </div>
     </form>

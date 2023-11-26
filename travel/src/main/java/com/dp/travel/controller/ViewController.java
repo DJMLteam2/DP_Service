@@ -78,4 +78,23 @@ public class ViewController {
 
         return "redirect:/search";
     }
+
+    @PostMapping("/mainImg")
+    public String imgAnswer(QuestionForm questionForm, @RequestParam("imageText") String imageText, RedirectAttributes redirectAttributes) {
+
+        if (questionForm.getQuestion() == null || questionForm.getQuestion().isEmpty()){
+            redirectAttributes.addFlashAttribute("errorMessage", "빈칸입니다! 하고싶은 여행을 작성해주세요!");
+            return "redirect:/";
+        }
+
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, imageText);
+
+        // Flash 속성 추가
+        redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
+        redirectAttributes.addFlashAttribute("questionForm", questionForm);
+        System.out.println("서비스로 돌아왔다");
+
+        // 리디렉션
+        return "redirect:/search";
+    }
 }

@@ -1,0 +1,240 @@
+{{>layouts/header}}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Title Here</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+
+<style>
+    
+</style>
+
+<body>
+<form method="post" action="tagAdd">
+    <input type="hidden" name="question" value="{{questionForm.question}}" />
+    <input type="hidden" name="area" value="{{questionForm.area}}" />
+    <div class="Tag Container">
+        <div id = "spot_tag" class= "spot_tag">
+            <span>관광지:</span>
+            <span id = "spot_tag_1">
+                <button type="submit" name="tagName" value="쇼핑">쇼핑</button>
+            </span>
+            <span id = "spot_tag_2">
+                <button type="submit" name="tagName" value="이색체험">이색체험</button>
+            </span>
+            <span id = "spot_tag_3">
+                <button type="submit" name="tagName" value="역사">역사</button>
+            </span>
+            <span id = "spot_tag_4">
+                <button type="submit" name="tagName" value="자연좋은곳">자연좋은곳</button>
+            </span>
+            <span id = "spot_tag_5">
+                <button type="submit" name="tagName" value="휴식공간">휴식공간</button>
+            </span>
+        </div>
+        <div id = "rest_tag" class= "rest_tag">
+            <span>음식점:</span>
+            <span id = "rest_tag_1">
+                <button type="submit" name="tagName" value="가성비맛집">가성비맛집</button>
+            </span>
+            <span id = "rest_tag_2">
+                <button type="submit" name="tagName" value="가족외식추천">가족외식추천</button>
+            </span>
+            <span id = "rest_tag_3">
+                <button type="submit" name="tagName" value="데이트코스">데이트코스</button>
+            </span>
+            <span id = "rest_tag_4">
+                <button type="submit" name="tagName" value="분위기좋은">분위기좋은</button>
+            </span>
+            <span id = "rest_tag_5">
+                <button type="submit" name="tagName" value="나들이">나들이</button>
+            </span>
+        </div>
+        <div id = "menu_tag" class= "menu_tag">
+            <span>메  뉴:</span>
+            <span id = "menu_tag_1">
+                <button type="submit" name="tagName" value="아메리카노">아메리카노</button>
+            </span>
+            <span id = "menu_tag_2">
+                <button type="submit" name="tagName" value="정식">정식</button>
+            </span>
+            <span id = "menu_tag_3">
+                <button type="submit" name="tagName" value="파스타">파스타</button>
+            </span>
+            <span id = "menu_tag_4">
+                <button type="submit" name="tagName" value="한우">한우</button>
+            </span>
+            <span id = "menu_tag_5">
+                <button type="submit" name="tagName" value="갈비탕">갈비탕</button>
+            </span>
+        </div>
+    </div>
+    {{#tagName}}
+    <h2><b>#{{tagName}}</b></h2>
+    {{/tagName}}
+    </form>
+    
+    <div class="Search_page">
+        <h2> 여행지 </h2>
+            </div><div id="mask"></div>
+    </div>
+    <!-- Swiper -->
+    <form method="post" action="create">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{#searchResults_1}}
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <div class="hero tabel_info_1"></div>
+                        <div class="copy">
+                            <h1>{{title}}</h1>
+                            <h3>{{area}}</h3>
+                            <p>{{info}}</p>
+                        </div>
+                        <div class="footer">
+                            <div class="time">
+                                <div><i class="fas fa-clock fa-fw"></i> 6 mins ago</div>
+                            </div>
+                            <div class="comments">
+                                <div><i class="fas fa-comments fa-fw"></i> 39 comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/searchResults_1}}
+                {{#searchResults_2}}
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <div class="hero tabel_info_1"></div>
+                        <div class="copy">
+                            <h1>{{title}}</h1>
+                            <h3>{{area}}</h3>
+                            <p>{{info}}</p>
+                        </div>
+                        <div class="footer">
+                            <div class="time">
+                                <div><i class="fas fa-clock fa-fw"></i> 6 mins ago</div>
+                            </div>
+                            <div class="comments">
+                                <div><i class="fas fa-comments fa-fw"></i> 39 comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/searchResults_2}}
+                {{#searchResults_3}}
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <div class="hero tabel_info_1"></div>
+                        <div class="copy">
+                            <h1>{{title}}</h1>
+                            <h3>{{area}}</h3>
+                            <p>{{info}}</p>
+                        </div>
+                        <div class="footer">
+                            <div class="time">
+                                <div><i class="fas fa-clock fa-fw"></i> 6 mins ago</div>
+                            </div>
+                            <div class="comments">
+                                <div><i class="fas fa-comments fa-fw"></i> 39 comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/searchResults_3}}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </form>
+    <form method="post" action="create">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{#searchResults_4}}
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <div class="hero tabel_info_4"></div>
+                        <div class="copy">
+                            <h1>{{title}}</h1>
+                            <h3>{{area}}</h3>
+                            <p>{{info}}</p>
+                        </div>
+                        <div class="footer">
+                            <div class="time">
+                                <div><i class="fas fa-clock fa-fw"></i> 6 mins ago</div>
+                            </div>
+                            <div class="comments">
+                                <div><i class="fas fa-comments fa-fw"></i> 39 comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/searchResults_4}}
+                {{#searchResults_5}}
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <div class="hero tabel_info_4"></div>
+                        <div class="copy">
+                            <h1>{{title}}</h1>
+                            <h3>{{area}}</h3>
+                            <p>{{info}}</p>
+                        </div>
+                        <div class="footer">
+                            <div class="time">
+                                <div><i class="fas fa-clock fa-fw"></i> 6 mins ago</div>
+                            </div>
+                            <div class="comments">
+                                <div><i class="fas fa-comments fa-fw"></i> 39 comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/searchResults_5}}
+                {{#searchResults_6}}
+                <div class="swiper-slide">
+                    <div class="swiper-content">
+                        <div class="hero tabel_info_4"></div>
+                        <div class="copy">
+                            <h1>{{title}}</h1>
+                            <h3>{{area}}</h3>
+                            <p>{{info}}</p>
+                        </div>
+                        <div class="footer">
+                            <div class="time">
+                                <div><i class="fas fa-clock fa-fw"></i> 6 mins ago</div>
+                            </div>
+                            <div class="comments">
+                                <div><i class="fas fa-comments fa-fw"></i> 39 comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/searchResults_6}}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </form>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows : true,
+            },
+            pagination: {
+              el: '.swiper-pagination',
+            },
+        });
+    </script>
+    </body>
+</html>

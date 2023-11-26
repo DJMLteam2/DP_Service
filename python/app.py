@@ -12,17 +12,33 @@ from pydantic import BaseModel
 import os
 import time
 
+# 둘중 하나만 사용
 
+
+###################################################################################
+# 디버그용 path !!!
 current_dir = os.path.dirname(os.path.abspath(__file__))
 df_path = os.path.join(current_dir, 'travel_spot_v1.csv')
 model_path = os.path.join(current_dir, 'travel_model_v2.pkl')
 
+
+
+###################################################################################
+
+# ## 도커 컴포즈용 path !!!
+# df_path = "./travel_spot_v1"
+# model_path = "./travel_model_v2.pkl"
+
+
+###################################################################################
+
+
 df = pd.read_csv(df_path, index_col=0)
+
 okt = Okt()
 app = FastAPI()
 df = df.fillna('')
 
-# df = pd.read_csv('./travel_spot_v1.csv', index_col=0)
 spot_df = df[df['contentType'] != 39]
 food_df = df[df['contentType'] == 39]
 
@@ -239,4 +255,4 @@ def test():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app:app", host="127.0.0.1", port=3000, reload=True, workers=4)
+    uvicorn.run("app:app", host="0.0.0.0", port=4000, workers=4)

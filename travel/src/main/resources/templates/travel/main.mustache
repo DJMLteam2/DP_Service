@@ -1,0 +1,36 @@
+{{>layouts/header}}
+
+<!-- main.mustache 내용 -->
+<script>
+    function toggleDropdown() {
+        var dropdownMenu = document.querySelector('.dropdown-menu');
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
+    }
+
+    // 드롭다운 메뉴 아이템을 클릭하여 페이지로 이동하는 함수
+    function navigateToCommend1() {
+        window.location.href = "/articles/commend1";
+    }
+
+    function navigateToCommend2() {
+        window.location.href = "/articles/commend2";
+    }
+
+    function navigateToCommend3() {
+        window.location.href = "/articles/commend3";
+    }
+
+    function navigateToCommend4() {
+        window.location.href = "/articles/commend4";
+    }
+
+    // 페이지 로드 시 초기화
+    document.addEventListener('DOMContentLoaded', function() {
+        // 드롭다운 버튼 클릭 시 토글 함수 호출
+        document.querySelector('#brandDropdownButton').addEventListener('click', toggleDropdown);
+    });
+</script>

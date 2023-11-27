@@ -7,16 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
 import com.dp.travel.data.dto.TravelDTO;
-import com.dp.travel.data.entity.Travel;
 import com.dp.travel.service.SearchService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +31,8 @@ public class ViewController {
 
     // main 페이지
     @GetMapping("/")
-    public String main() {
+    public String main(Model model) {
+        model.addAttribute("questionForm", new QuestionForm());
         return "travel/main";
     }
     // second 페이지

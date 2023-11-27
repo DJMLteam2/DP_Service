@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import os
 import time
+import random
 
 # 둘중 하나만 사용
 
@@ -110,7 +111,9 @@ def getAnswer(question: Question):
     food_city_df = food_df[food_df['city']== question.area]
     spot_city_df = spot_df[spot_df['city']== question.area]
 
-    morphed_question = okt.morphs(question.question)
+    
+    morphed_question = [i for i in okt.nouns(question.question) if len(i) >1]
+    random.shuffle(morphed_question)
     # 질문과 선택된 지역의 TF-IDF로 유사도 계산
     question_spot = vectorizer_spot.transform(morphed_question)
     question_food = vectorizer_food.transform(morphed_question)
@@ -155,7 +158,9 @@ def getAnswer(question: Question):
     print('spot_tabel\'s len =',len(food_city_df))
     print('food_tabel\'s len =',len(spot_city_df))
 
-    morphed_question = okt.morphs(question.question)
+    morphed_question = [i for i in okt.nouns(question.question) if len(i) >1]
+    random.shuffle(morphed_question)
+
     # 질문과 선택된 지역의 TF-IDF로 유사도 계산
     question_spot = vectorizer_spot.transform(morphed_question)
     question_food = vectorizer_food.transform(morphed_question)

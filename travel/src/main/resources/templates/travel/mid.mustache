@@ -408,7 +408,10 @@
 </div>
 </div>
 
-	<script>
+
+
+
+	<script> // pagination 자바 스크립트
     document.addEventListener('DOMContentLoaded', function () {
         var swiper = new Swiper('.swiper-container', {
             effect: 'coverflow',
@@ -447,3 +450,26 @@
 
 
     </script>
+
+
+<script>  // 검색 값 남겨두기
+var newPlaceholder = "{{{questionForm.question}}}" || null;
+var newSpotarea = "{{{questionForm.area}}}" || null;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ensure that the element is found
+        var areaSpot = document.getElementById("Area_Spot");
+        var searchArea = document.getElementById("searchArea");
+        console.log("js areaSpot:", areaSpot);
+        console.log("js newSpotarea:", newSpotarea);
+
+        // Set the value and check if it works
+        if (newSpotarea !== null && newSpotarea !== undefined) {
+            areaSpot.value = newSpotarea;
+            areaSpot.placeholder = newSpotarea;
+            searchArea.value = newPlaceholder;
+            searchArea.placeholder = newPlaceholder;
+            console.log("js Value set successfully.");
+        }
+    });
+</script>

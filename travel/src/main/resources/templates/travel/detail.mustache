@@ -1,0 +1,160 @@
+{{>layouts/header}}
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+  font-family: 'Montserrat';
+  background: #e7e8f3;
+  margin: 0;  
+  padding: 0;
+}
+.product {
+  position: relative;
+  margin: auto;
+  width: 950px;
+  height: 600px;
+  background: white;
+  display: black;
+  white-space: nowrap;
+  top: 45px;
+  box-shadow: 3px 3px 70px 0px rgba(50,50,50, .5);
+  -webkit-box-shadow: 3px 3px 70px 0px rgba(50,50,50, .5);
+  overflow: hidden;
+}
+
+.detail {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+.image {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: #cce7cb !important;
+  display: inline-block;
+  background-size : cover
+}
+button:focus, input:focus {
+    outline: none;
+}
+.header {
+  margin: 60px 60px 0px 78px;
+}
+.content {
+  margin: 20px 60px 0px 78px;
+}
+.header span {
+  font-size: 17px;
+  color: #919191;
+  font-weight: bold;
+}
+.content .price {
+  font-weight: bold;
+  font-size: 17px;
+  color: #a8a8a8;
+}
+.content .description
+{
+  padding: 10px 0 0 0;
+  color: #a8a8a8;
+  white-space: normal;
+  font-size: 15px;
+  font-weight: bold;
+}
+.content .detail
+{
+  color: #c7c7c7;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 10px 0 0 0;
+}
+.property {
+  margin: 30px 0 0 0;
+}
+.property .item {
+  display: inline;
+}
+.key {
+  display: inline-block;
+  min-width: 30px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top;
+}
+.value {
+  display: inline-block;
+  white-space: normal;
+  color: #a8a8a8;
+  font-size: 13px;
+  font-weight: bold;
+  width: 33%;
+  padding-right: 20px;
+}
+.footer {
+  padding: 30px 0px 0px 155px;
+}
+.btn-dark {
+  background: black;
+  border: none;
+  padding: 15px;
+  color: white;
+}
+.btn-white {
+  background: white;
+  border: none;
+  padding: 20px;
+  color: white;
+}
+.btn-white .block {
+  width: 50px;
+  height: 50px;
+}
+.btn-small-text {
+  font-size: 15px;
+}
+.btn-block {
+  width: 150px;
+}
+</style>
+<div class="product">
+    {{#travelDto}}
+    <div class="detail" style="float:left;">
+      <div class="header">
+        <h1>{{spotTitle}}</h1>
+      </div>
+      <div class="content">
+        <Span class="price">{{spotCatchTitle}}</Span>
+        <p class="description">
+            {{spotOverview}}<br>
+            <br>
+            <span>{{spotDetail}}<span>
+        </p>
+        <div class="property">
+          <div class="item">
+            <div class="key">전화번호</div>
+            <div class="value">{{spotInfoCenter}}</div>
+          </div>
+          <div class="item">
+            <div class="key">주소</div>
+            <div class="value">{{spotAddr}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <button class="btn-dark btn-block btn-small-text">지도보기</button>
+      </div>
+    </div>
+    <div class="image" style="float:right;">
+      <img src={{spotImgPath}} />
+      <div class="arrows">
+      </div>
+    </div>
+    {{/travelDto}}
+  </div>

@@ -133,28 +133,37 @@ def getAnswer(question: Question):
     try:
         add_to_similar_tags(spot_city_df, sorted_indices_spot, cos_similarities_spot, similar_tags)
         add_to_similar_tags(food_city_df, sorted_indices_food, cos_similarities_food, similar_tags)
-        print('Type-similar_tags:', type(similar_tags))
-        print('Type 2:', type(similar_tags[0]))
-        print('Type 3:', type(similar_tags[0][0]))
         print('done')
     
     except Exception as e:
         print(e)
     
-    st = similar_tags[0] + similar_tags[1]
-    travel_order, travel_distances = dijkstra.dijkstra(st, start=0)
+    # st = similar_tags[0] + similar_tags[1]
+    # travel_order, travel_distances = dijkstra.dijkstra(st, start=0)
     
-    travel_spots_in_order = [st[order]['title'] for order in travel_order]
-    travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
-                                for i in range(len(travel_order) - 1)]
-    lats = [st[order]['lat'] for order in travel_order]
-    lons = [st[order]['lon'] for order in travel_order]
+    # travel_spots_in_order = [st[order]['title'] for order in travel_order]
+    # travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
+    #                             for i in range(len(travel_order) - 1)]
+    # lats = [st[order]['lat'] for order in travel_order]
+    # lons = [st[order]['lon'] for order in travel_order]
     
-    return JSONResponse(content={"question": question.question, "similar_tags": st,
-                                 "travel_spots": travel_spots_in_order,
-                                 "travel_distance": travel_distance_in_order,
-                                 "spot_latitudes": lats,
-                                 "spot_longitudes": lons})
+    # st = [st[order] for order in travel_order]
+    
+    st0, st1 = similar_tags[0], similar_tags[1]
+    travel_order, travel_distances = dijkstra.dijkstra(st0, start=0)
+    food_order, food_distances = dijkstra.dijkstra(st1, start=0)
+    
+    st0 = [st0[order] for order in travel_order]
+    st1 = [st1[order] for order in food_order]
+    
+    st = [st0, st1]
+    
+    # return JSONResponse(content={"question": question.question, "similar_tags": st,
+    #                              "travel_spots": travel_spots_in_order,
+    #                              "travel_distance": travel_distance_in_order,
+    #                              "spot_latitudes": lats,
+    #                              "spot_longitudes": lons})
+    return JSONResponse(content={"question": question.question, "recommend": st})
 
 @app.post("/getAnswer_debug", response_model= OutputData)
 def getAnswer(question: Question):

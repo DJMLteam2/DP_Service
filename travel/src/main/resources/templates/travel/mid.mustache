@@ -65,15 +65,6 @@
         {{/tagName}}
     </form>
 
-
-
-
-
-
-
-
-
-
 <!-- Swiper 1 -->
 <div class="swiper-container">
 
@@ -233,8 +224,6 @@
             {{/searchResult_5}}
 		</div>
 
-
-
 	</div>
 	<!-- Add Pagination -->
 	<div class="swiper-pagination"></div>
@@ -275,7 +264,6 @@
             </div>
             {{/searchResult_6}}
 		</div>
-
         
 		<div class="swiper-slide">
             {{#searchResult_7}}
@@ -306,7 +294,6 @@
             </div>
             {{/searchResult_7}}
 		</div>
-
         
 		<div class="swiper-slide">
             {{#searchResult_8}}
@@ -368,7 +355,6 @@
             </div>
             {{/searchResult_9}}
 		</div>
-
         
 		<div class="swiper-slide">
             {{#searchResult_10}}
@@ -399,8 +385,6 @@
             </div>
             {{/searchResult_10}}
 		</div>
-
-
 
 	</div>
 	<!-- Add Pagination -->
@@ -434,7 +418,7 @@
         });
     });
 
-        // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
+    // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
     var slideLinks = document.querySelectorAll('.swiper-container .slide-link');
     slideLinks.forEach(function (link) {
         link.addEventListener('click', function (event) {
@@ -447,30 +431,41 @@
 
 
     </script>
+
 <!-- 구글 지도 API -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ"></script>
 <script type="text/javascript">
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map_div'), {
-            zoom: 10,
-            center: {lat: 33.51411, lng: 126.489125}  // 제주도 중심
+            zoom: 10, // 초기 줌 레벨. 수정 가능.
+            center: {lat: 33.51411, lng: 126.489125}  // 초기 중심 좌표. 제주도 중심. 수정 가능.
         });
 
-        var locations = [
-            {lat: 33.5070537, lng: 126.492776, label: '1'},  // 제주국제공항
-            {lat: 33.5162323, lng: 126.5120637, label: '2'}  // 용두암
-        ];
-
-        var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < locations.length; i++) {
-            var marker = new google.maps.Marker({
-                position: locations[i],
-                label: locations[i].label,
-                map: map
-            });
-            bounds.extend(marker.position);
-        }
-        map.fitBounds(bounds); // 모든 마커가 보이도록 지도 뷰포트 조정
+        // FastAPI 서버로부터 데이터 받아오기
+        fetch("http://fast_api_app:4000/getAnswer", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                question: "{{questionForm.question}}",
+                area: "{{questionForm.area}}"
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            var locations = data.recommend;
+            var bounds = new google.maps.LatLngBounds();
+            for (var i = 0; i < locations.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: {lat: parseFloat(locations[i].lat), lng: parseFloat(locations[i].lon)},
+                    map: map
+                });
+                bounds.extend(marker.position);
+            }
+            map.fitBounds(bounds); // 모든 마커가 보이도록 지도 뷰포트 조정
+        })
+        .catch(error => console.error("Error:", error));
     }
 
     google.maps.event.addDomListener(window, 'load', initMap);

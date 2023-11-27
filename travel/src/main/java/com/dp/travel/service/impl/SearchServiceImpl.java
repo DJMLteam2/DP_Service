@@ -32,9 +32,9 @@ public class SearchServiceImpl implements SearchService{
     private TravelRepository travelRepository;
 
     // 로컬용
-    private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
+    // private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
     // 도커 컴포즈용
-    // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
+    private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
 
 
     @Override
@@ -65,10 +65,13 @@ public class SearchServiceImpl implements SearchService{
 
 
         HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
+        log.info("request created.");
 
         RestTemplate restTemplate = new RestTemplate();
+        log.info("restTemplate created.");
     
         String response = restTemplate.postForObject(FASTAPI_MODEL_URL, request, String.class);
+        log.info("response created.");
 
         if (response != null && !response.isEmpty()) {
             log.info("fastapi responsed !");

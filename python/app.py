@@ -1,7 +1,7 @@
 import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import linear_kernel
 import numpy as np
 import pandas as pd
 from konlpy.tag import Okt
@@ -17,21 +17,13 @@ import random
 
 
 ###################################################################################
-# 디버그용 path !!!
+# path 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 df_path = os.path.join(current_dir, 'travel_spot_v1.csv')
-model_path = os.path.join(current_dir, 'travel_model_v2.pkl')
-
-
+model_path = os.path.join(current_dir, 'travel_model_v3.pkl')
 
 ###################################################################################
 
-# ## 도커 컴포즈용 path !!!
-# df_path = "./travel_spot_v1"
-# model_path = "./travel_model_v2.pkl"
-
-
-###################################################################################
 
 
 df = pd.read_csv(df_path, index_col=0)
@@ -112,18 +104,16 @@ def getAnswer(question: Question):
     spot_city_df = spot_df[spot_df['city']== question.area]
 
     
-    morphed_question = [i for i in okt.nouns(question.question) if len(i) >1]
-    random.shuffle(morphed_question)
     # 질문과 선택된 지역의 TF-IDF로 유사도 계산
-    question_spot = vectorizer_spot.transform(morphed_question)
-    question_food = vectorizer_food.transform(morphed_question)
+    question_spot = vectorizer_spot.transform([' '.join(okt.nouns(f'{question.question}'))])
+    question_food = vectorizer_food.transform([' '.join(okt.nouns(f'{question.question}'))])
 
     #spot 인덱스 추출
-    cos_similarities_spot = cosine_similarity(question_spot, city_spot)
+    cos_similarities_spot = linear_kernel(question_spot, city_spot)
     sorted_indices_spot = np.argsort(cos_similarities_spot[0])[::-1][:5]
 
     #food 인덱스 추출
-    cos_similarities_food = cosine_similarity(question_food, city_food)
+    cos_similarities_food = linear_kernel(question_food, city_food)
     sorted_indices_food = np.argsort(cos_similarities_food[0])[::-1][:5]
 
      
@@ -158,19 +148,15 @@ def getAnswer(question: Question):
     print('spot_tabel\'s len =',len(food_city_df))
     print('food_tabel\'s len =',len(spot_city_df))
 
-    morphed_question = [i for i in okt.nouns(question.question) if len(i) >1]
-    random.shuffle(morphed_question)
-
-    # 질문과 선택된 지역의 TF-IDF로 유사도 계산
-    question_spot = vectorizer_spot.transform(morphed_question)
-    question_food = vectorizer_food.transform(morphed_question)
+    question_spot = vectorizer_spot.transform([' '.join(okt.nouns(f'{question.question}'))])
+    question_food = vectorizer_food.transform([' '.join(okt.nouns(f'{question.question}'))])
 
     #spot 인덱스 추출
-    cos_similarities_spot = cosine_similarity(question_spot, city_spot)
+    cos_similarities_spot = linear_kernel(question_spot, city_spot)
     sorted_indices_spot = np.argsort(cos_similarities_spot[0])[::-1][:5]
 
     #food 인덱스 추출
-    cos_similarities_food = cosine_similarity(question_food, city_food)
+    cos_similarities_food = linear_kernel(question_food, city_food)
     sorted_indices_food = np.argsort(cos_similarities_food[0])[::-1][:5]
     print('spot_index =', sorted_indices_spot)
     print('food_index =', sorted_indices_food)
@@ -247,7 +233,7 @@ def test():
     question = "bts 효도여행 가고싶어"
 
     question_tfidf = vectorizer_spot.transform(okt.morphs(question))
-    cos_similarities = cosine_similarity(question_tfidf, matrix_spot)
+    cos_similarities = linear_kernel(question_tfidf, matrix_spot)
     sorted_indices = np.argsort(cos_similarities[0])[::-1][:5]
 
     print('질문 = ', question)

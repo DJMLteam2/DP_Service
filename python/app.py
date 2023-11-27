@@ -11,6 +11,8 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import os
 import time
+import haversine
+import dijkstra
 
 # 둘중 하나만 사용
 
@@ -131,15 +133,28 @@ def getAnswer(question: Question):
     try:
         add_to_similar_tags(spot_city_df, sorted_indices_spot, cos_similarities_spot, similar_tags)
         add_to_similar_tags(food_city_df, sorted_indices_food, cos_similarities_food, similar_tags)
+        print('Type-similar_tags:', type(similar_tags))
+        print('Type 2:', type(similar_tags[0]))
+        print('Type 3:', type(similar_tags[0][0]))
         print('done')
     
     except Exception as e:
         print(e)
     
+    st = similar_tags[0] + similar_tags[1]
+    travel_order, travel_distances = dijkstra.dijkstra(st, start=0)
     
-    return JSONResponse(content={"question": question.question, "recommend": similar_tags})
-
-
+    travel_spots_in_order = [st[order]['title'] for order in travel_order]
+    travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
+                                for i in range(len(travel_order) - 1)]
+    lats = [st[order]['lat'] for order in travel_order]
+    lons = [st[order]['lon'] for order in travel_order]
+    
+    return JSONResponse(content={"question": question.question, "similar_tags": st,
+                                 "travel_spots": travel_spots_in_order,
+                                 "travel_distance": travel_distance_in_order,
+                                 "spot_latitudes": lats,
+                                 "spot_longitudes": lons})
 
 @app.post("/getAnswer_debug", response_model= OutputData)
 def getAnswer(question: Question):
@@ -250,12 +265,23 @@ def test():
         similarity = cos_similarities[0][index]
         print(f"{i + 1}위, index:{index}, 유사도: {similarity}")
     
-    similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index])} for index in sorted_indices]
-
-    return JSONResponse(content={"question": question, "similar_tags": similar_tags})
+    similar_tags = [{"title": str(df.loc[index, 'title']), "overView": str(df.loc[index, 'overView']), "similarity": float(cos_similarities[0][index]),
+                     "lat": float(df.loc[index, 'lat']), "lon": float(df.loc[index, 'lon'])} for index in sorted_indices]
     
+    # 여행지 방문 순서, 각 여행지로부터 다른 여행지까지의 거리
+    travel_order, travel_distances = dijkstra.dijkstra(similar_tags, start=0)
+    travel_spots_in_order = [similar_tags[order]['title'] for order in travel_order]
+    travel_distance_in_order = [travel_distances[travel_order[i:i+2][0]][travel_order[i:i+2][1]]
+                                for i in range(len(travel_order) - 1)]
+    lats = [similar_tags[order]['lat'] for order in travel_order]
+    lons = [similar_tags[order]['lon'] for order in travel_order]
 
-
+    return JSONResponse(content={"question": question, "similar_tags": similar_tags,
+                                 "travel_spots": travel_spots_in_order,
+                                 "travel_distance": travel_distance_in_order,
+                                 "spot_latitudes": lats,
+                                 "spot_longitudes": lons})
+    
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=4000, workers=4)

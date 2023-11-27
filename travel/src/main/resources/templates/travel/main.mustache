@@ -1,56 +1,58 @@
-{{>layouts/header}}
+{{>layouts/mainHeader}}
 
 <form id="imageForm" method="post" action="/mainImg">
-    <input type="hidden" id="imageText" name="imageText">
+    <section class="tiles">
+            <article class="style1">
+                <h3>문화재</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('문화재')">
+                        <img src="mun.jpg" alt="" />
+                    </a>
+                </span>
+            </article>
+            <article class="style2">
+                <h3>야경</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('야경 좋은 곳')">
+                        <img src="night.jpg" alt="" />
+                    </a>
+                </span>
+            </article>        
+            <article class="style3">
+                <h3>휴식 & 힐링</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('휴식하기 좋은 곳')">
+                        <img src="rest.jpg" alt="" />
+                    </a>
+                </span>
+            </article>
+            <article class="style4">
+                <h3>산책</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('산책하기 좋은 곳')">
+                        <img src="walk.jpg" alt="" />
+                    </a> 
+                </span>
+            </article>
+            <article class="style5">
+                <h3>해돋이</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('해돋이')">
+                        <img src="sun.jpg" alt="" />
+                    </a> 
+                </span>
+            </article>
+    </section>
+    <input type="hidden" id="imageValueInput" name="imageValue" value="" />
 </form>
 
-<section class="tiles">
-    <div class="row">
-        <article class="style1">
-            <span class="image">
-                <img src="mun.jpg" alt="" />
-            </span>
-            <h3>문화 체험</h3>
-        </article>
-        <article class="style2">
-            <span class="image">
-                <img src="night.jpg" alt="" />
-            </span>
-            <h3>야경 좋은 곳</h3>
-        </article>
-    </div>
-    <div class="row">
-        <article class="style3">
-            <span class="image">
-                <img src="rest.jpg" alt="" />
-            </span>
-            <h3>휴식하기 좋은 곳</h3>
-        </article>
-        <article class="style4">
-            <span class="image">
-                <img src="walk.jpg" alt="" />
-            </span>
-            <h3>산책하기 좋은 곳</h3>
-        </article>
-    </div>
-</section>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var articles = document.querySelectorAll('.tiles .row article');
-
-        articles.forEach(function(article) {
-            article.addEventListener('click', function() {
-                var imageText = this.querySelector('h3').innerText;
-
-                // 이미지 정보를 form에 추가
-                document.getElementById('imageText').value = imageText;
-
-                // form을 서버로 전송
-                document.getElementById('imageForm').submit();
-            });
-        });
-    });
+function submitForm(imageValue) {
+    // 클릭한 이미지에 대한 값을 hidden 필드에 설정
+    document.getElementById('imageValueInput').value = imageValue;
+    // 폼 제출
+    document.getElementById('imageForm').submit();
+}
 </script>
 
 {{>layouts/footer}}

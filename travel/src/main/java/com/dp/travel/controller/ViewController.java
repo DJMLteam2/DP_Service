@@ -43,7 +43,8 @@ public class ViewController {
     // fastapi 연동하여 모델값 받아오기
     @PostMapping("/create")
     public String answer(QuestionForm questionForm, RedirectAttributes redirectAttributes) {
-
+        log.info(questionForm.getQuestion());
+        log.info(questionForm.getArea());
         if (questionForm.getQuestion().isEmpty()){
             redirectAttributes.addFlashAttribute("errorMessage", "빈칸입니다! 하고싶은 여행을 작성해주세요!");
 
@@ -74,26 +75,23 @@ public class ViewController {
         // Flash 속성 추가
         redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
         redirectAttributes.addFlashAttribute("questionForm", questionForm);
-        redirectAttributes.addFlashAttribute("tagName", tagName);
+        // redirectAttributes.addFlashAttribute("tagName", tagName);
 
         return "redirect:/search";
     }
 
     @PostMapping("/mainImg")
-    public String imgAnswer(QuestionForm questionForm, @RequestParam("imageText") String imageText, RedirectAttributes redirectAttributes) {
+    public String imgAnswer(@RequestParam("imageValue") String imageText, RedirectAttributes redirectAttributes) {
 
-        if (questionForm.getQuestion() == null || questionForm.getQuestion().isEmpty()){
-            redirectAttributes.addFlashAttribute("errorMessage", "빈칸입니다! 하고싶은 여행을 작성해주세요!");
-            return "redirect:/";
-        }
+        QuestionForm questionForm = new QuestionForm(imageText, "전체");
+        log.info(questionForm.getArea());
+        log.info(questionForm.getQuestion());
 
-        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, imageText);
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);
 
         // Flash 속성 추가
         redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
         redirectAttributes.addFlashAttribute("questionForm", questionForm);
-        System.out.println("서비스로 돌아왔다");
-
         // 리디렉션
         return "redirect:/search";
     }

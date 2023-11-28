@@ -392,6 +392,32 @@
 </div>
 </div>
 
+<!--여기 이부분에서 받습니다.-->
+{{#locations}}
+    <input type="hidden" name="question" id="MAP_LON" value="{{lon}}" />
+    <input type="hidden" name="question" id="MAP_LAT" value="{{lat}}" />
+{{/locations}}
+<!--배열을 받았는지 테스트 용도-->
+<div id="coordinates"></div>
+<script>
+    // 자바스크립트 코드 작성
+    const lonInputs = document.querySelectorAll('#MAP_LON');
+    const latInputs = document.querySelectorAll('#MAP_LAT');
+
+    // 각 입력 요소의 값을 배열로 추출
+    const lonArray = Array.from(lonInputs).map(input => input.value);
+    const latArray = Array.from(latInputs).map(input => input.value);
+
+    // 배열 값을 화면에 출력
+    const coordinatesDiv = document.getElementById('coordinates');
+
+    for (let i = 0; i < lonArray.length; i++) {
+        const coordinateString = `Lon: ${lonArray[i]}, Lat: ${latArray[i]}`;
+        coordinatesDiv.innerHTML += `<p>${coordinateString}</p>`;
+    }
+</script>
+<!--여기 이부분에서 받습니다.-->
+
 	<script>
     document.addEventListener('DOMContentLoaded', function () {
         var swiper = new Swiper('.swiper-container', {
@@ -431,48 +457,4 @@
 
 
     </script>
-
-<!-- 구글 지도 API -->
-<input type="hidden" id="locations" value="{{questionForm.question}}" />
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ"></script>
-<script type="text/javascript">
-    window.onload = function() {
-        function initMap() {
-            var mapElement = document.getElementById('map');
-            if (mapElement) {
-            var map = new google.maps.Map(document.getElementById('map_div'), {
-                zoom: 10, // 초기 줌 레벨. 수정 가능.
-                center: {lat: 33.51411, lng: 126.489125}  // 초기 중심 좌표. 제주도 중심. 수정 가능.
-            });
-            } else {
-                // map 요소를 찾지 못했을 때의 처리.
-                console.error('Map element with ID "map" not found.')
-            }
-            // HTML에 미리 삽입된 위치 데이터를 사용하여 마커 생성
-            var locations = JSON.parse(document.getElementById('locations').value);
-            console.log("locations loaded.");
-            // var bounds = new google.maps.LatLngBounds();
-
-            locations.forEach(function(location) {
-            var marker = new google.maps.Marker({
-                position: {lat: location.lat, lng: location.lon},
-                map: map
-            });
-        });
-        }
-
-        // 페이지 로드 시 구글 지도 초기화 함수 호출
-        // google.maps.event.addDomListener(window, 'load', initMap);
-        initMap();
-    };
-</script>
-
-
-<!-- Google API part
-필수:
-이 부분에서 width와 height를 반드시 CSS 형식에 따라 지정해야 합니다.
-비어있는 div 요소는 기본값이 0인 높이를 가지기 때문에
-구글 지도가 화면 상에 나타나지 않을 겁니다.
--->
-<div id="map_div" style="width: 1200px; height: 675px"></div>
 {{>layouts/footer}}

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
@@ -101,6 +102,22 @@ public class ViewController {
                 
         }
 
+        return "redirect:/search";
+    }
+
+    @PostMapping("/mainImg")
+    public String imgAnswer(@RequestParam("imageValue") String imageText, RedirectAttributes redirectAttributes) {
+
+        QuestionForm questionForm = new QuestionForm(imageText, "전체");
+        log.info(questionForm.getArea());
+        log.info(questionForm.getQuestion());
+
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);
+
+        // Flash 속성 추가
+        redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
+        redirectAttributes.addFlashAttribute("questionForm", questionForm);
+        // 리디렉션
         return "redirect:/search";
     }
 }

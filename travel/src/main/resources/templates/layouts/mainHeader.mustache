@@ -19,13 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-    
-    <!-- pagination -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    <!-- 아이콘 api -->
-    <script src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
     <title>DP Travel</title>
 
     
@@ -33,28 +27,51 @@
 <!-- Costom CSS -->
     <style>
 
-.time {
-			display: inline-block;
-		}
+.background {
+    background-image: url('bg.jpg'); /* 배경 이미지 경로를 적절히 변경하세요 */
+    background-size: cover;
+    filter: blur(5px); /* 흐리게 만들고자 하는 정도를 조절할 수 있습니다. */
+    height: 100vh; /* 화면 전체 높이로 설정하거나 필요에 맞게 조절하세요 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 body {
-            background-color: #FFDFDE;          
-        }
+    background-color: #FFFFFF;          
+}
 
 * {
     font-family: 'Noto Sans KR', sans-serif;
     color: #6A7BA2;
 }
 
-
-table.table th,
-table.table td {
-    border: none;
+.btn-outline-success {
+    min-width: 100px;
+    color: #6c757d;
+    border-color: #6c757d;
 }
 
-table.table th {
-    border-top: 2px solid #dee2e6;
+.btn-outline-success:hover {
+    background-color: #000000;
+    border-color: #04B45F;
+    color: white;
 }
+
+.btn-outline-success.button {
+    min-width: 100px;
+    border-color: #6A7BA2;
+    background-color: #6A7BA2;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
     
 .error-message {
     text-align: center; /* 텍스트 가운데 정렬 */
@@ -75,59 +92,50 @@ table.table th {
     display: inline-block;
 }
 
-.container{
-    margin-top:5%;
-  }
+.container {
+    margin-top: 2%;
+}
+
   /* Style to create scroll bar in dropdown */ 
   .scrollable-dropdown{
       height: auto;
       max-height:320px;  /* Increase / Decrease value as per your need */
       overflow-x: hidden;
   }
-h2 {
-    
-    font-size: 2rem;
-	padding: 0;
-	margin: 15px 0 5px 5px;
-	color: black;
-    font-weight: bold;
-
-}
 h3 {
-	font-size: 1.4rem;
+	font-size: 1.3rem;
 	padding: 0;
-	margin: 0 0 5px 5px;
+	margin: 5px 0 15px 0;
 	color: darkred;
+    text-align: center; /* 텍스트 가운데 정렬 추가 */
 }
+
+#Search .form-group {
+    display: flex;
+    align-items: center;
+}
+
+#Search .form-group select,
+#Search .form-group input,
+#Search .form-group button {
+    height: 40px; /* 원하는 높이로 조정 */
+    margin: 0px; /* 원하는 여백으로 조정 */
+}
+
+#Search .form-group select {
+    flex: 1; /* 남은 공간을 균등하게 나눠가짐 */
+}
+
+#Search .form-group input {
+    flex: 3; /* 남은 공간을 균등하게 나눠가짐 */
+}
+
 p {
 	padding: 0;
 	margin: 0;
-	font-size: 0.7rem;
+	font-size: 1rem;
+	line-height: 1.5rem;
 	color: graytext;
-    overflow: hidden; /* 넘치는 부분을 감출 수 있도록 설정 */
-    text-overflow: ellipsis; 
-}
-
-h4 {
-	padding: 0;
-	margin-top: 10px;
-	font-size: 0.9rem;
-	color: graytext;
-    
-}
-.more-link:hover {
-    color: darkblue;
-    text-decoration: bold;
-}
-
-.infobox{
-    text-align: right;
-    margin: 0;
-    padding: 0;
-
-}
-span {
-    font-size: 0.9rem;
 }
 .swiper-container {
 	width: 100%;
@@ -139,61 +147,64 @@ span {
 	width: 400px;
 	height: 500px;
 	padding: 5px;
-    border-radius: 4px;
-}
-.swiper-head {
-    background-color: #fff;
-    width: 100%;
-    height: 40%;
 }
 
-.swiper-content {
-    background-color: #fff;
-    width: 100%;
-    height: 60%;
+
+
+/* 그리드 컨테이너 스타일 */
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 1px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* 각 article 요소의 스타일 */
+.article {
+    border: 3px solid #6A7BA2;
     padding: 10px;
-}
-.swiper-container .slide-link {
-    text-decoration: none; /* 밑줄 제거 */
-    color: inherit; /* 링크의 색상을 상속받음 */
-}
-#Search .form-group select,
-#Search .form-group input,
-#Search .form-group button {
-    height: 40px; /* 원하는 높이로 조정 */
-    margin: 0px; /* 원하는 여백으로 조정 */
+    text-align: center;
+    max-width: 200px; /* 각 article이 차지할 수 있는 최대 폭 지정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+}    
+
+/* 각 이미지의 스타일 */
+
+.image img {
+    width: 80%;
+    height: auto;
+    border-radius: 50%;
+    display: block; /* 가운데 정렬을 위해 블록 요소로 설정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+    transition: opacity 0.5s; /* 투명도 전환 효과를 부드럽게 적용 */
 }
 
-#Search .form-group select {
-    flex: 1; /* 남은 공간을 균등하게 나눠가짐 */
+
+/* hover 효과 추가 */
+.image:hover img {
+    opacity: 0.3; /* 마우스 오버 시 투명도 조절 */
 }
-/* 태그 버튼 스타일 */
-#spot_tag button,
-#rest_tag button,
-#menu_tag button {
-    background-color: #4CAF50; /* 배경색 */
-    color: white; /* 텍스트색 */
-    border: none; /* 테두리 없음 */
-    padding: 8px 8px; /* 내부 여백 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    text-decoration: none; /* 텍스트에 밑줄 없음 */
-    display: inline-block; /* 인라인 요소로 표시 */
-    font-size: 14px; /* 폰트 크기 */
-    margin: 4px 2px; /* 마진 설정 */
-    cursor: pointer; /* 커서 스타일 설정 */
-    border-radius: 10px; /* 둥근 테두리 */
+
+.logo {
+    margin-top: 3%;
+    text-align: center;
 }
-/* 호버 효과 */
-#spot_tag button:hover,
-#rest_tag button:hover,
-#menu_tag button:hover {
-    background-color: #45a049; /* 호버 시 배경색 변경 */
-}   
+
+.logo img {
+    max-width: 100%; /* 이미지가 부모 요소의 크기를 넘지 않도록 설정 */
+    height: auto; /* 가로 세로 비율을 유지하면서 크기 조절 */
+}
 
 </style>
+
 </head>
 <body>
 
+
+<div class="logo">                  
+    <img src="logo.png" alt="" />
+</div>
 
 {{#errorMessage}}
 <div class="error-message">
@@ -235,7 +246,4 @@ span {
             </section>
         </div>
     </form>
-
-
-
-
+    

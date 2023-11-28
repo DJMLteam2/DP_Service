@@ -66,15 +66,6 @@ table.table th {
 }
 
 /* 검색바 css */
-.Tag.Container {
-    text-align: center;
-}
-
-.Tag.Container button {
-    margin: 5px; /* 여백을 조절하려면 이 값을 조정하세요. */
-    display: inline-block;
-}
-
 .container{
     margin-top:5%;
   }
@@ -94,10 +85,11 @@ h2 {
 
 }
 h3 {
-	font-size: 1.4rem;
+	font-size: 1.3rem;
 	padding: 0;
-	margin: 0 0 5px 5px;
+	margin: 5px 0 15px 0;
 	color: darkred;
+    text-align: center; /* 텍스트 가운데 정렬 추가 */
 }
 p {
 	padding: 0;
@@ -157,6 +149,11 @@ span {
     text-decoration: none; /* 밑줄 제거 */
     color: inherit; /* 링크의 색상을 상속받음 */
 }
+
+#Search .form-group {
+    display: flex;
+    align-items: center;
+}
 #Search .form-group select,
 #Search .form-group input,
 #Search .form-group button {
@@ -167,7 +164,28 @@ span {
 #Search .form-group select {
     flex: 1; /* 남은 공간을 균등하게 나눠가짐 */
 }
-/* 태그 버튼 스타일 */
+
+#Search .form-group input {
+    flex: 3; /* 남은 공간을 균등하게 나눠가짐 */
+}
+
+/* 태그 배치 및 버튼 스타일 */
+.Tag.Container {
+    text-align: center;
+    display: flex;
+    justify-content: center; /* 또는 다른 정렬 방법을 선택하세요 */
+}
+
+.Tag.Container button {
+    margin: 5px; /* 여백을 조절하려면 이 값을 조정하세요. */
+    display: inline-block;
+}
+
+.tag-group {
+    display: flex;
+    gap: 10px; /* 태그 간격 조절 */
+}
+
 #spot_tag button,
 #rest_tag button,
 #menu_tag button {

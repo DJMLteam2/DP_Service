@@ -6,7 +6,6 @@
         <input type="hidden" name="area" value="{{questionForm.area}}" />
         <div class="Tag Container">
             <div id = "spot_tag" class= "spot_tag">
-                <span>관광지:</span>
                 <span id = "spot_tag_1">
                     <button type="submit" name="tagName" value="쇼핑">쇼핑</button>
                 </span>
@@ -24,7 +23,6 @@
                 </span>
             </div>
             <div id = "rest_tag" class= "rest_tag">
-                <span>음식점:</span>
                 <span id = "rest_tag_1">
                     <button type="submit" name="tagName" value="가성비맛집">가성비맛집</button>
                 </span>
@@ -33,44 +31,21 @@
                 </span>
                 <span id = "rest_tag_3">
                     <button type="submit" name="tagName" value="데이트코스">데이트코스</button>
-                </span>
-                <span id = "rest_tag_4">
-                    <button type="submit" name="tagName" value="분위기좋은">분위기좋은</button>
-                </span>
-                <span id = "rest_tag_5">
-                    <button type="submit" name="tagName" value="나들이">나들이</button>
-                </span>
+                </span>                
             </div>
             <div id = "menu_tag" class= "menu_tag">
-                <span>메  뉴:</span>
                 <span id = "menu_tag_1">
                     <button type="submit" name="tagName" value="아메리카노">아메리카노</button>
                 </span>
                 <span id = "menu_tag_2">
                     <button type="submit" name="tagName" value="정식">정식</button>
-                </span>
-                <span id = "menu_tag_3">
-                    <button type="submit" name="tagName" value="파스타">파스타</button>
-                </span>
-                <span id = "menu_tag_4">
-                    <button type="submit" name="tagName" value="한우">한우</button>
-                </span>
-                <span id = "menu_tag_5">
-                    <button type="submit" name="tagName" value="갈비탕">갈비탕</button>
-                </span>
+                </span>                
             </div>
         </div>
         {{#tagName}}
         <h2><b>#{{tagName}}</b></h2>
         {{/tagName}}
     </form>
-
-
-
-
-
-
-
 
 
 
@@ -232,8 +207,6 @@
             </div>
             {{/searchResult_5}}
 		</div>
-
-
 
 	</div>
 	<!-- Add Pagination -->
@@ -400,8 +373,6 @@
             {{/searchResult_10}}
 		</div>
 
-
-
 	</div>
 	<!-- Add Pagination -->
 	<div class="swiper-pagination"></div>
@@ -411,7 +382,7 @@
 
 
 
-	<script> // pagination 자바 스크립트
+    <script> // pagination 자바 스크립트
     document.addEventListener('DOMContentLoaded', function () {
         var swiper = new Swiper('.swiper-container', {
             effect: 'coverflow',

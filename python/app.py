@@ -20,7 +20,7 @@ import random
 # path 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 df_path = os.path.join(current_dir, 'travel_spot_v1.csv')
-model_path = os.path.join(current_dir, 'travel_model_v3.pkl')
+model_path = os.path.join(current_dir, 'travel_model_v4.pkl')
 
 ###################################################################################
 

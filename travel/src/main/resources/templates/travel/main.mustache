@@ -1,5 +1,60 @@
 {{>layouts/header}}
 
-{{! ? }}
-    
+<form id="imageForm" method="post" action="/mainImg">
+    <section class="tiles">
+            <article class="style1">
+                <h3>문화재</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('문화재')">
+                        <img src="mun.jpg" alt="" />
+                    </a>
+                </span>
+            </article>
+            <article class="style2">
+                <h3>야경</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('야경 좋은 곳')">
+                        <img src="night.jpg" alt="" />
+                    </a>
+                </span>
+            </article>        
+            <article class="style3">
+                <h3>휴식 & 힐링</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('휴식하기 좋은 곳')">
+                        <img src="rest.jpg" alt="" />
+                    </a>
+                </span>
+            </article>
+            <article class="style4">
+                <h3>산책</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('산책하기 좋은 곳')">
+                        <img src="walk.jpg" alt="" />
+                    </a> 
+                </span>
+            </article>
+            <article class="style5">
+                <h3>해돋이</h3>
+                <span class="image">
+                    <a href="#" onclick="submitForm('해돋이')">
+                        <img src="sun.jpg" alt="" />
+                    </a> 
+                </span>
+            </article>
+    </section>
+    <input type="hidden" id="imageValueInput" name="imageValue" value="" />
+</form>
+
+
+
+<script>
+function submitForm(imageValue) {
+    // 클릭한 이미지에 대한 값을 hidden 필드에 설정
+    document.getElementById('imageValueInput').value = imageValue;
+    // 폼 제출
+    document.getElementById('imageForm').submit();
+}
+</script>
+
 {{>layouts/footer}}

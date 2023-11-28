@@ -157,7 +157,38 @@ span {
     text-decoration: none; /* 밑줄 제거 */
     color: inherit; /* 링크의 색상을 상속받음 */
 }
+#Search .form-group select,
+#Search .form-group input,
+#Search .form-group button {
+    height: 40px; /* 원하는 높이로 조정 */
+    margin: 0px; /* 원하는 여백으로 조정 */
+}
 
+#Search .form-group select {
+    flex: 1; /* 남은 공간을 균등하게 나눠가짐 */
+}
+/* 태그 버튼 스타일 */
+#spot_tag button,
+#rest_tag button,
+#menu_tag button {
+    background-color: #4CAF50; /* 배경색 */
+    color: white; /* 텍스트색 */
+    border: none; /* 테두리 없음 */
+    padding: 8px 8px; /* 내부 여백 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    text-decoration: none; /* 텍스트에 밑줄 없음 */
+    display: inline-block; /* 인라인 요소로 표시 */
+    font-size: 14px; /* 폰트 크기 */
+    margin: 4px 2px; /* 마진 설정 */
+    cursor: pointer; /* 커서 스타일 설정 */
+    border-radius: 10px; /* 둥근 테두리 */
+}
+/* 호버 효과 */
+#spot_tag button:hover,
+#rest_tag button:hover,
+#menu_tag button:hover {
+    background-color: #45a049; /* 호버 시 배경색 변경 */
+}   
 
 </style>
 </head>

@@ -77,7 +77,7 @@ public class SearchServiceImpl implements SearchService{
             log.info("fastapi responsed !");
         } else {
             log.error("null or empty...");
-}
+        }
 
         List<FastAPIAnswerDTO> fastAPIAnswerDTOs = parseFastAPIResponse(response);
         log.info("response Parsed !");

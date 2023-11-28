@@ -128,7 +128,7 @@ public class ViewController {
         // Flash 속성 추가
         redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
         redirectAttributes.addFlashAttribute("questionForm", questionForm);
-        redirectAttributes.addFlashAttribute("tagName", tagName);
+        // redirectAttributes.addFlashAttribute("tagName", tagName);
 
         for (int i =0; i < fastAPIAnswerDTOs.size(); i++){
             FastAPIAnswerDTO searchResult = fastAPIAnswerDTOs.get(i);

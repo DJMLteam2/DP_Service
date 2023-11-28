@@ -32,9 +32,11 @@ public class SearchServiceImpl implements SearchService{
     private TravelRepository travelRepository;
 
     // 로컬용
-    private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
+    // private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
     // 도커 컴포즈용
     // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
+    // aws 도커용
+    private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
 
 
     @Override

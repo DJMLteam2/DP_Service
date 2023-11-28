@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,29 +54,29 @@ public class ViewController {
 
     // fastapi 연동하여 모델값 받아오기
     @PostMapping("/create")
-    public String answer(QuestionForm questionForm, RedirectAttributes redirectAttributes) {
-
+    public String answer(
+        @RequestParam(value = "imageValue", required = false) String imageText,
+        @ModelAttribute("questionForm") QuestionForm questionForm,
+        RedirectAttributes redirectAttributes) {
+        if (imageText != null) {
+            // "/mainImg" 엔드포인트의 경우 이미지 처리 로직 수행
+            questionForm = new QuestionForm(imageText, "전체");
+            log.info(questionForm.getArea());
+            log.info(questionForm.getQuestion());
+        }
         if (questionForm.getQuestion().isEmpty()){
             redirectAttributes.addFlashAttribute("errorMessage", "빈칸입니다! 하고싶은 여행을 작성해주세요!");
-
             return "redirect:/";
         }
-        
-        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);        
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);
         // Flash 속성 추가
         redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
         redirectAttributes.addFlashAttribute("questionForm", questionForm);
-        // System.out.println(fastAPIAnswerDTOs.size());
-
-        for (int i =0; i < fastAPIAnswerDTOs.size(); i++){
+        for (int i = 0; i < fastAPIAnswerDTOs.size(); i++) {
             FastAPIAnswerDTO searchResult = fastAPIAnswerDTOs.get(i);
-            redirectAttributes.addFlashAttribute("searchResult_"+(i+1), searchResult);
-            
-                
+            redirectAttributes.addFlashAttribute("searchResult_" + (i + 1), searchResult);
         }
-
         System.out.println("서비스로 돌아왔다");
-
         // 리디렉션
         return "redirect:/search";
     }
@@ -120,4 +121,6 @@ public class ViewController {
         // 리디렉션
         return "redirect:/search";
     }
+
+    
 }

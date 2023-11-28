@@ -33,12 +33,9 @@
 <!-- Costom CSS -->
     <style>
 
-.time {
-			display: inline-block;
-		}
 
 body {
-            background-color: #FFDFDE;          
+            background-color: #faf2f9;          
         }
 
 * {
@@ -46,16 +43,62 @@ body {
     color: #6A7BA2;
 }
 
-
-table.table th,
-table.table td {
-    border: none;
+/* 로고 */
+.logo {
+    margin-top: 3%;
+    text-align: left;
 }
 
-table.table th {
-    border-top: 2px solid #dee2e6;
+.logo img {
+    width: 10%; /* 이미지가 부모 요소의 크기를 넘지 않도록 설정 */
+    height: auto;
+    opacity:0.4 /* 가로 세로 비율을 유지하면서 크기 조절 */
 }
+.btn-secondary {
+  background-color: #FFFFFF; /* 배경 색상을 변경할 부분 */
+  color: #333333;
+}
+.btn-secondary:hover {
+  background-color: #fbf0ff; /* 배경 색상을 변경할 부분 */
+  color: #333333; /* 텍스트 색상을 변경할 부분 */
+}
+.dropdown-item {
+    background-color: #fbf0ff;
+    color: #333333;
+}
+.dropdown-item:hover {
+    background-color: #fbf0ff;
+    color: #333333;
+}
+
+
+.btn-secondary.active,
+.btn-secondary:active,
+.btn-secondary:focus {
+  background-color: #fbf0ff; /* 클릭 시 배경 색상 변경 */
+  color: #333333; /* 클릭 시 텍스트 색상 변경 */
+}
+
+
+.btn-outline-success {
+    min-width: 100px;
+    background-color: white;
+    color: #333333;
+    border-color: #333333;
+    border-width: 0.5px;
+    border-radius: 5px;
     
+}
+
+.btn-outline-success:hover {
+    background-color: #fbf0ff;
+    color: #333333;
+    border-color: #333333;
+    border-width: 1px;
+}
+
+
+
 .error-message {
     text-align: center; /* 텍스트 가운데 정렬 */
     margin: 20px; /* 상하좌우 여백 조절 */
@@ -65,25 +108,44 @@ table.table th {
     font-size: 20px;
 }
 
-/* 검색바 css */
-.Tag.Container {
+/* 태그 검색바 css */
+.Tag .Container {
     text-align: center;
 }
 
-.Tag.Container button {
-    margin: 5px; /* 여백을 조절하려면 이 값을 조정하세요. */
-    display: inline-block;
+.Tag .Container button {
+    background-color: #4CAF50; /* 배경색 */
+    color: white; /* 텍스트색 */
+    border: none; /* 테두리 없음 */
+    padding: 8px 8px; /* 내부 여백 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    text-decoration: none; /* 텍스트에 밑줄 없음 */
+    display: inline-block; /* 인라인 요소로 표시 */
+    font-size: 14px; /* 폰트 크기 */
+    margin: 4px 2px; /* 마진 설정 */
+    cursor: pointer; /* 커서 스타일 설정 */
+    border-radius: 10px; /* 둥근 테두리 */
 }
+
+
+.form-group {
+    width: 100%;
+    display: flex;
+}
+
 
 .container{
     margin-top:5%;
-  }
-  /* Style to create scroll bar in dropdown */ 
-  .scrollable-dropdown{
-      height: auto;
-      max-height:320px;  /* Increase / Decrease value as per your need */
-      overflow-x: hidden;
-  }
+}
+  /* Style to create scroll bar in dropdown */
+.scrollable-dropdown {
+    /*width: 100%;  100% 너비로 조정 */
+    height: 100%
+    max-height: 360px;
+    overflow-x: hidden;
+}
+
+
 h2 {
     
     font-size: 2rem;
@@ -115,20 +177,13 @@ h4 {
 	color: graytext;
     
 }
-.more-link:hover {
-    color: darkblue;
-    text-decoration: bold;
-}
 
-.infobox{
-    text-align: right;
-    margin: 0;
-    padding: 0;
-
-}
 span {
     font-size: 0.9rem;
 }
+
+/* mid pagination 컨테이너 스타일 */
+
 .swiper-container {
 	width: 100%;
 	padding-top: 50px;
@@ -157,43 +212,65 @@ span {
     text-decoration: none; /* 밑줄 제거 */
     color: inherit; /* 링크의 색상을 상속받음 */
 }
-#Search .form-group select,
-#Search .form-group input,
-#Search .form-group button {
-    height: 40px; /* 원하는 높이로 조정 */
-    margin: 0px; /* 원하는 여백으로 조정 */
+
+
+#imageForm {
+    display: flex;
+    justify-content: center;
+}
+/* 그리드 컨테이너 스타일 */
+#imageForm .tiles {
+    max-width:70%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 1px;
+    justify-content: center;
+    margin-top: 50px;
+    grid-gap: 0.5px; /* 간격을 조절할 값으로 변경 */
+}
+#imageForm .tiles article {
+    width: 70%; /* 또는 필요한 너비로 설정 */
 }
 
-#Search .form-group select {
-    flex: 1; /* 남은 공간을 균등하게 나눠가짐 */
+#imageForm .image img {
+    width: 100%;
+    height: auto;
+    
+    display: block; /* 가운데 정렬을 위해 블록 요소로 설정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+    transition: opacity 0.5s; /* 투명도 전환 효과를 부드럽게 적용 */
+        /* 이미지 어둡게 만들기 */
+    filter: brightness(0.9); /* 0.8은 어두운 정도를 나타내며, 1이 기본값입니다. 조절 가능 */
+
+    /* 이미지에 핑크빛 색조 추가 */
+    background-color: pink; /* 핑크빛 색조를 얻기 위해 배경색을 핑크로 설정 */
+    mix-blend-mode: multiply; /* 핑크 배경색을 이미지에 곱함으로써 핑크빛 효과 생성 */
 }
-/* 태그 버튼 스타일 */
-#spot_tag button,
-#rest_tag button,
-#menu_tag button {
-    background-color: #4CAF50; /* 배경색 */
-    color: white; /* 텍스트색 */
-    border: none; /* 테두리 없음 */
-    padding: 8px 8px; /* 내부 여백 */
-    text-align: center; /* 텍스트 중앙 정렬 */
-    text-decoration: none; /* 텍스트에 밑줄 없음 */
-    display: inline-block; /* 인라인 요소로 표시 */
-    font-size: 14px; /* 폰트 크기 */
-    margin: 4px 2px; /* 마진 설정 */
-    cursor: pointer; /* 커서 스타일 설정 */
-    border-radius: 10px; /* 둥근 테두리 */
+
+
+/* hover 효과 추가 */
+#imageForm .image:hover img {
+    opacity: 0.3; /* 마우스 오버 시 투명도 조절 */
 }
-/* 호버 효과 */
-#spot_tag button:hover,
-#rest_tag button:hover,
-#menu_tag button:hover {
-    background-color: #45a049; /* 호버 시 배경색 변경 */
-}   
+
+#imageForm span {
+    font-size: 1.6rem;
+    padding: 3px;
+    margin: -130px 0 10px 0;
+    font-weight: bold; /* 굵은 글씨 설정 */
+    color: #333333;
+    text-align: center;
+}
+
+
+
 
 </style>
 </head>
 <body>
 
+<div class="logo">
+    <img src="logo.png" alt="" />
+</div>
 
 {{#errorMessage}}
 <div class="error-message">
@@ -203,34 +280,41 @@ span {
 </div>
 {{/errorMessage}}
 
+
+
     <form method="post" action="/create">
         <div class="search container">
-            <section id="Search" class="Search-intro">            
+            <section id="Search" class="Search-intro">
                     <div class="form-group" style="display: flex;">
-                    <div class="Area Select">
-                    <select id="Area_Spot" name="area" class="dropdown-product selectpicker">
-                        <option value="전체">전체</option>
-                        <option value="서울">서울</option>
-                        <option value="인천">인천</option>
-                        <option value="대전">대전</option>
-                        <option value="대구">대구</option>
-                        <option value="광주">광주</option>
-                        <option value="부산">부산</option>
-                        <option value="울산">울산</option>
-                        <option value="세종시">세종시</option>
-                        <option value="경기">경기</option>
-                        <option value="강원">강원</option>
-                        <option value="충북">충북</option>
-                        <option value="충남">충남</option>
-                        <option value="경북">경북</option>
-                        <option value="경남">경남</option>
-                        <option value="전북">전북</option>
-                        <option value="전남">전남</option>
-                        <option value="제주">제주</option>
-                    </select>
-                </div>   
+                    <div class="dropdown-center">
+                        <select class="btn btn-secondary dropdown-toggle" id="Area_Spot" name="area" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            지역선택
+                            <option class="dropdown-item" value="전체">전체</option>
+                            <option class="dropdown-item" value="서울">서울</option>
+                            <option class="dropdown-item" value="부산">부산</option>
+                            <option class="dropdown-item" value="인천">인천</option>
+                            <option class="dropdown-item" value="대전">대전</option>
+                            <option class="dropdown-item" value="대구">대구</option>
+                            <option class="dropdown-item" value="광주">광주</option>
+                            <option class="dropdown-item" value="울산">울산</option>
+                            <option class="dropdown-item" value="세종시">세종시</option>
+                            <option class="dropdown-item" value="경기">경기</option>
+                            <option class="dropdown-item" value="강원">강원</option>
+                            <option class="dropdown-item" value="충북">충북</option>
+                            <option class="dropdown-item" value="충남">충남</option>
+                            <option class="dropdown-item" value="경북">경북</option>
+                            <option class="dropdown-item" value="경남">경남</option>
+                            <option class="dropdown-item" value="전북">전북</option>
+                            <option class="dropdown-item" value="전남">전남</option>
+                            <option class="dropdown-item" value="제주">제주</option>
+                            
+
+                       
+
+                        </select>
+                    </div> 
                         <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">                                    
-                    <button type="submit" class="btn btn-primary" >검색</button>
+                    <button type="submit" class="btn-outline-success" >검색</button>
                     </div>                
             </section>
         </div>

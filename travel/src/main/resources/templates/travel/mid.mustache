@@ -465,7 +465,7 @@
   <script type="text/javascript">
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map_div'), {
-            zoom: 10,
+            zoom: 13,
             center: {lat: 33.51411, lng: 126.489125}  // 제주도 중심
         });
 
@@ -487,6 +487,12 @@
 
     google.maps.event.addDomListener(window, 'load', initMap);
   </script>
-
-  <div id="map_div" style="width: 1200px; height: 675px"></div>
+  <style>
+    #map_div {
+        width: 50%; /* 부모 요소의 너비의 50% 사용 */
+        height: 675px; /* 지도 높이 */
+        margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
+    }
+  </style>
+  <div id="map_div"></div>
 {{>layouts/footer}}

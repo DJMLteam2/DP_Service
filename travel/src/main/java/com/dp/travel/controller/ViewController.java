@@ -81,26 +81,15 @@ public class ViewController {
             redirectAttributes.addFlashAttribute("searchResult_"+(i+1), searchResult);                
         }
 
-        try {
-            // 위도와 경도 정보만 담은 새로운 리스트 생성
-            List<HashMap<String, Object>> locations = new ArrayList<>();
-            for (FastAPIAnswerDTO dto : fastAPIAnswerDTOs) {
-                HashMap<String, Object> location = new HashMap<>();
-                location.put("lat", dto.getLat());
-                location.put("lon", dto.getLon());
-                locations.add(location);
-            }
-
-            // 위도와 경도 정보만 있는 JSON 문자열 생성
-            ObjectMapper objectMapper = new ObjectMapper();
-            String locationJson = objectMapper.writeValueAsString(locations);
-
-            redirectAttributes.addFlashAttribute("locations", locationJson);
-            System.out.println("jsonRecommendations created.");
-        } catch (JsonProcessingException e) {
-            log.error("JSON writing error", e);
+        List<HashMap<String, Object>> locations = new ArrayList<>();
+        for (FastAPIAnswerDTO dto : fastAPIAnswerDTOs) {
+            HashMap<String, Object> location = new HashMap<>();
+            location.put("lat", dto.getLat());
+            location.put("lon", dto.getLon());
+            locations.add(location);
         }
-        
+        redirectAttributes.addFlashAttribute("locations", locations);
+        System.out.println("jsonRecommendations created.");
         System.out.println("서비스로 돌아왔다");
 
         // 리디렉션

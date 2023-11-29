@@ -35,7 +35,7 @@
 
 
 body {
-            background-color: #faf2f9;          
+            background-color: white;
         }
 
 * {
@@ -46,15 +46,17 @@ body {
 /* 로고 */
 .logo {
     margin-top: 3%;
+    margin-left: 4%;
     text-align: left;
 }
 
 .logo img {
-    width: 10%; /* 이미지가 부모 요소의 크기를 넘지 않도록 설정 */
+    width: 8%; /* 이미지가 부모 요소의 크기를 넘지 않도록 설정 */
     height: auto;
-    opacity:0.4 /* 가로 세로 비율을 유지하면서 크기 조절 */
+    opacity:0.7 /* 가로 세로 비율을 유지하면서 크기 조절 */
 }
 .btn-secondary {
+  height: 3rem;
   background-color: #FFFFFF; /* 배경 색상을 변경할 부분 */
   color: #333333;
 }
@@ -88,6 +90,12 @@ body {
     border-width: 0.5px;
     border-radius: 5px;
     
+}
+#searchArea {
+    width: 60rem; /* 가로 크기 */
+    height: 3rem; /* 세로 크기 */
+    margin-right: 5px; /* 인풋 창과 검색 버튼 사이의 간격을 조절 */
+    margin-left: 5px;
 }
 
 .btn-outline-success:hover {
@@ -222,24 +230,34 @@ span {
 #imageForm .tiles {
     max-width:70%;
     display: grid;
-    grid-template-columns: repeat(5, 1fr) 1px;
+    grid-template-columns: repeat(4, 1fr) 1px;
     justify-content: center;
+    
     margin-top: 50px;
     grid-gap: 0.5px; /* 간격을 조절할 값으로 변경 */
 }
 #imageForm .tiles article {
-    width: 70%; /* 또는 필요한 너비로 설정 */
+    position: relative;
+}
+
+#imageForm .tiles article h3 {
+    position: absolute;
+    top: 85%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 #imageForm .image img {
-    width: 100%;
-    height: auto;
-    
+    width: 90%;
+    height: 100%;
+    border-radius: 8px; /* 테두리의 둥글기 정도를 조절할 수 있습니다. */
+    overflow: hidden;
     display: block; /* 가운데 정렬을 위해 블록 요소로 설정 */
     margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
     transition: opacity 0.5s; /* 투명도 전환 효과를 부드럽게 적용 */
         /* 이미지 어둡게 만들기 */
-    filter: brightness(0.9); /* 0.8은 어두운 정도를 나타내며, 1이 기본값입니다. 조절 가능 */
+    filter: brightness(0.7); /* 0.8은 어두운 정도를 나타내며, 1이 기본값입니다. 조절 가능 */
 
     /* 이미지에 핑크빛 색조 추가 */
     background-color: pink; /* 핑크빛 색조를 얻기 위해 배경색을 핑크로 설정 */
@@ -252,15 +270,91 @@ span {
     opacity: 0.3; /* 마우스 오버 시 투명도 조절 */
 }
 
-#imageForm span {
-    font-size: 1.6rem;
+#imageForm h3 {
+    font-size: 1.9rem;
     padding: 3px;
-    margin: -130px 0 10px 0;
+    margin: 0px 0 10px 0;
     font-weight: bold; /* 굵은 글씨 설정 */
-    color: #333333;
+    color: white;
     text-align: center;
+    text-decoration: none;
 }
 
+nav {
+	margin: 15px auto 0;
+
+	position: relative;
+	width: 50rem;
+	height: 50px;
+	background-color: #949DDB;
+	border-radius: 8px;
+	font-size: 0;
+}
+nav a {
+	line-height: 50px;
+	height: 100%;
+	font-size: 15px;
+	display: inline-block;
+	position: relative;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+	z-index: 1;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+}
+nav .animation {
+	position: absolute;
+	height: 100%;
+	top: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+	z-index: 0;
+	transition: all .5s ease 0s;
+	border-radius: 8px;
+}
+a:nth-child(1) {
+	width: 100px;
+}
+a:nth-child(2) {
+	width: 110px;
+}
+a:nth-child(3) {
+	width: 100px;
+}
+a:nth-child(4) {
+	width: 160px;
+}
+a:nth-child(5) {
+	width: 120px;
+}
+nav .start-home, a:nth-child(1):hover~.animation {
+	width: 100px;
+	left: 0;
+	background-color: #1abc9c;
+}
+nav .start-about, a:nth-child(2):hover~.animation {
+	width: 110px;
+	left: 9rem;
+	background-color: #e74c3c;
+}
+nav .start-blog, a:nth-child(3):hover~.animation {
+	width: 100px;
+	left: 18rem;
+	background-color: #3498db;
+}
+nav .start-portefolio, a:nth-child(4):hover~.animation {
+	width: 160px;
+	left: 26rem;
+	background-color: #9b59b6;
+}
+nav .start-contact, a:nth-child(5):hover~.animation {
+	width: 120px;
+	left: 39rem;
+	background-color: #e67e22;
+}
 
 
 
@@ -279,6 +373,25 @@ span {
             aria-label="Close"></button>
 </div>
 {{/errorMessage}}
+
+
+
+
+<nav>
+	<a href="#">Home</a>
+	<a href="#">About</a>
+	<a href="#">Blog</a>
+	<a href="#">Portefolio</a>
+	<a href="#">Contact</a>
+	<div class="animation start-home"></div>
+</nav>
+
+
+
+
+
+
+
 
 
 

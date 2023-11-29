@@ -1,12 +1,20 @@
 {{>layouts/header}}
 
+
+
+
+
+
+
+
+
 <form id="imageForm" method="post" action="/create">
     <section class="tiles">
         <article class="style1">
             <span class="image">
                 <a href="#" onclick="submitForm('문화재')">
                     <img src="mun.jpg" alt="" />
-                    <span class="caption">문화재</span>
+                    <h3 class="caption">문화재</h3>
                 </a>
             </span>
         </article>
@@ -14,7 +22,7 @@
             <span class="image">
                 <a href="#" onclick="submitForm('야경 좋은 곳')">
                     <img src="night.jpg" alt="" />
-                    <span class="caption">야경</span>
+                    <h3 class="caption">야경</h3>
                 </a>
             </span>
         </article>
@@ -22,7 +30,7 @@
             <span class="image">
                 <a href="#" onclick="submitForm('휴식하기 좋은 곳')">
                     <img src="rest.jpg" alt="" />
-                    <span class="caption">휴식 & 힐링</span>
+                    <h3 class="caption">휴식</h3>
                 </a>
             </span>
         </article>
@@ -30,22 +38,21 @@
             <span class="image">
                 <a href="#" onclick="submitForm('산책하기 좋은 곳')">
                     <img src="walk.jpg" alt="" />
-                    <span class="caption">산책</span>
+                    <h3 class="caption">산책</h3>
                 </a>
             </span>
         </article>
-        <article class="style5">
+        {{! <article class="style5">
             <span class="image">
                 <a href="#" onclick="submitForm('해돋이')">
                     <img src="sun.jpg" alt="" />
-                    <span class="caption">해돋이</span>
+                    <h3 class="caption">해돋이</h3>
                 </a>
             </span>
-        </article>
+        </article> }}
     </section>
     <input type="hidden" id="imageValueInput" name="imageValue" value="" />
 </form>
-
 
 
 

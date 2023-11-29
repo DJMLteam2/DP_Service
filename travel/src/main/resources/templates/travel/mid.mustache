@@ -1,6 +1,4 @@
 {{>layouts/header}}
-    
-    
     <form method="post" action="tagAdd">
         <input type="hidden" name="question" value="{{questionForm.question}}" />
         <input type="hidden" name="area" value="{{questionForm.area}}" />
@@ -64,15 +62,6 @@
         <h2><b>#{{tagName}}</b></h2>
         {{/tagName}}
     </form>
-
-
-
-
-
-
-
-
-
 
 <!-- Swiper 1 -->
 <div class="swiper-container">
@@ -233,12 +222,11 @@
             {{/searchResult_5}}
 		</div>
 
-
-
 	</div>
 	<!-- Add Pagination -->
 	<div class="swiper-pagination"></div>
 </div>
+<div id="map_div"></div>
 </div>
 
 <!-- Swiper 2-->
@@ -406,10 +394,8 @@
 	<!-- Add Pagination -->
 	<div class="swiper-pagination"></div>
 </div>
+<div id="map_div2"></div>
 </div>
-
-
-
 
 	<script> // pagination 자바 스크립트
     document.addEventListener('DOMContentLoaded', function () {
@@ -437,7 +423,7 @@
         });
     });
 
-        // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
+    // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
     var slideLinks = document.querySelectorAll('.swiper-container .slide-link');
     slideLinks.forEach(function (link) {
         link.addEventListener('click', function (event) {
@@ -473,3 +459,111 @@ var newSpotarea = "{{{questionForm.area}}}" || null;
         }
     });
 </script>
+
+<!-- 위도/경도 데이터 입력받기 -->
+{{#locations}}
+    <input type="hidden" name="question" id="lon" value="{{lon}}" />
+    <input type="hidden" name="question" id="lat" value="{{lat}}" />
+{{/locations}}
+<script>
+  // 자바스크립트 코드 작성
+  const lonInputs = document.querySelectorAll('#lon');
+  const latInputs = document.querySelectorAll('#lat');
+
+  // 각 입력 요소의 값을 배열로 추출
+  const lonArray = Array.from(lonInputs).map(input => parseFloat(input.value));
+  const latArray = Array.from(latInputs).map(input => parseFloat(input.value));
+
+  // 생성된 배열(lonArray, latArray) 출력
+  console.log(lonArray);
+  console.log(latArray);
+
+  // 위도와 경도를 결합하여 locations 배열 생성
+  const locations = lonArray.map((lon, index) => {
+    return {lat: latArray[index], lon: lon};
+  });
+
+  // 생성된 배열(locations) 출력
+  console.log(locations);
+
+  // 배열 분할 → locationsTravel, locationsRestaruant
+  const locationsTravel = locations.slice(0, 5);
+  const locationsRestaruant = locations.slice(5, 10);
+
+  console.log(locationsTravel);
+  console.log(locationsRestaruant);
+</script>
+
+<!-- 구글 지도 API -->
+  <style>
+    #map_div {
+        width: 50%; /* 지도 폭 */
+        height: 675px; /* 지도 높이 */
+        margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
+        align: center;
+    }
+    #map_div2 {
+        width: 50%; /* 지도 폭 */
+        height: 675px; /* 지도 높이 */
+        margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
+        align: center;
+    }
+  </style>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ&callback=initMap"></script>
+  <script type="text/javascript">
+    function initMap() {
+        var mapOptions = {
+          zoom: 13,
+          center: {lat: 33.51411, lng: 126.489125}  // 제주도 중심
+        };
+
+      var map = new google.maps.Map(document.getElementById('map_div'), mapOptions);
+      var map2 = new google.maps.Map(document.getElementById('map_div2'), mapOptions);
+
+
+        // 여행지 마커에 대한 옵션
+        var travelMarkerOptions = {
+            url: '/blue_icon.png',
+            scaledSize: new google.maps.Size(50, 50) // 마커 크기 조정
+        };
+
+        // 음식점 마커에 대한 옵션
+        var restaurantMarkerOptions = {
+            url: '/red_icon.png',
+            scaledSize: new google.maps.Size(50, 50) // 마커 크기 조정
+        };
+
+        var bounds1 = new google.maps.LatLngBounds();
+        var bounds2 = new google.maps.LatLngBounds();
+        
+        // 여행지 마커 생성
+        for (var i = 0; i < locationsTravel.length; i++) {
+            var position = new google.maps.LatLng(locationsTravel[i].lat, locationsTravel[i].lon);
+            var marker = new google.maps.Marker({
+                position: position,
+                icon: travelMarkerOptions,
+                label: (i + 1).toString(),
+                map: map
+            });
+            bounds1.extend(marker.position);
+        }
+        map.fitBounds(bounds1); // 모든 마커가 보이도록 첫 번째 지도 뷰포트 조정
+
+        // 음식점 마커 생성
+        for (var i = 0; i < locationsRestaruant.length; i++) {
+            var position = new google.maps.LatLng(locationsRestaruant[i].lat, locationsRestaruant[i].lon);
+            var marker = new google.maps.Marker({
+                position: position,
+                icon: restaurantMarkerOptions,
+                label: (i + 1).toString(),
+                map: map2
+            });
+            bounds2.extend(marker.position);
+        }
+        map2.fitBounds(bounds2); // 모든 마커가 보이도록 두 번째 지도 뷰포트 조정
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+  </script>
+
+{{>layouts/footer}}

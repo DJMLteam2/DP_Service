@@ -12,6 +12,7 @@ from pydantic import BaseModel
 import os
 import time
 import random
+import dijkstra
 
 # 둘중 하나만 사용
 
@@ -129,8 +130,16 @@ def getAnswer(question: Question):
     except Exception as e:
         print(e)
     
+    st0, st1 = similar_tags[0], similar_tags[1]
+    travel_order, travel_distances = dijkstra.dijkstra(st0, start=0)
+    food_order, food_distances = dijkstra.dijkstra(st1, start=0)
     
-    return JSONResponse(content={"question": question.question, "recommend": similar_tags})
+    st0 = [st0[order] for order in travel_order]
+    st1 = [st1[order] for order in food_order]
+    
+    st = [st0, st1]
+    
+    return JSONResponse(content={"question": question.question, "recommend": st})
 
 
 
@@ -224,7 +233,7 @@ def getAnswer(question: Question):
         print(index,'and...',num)
     
     
-    return JSONResponse(content={"question": [question.question, morphed_question], "recommend": similar_tags})
+    return JSONResponse(content={"question": question.question, "recommend": similar_tags})
 
 
 @app.get("/test")

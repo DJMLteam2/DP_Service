@@ -1,6 +1,8 @@
 package com.dp.travel.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +78,16 @@ public class ViewController {
             FastAPIAnswerDTO searchResult = fastAPIAnswerDTOs.get(i);
             redirectAttributes.addFlashAttribute("searchResult_" + (i + 1), searchResult);
         }
+
+        List<HashMap<String, Object>> locations = new ArrayList<>();
+        for (FastAPIAnswerDTO dto : fastAPIAnswerDTOs) {
+            HashMap<String, Object> location = new HashMap<>();
+            location.put("lat", dto.getLat());
+            location.put("lon", dto.getLon());
+            locations.add(location);
+        }
+        redirectAttributes.addFlashAttribute("locations", locations);
+        System.out.println("jsonRecommendations created.");
         System.out.println("서비스로 돌아왔다");
         // 리디렉션
         return "redirect:/search";

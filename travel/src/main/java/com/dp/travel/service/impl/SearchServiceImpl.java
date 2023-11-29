@@ -32,9 +32,9 @@ public class SearchServiceImpl implements SearchService{
     private TravelRepository travelRepository;
 
     // 로컬용
-    // private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
+    private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
     // 도커 컴포즈용
-    private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
+    // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
 
 
     @Override
@@ -93,8 +93,6 @@ public class SearchServiceImpl implements SearchService{
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(response);
             JSONArray recommendArray = (JSONArray) jsonObject.get("recommend");
-            
-            
 
             for (int i = 0; i < recommendArray.size(); i++) {
                 JSONArray innerArray = (JSONArray) recommendArray.get(i);

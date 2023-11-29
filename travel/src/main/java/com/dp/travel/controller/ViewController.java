@@ -1,11 +1,10 @@
 package com.dp.travel.controller;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
-import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.util.HtmlUtils;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
 import com.dp.travel.data.dto.TravelDTO;
-import com.dp.travel.data.entity.Travel;
 import com.dp.travel.service.SearchService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,17 +27,16 @@ import lombok.extern.slf4j.Slf4j;
 public class ViewController {
 
     private final SearchService searchService;
-    private final ObjectMapper objectMapper;
 
     @Autowired
-    public ViewController(SearchService searchService, ObjectMapper objectMapper){
+    public ViewController(SearchService searchService){
         this.searchService = searchService;
-        this.objectMapper = objectMapper;
     }
 
     // main 페이지
     @GetMapping("/")
-    public String main() {
+    public String main(Model model) {
+        model.addAttribute("questionForm", new QuestionForm());
         return "travel/main";
     }
     // second 페이지
@@ -62,23 +56,27 @@ public class ViewController {
 
     // fastapi 연동하여 모델값 받아오기
     @PostMapping("/create")
-    public String answer(QuestionForm questionForm, RedirectAttributes redirectAttributes) {
-
+    public String answer(
+        @RequestParam(value = "imageValue", required = false) String imageText,
+        @ModelAttribute("questionForm") QuestionForm questionForm,
+        RedirectAttributes redirectAttributes) {
+        if (imageText != null) {
+            // "/mainImg" 엔드포인트의 경우 이미지 처리 로직 수행
+            questionForm = new QuestionForm(imageText, "전체");
+            log.info(questionForm.getArea());
+            log.info(questionForm.getQuestion());
+        }
         if (questionForm.getQuestion().isEmpty()){
             redirectAttributes.addFlashAttribute("errorMessage", "빈칸입니다! 하고싶은 여행을 작성해주세요!");
-
             return "redirect:/";
         }
-        
-        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);        
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);
         // Flash 속성 추가
         redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
         redirectAttributes.addFlashAttribute("questionForm", questionForm);
-        // System.out.println(fastAPIAnswerDTOs.size());
-
-        for (int i =0; i < fastAPIAnswerDTOs.size(); i++){
+        for (int i = 0; i < fastAPIAnswerDTOs.size(); i++) {
             FastAPIAnswerDTO searchResult = fastAPIAnswerDTOs.get(i);
-            redirectAttributes.addFlashAttribute("searchResult_"+(i+1), searchResult);                
+            redirectAttributes.addFlashAttribute("searchResult_" + (i + 1), searchResult);
         }
 
         List<HashMap<String, Object>> locations = new ArrayList<>();
@@ -91,7 +89,6 @@ public class ViewController {
         redirectAttributes.addFlashAttribute("locations", locations);
         System.out.println("jsonRecommendations created.");
         System.out.println("서비스로 돌아왔다");
-
         // 리디렉션
         return "redirect:/search";
     }
@@ -114,8 +111,26 @@ public class ViewController {
         for (int i =0; i < fastAPIAnswerDTOs.size(); i++){
             FastAPIAnswerDTO searchResult = fastAPIAnswerDTOs.get(i);
             redirectAttributes.addFlashAttribute("searchResult_"+(i+1), searchResult);
+            
+                
         }
 
+        return "redirect:/search";
+    }
+
+    @PostMapping("/mainImg")
+    public String imgAnswer(@RequestParam("imageValue") String imageText, RedirectAttributes redirectAttributes) {
+
+        QuestionForm questionForm = new QuestionForm(imageText, "전체");
+        log.info(questionForm.getArea());
+        log.info(questionForm.getQuestion());
+
+        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);
+
+        // Flash 속성 추가
+        redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
+        redirectAttributes.addFlashAttribute("questionForm", questionForm);
+        // 리디렉션
         return "redirect:/search";
     }
 }

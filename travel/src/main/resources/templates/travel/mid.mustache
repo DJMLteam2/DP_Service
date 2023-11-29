@@ -6,7 +6,6 @@
         <input type="hidden" name="area" value="{{questionForm.area}}" />
         <div class="Tag Container">
             <div id = "spot_tag" class= "spot_tag">
-                <span>관광지:</span>
                 <span id = "spot_tag_1">
                     <button type="submit" name="tagName" value="쇼핑">쇼핑</button>
                 </span>
@@ -24,7 +23,6 @@
                 </span>
             </div>
             <div id = "rest_tag" class= "rest_tag">
-                <span>음식점:</span>
                 <span id = "rest_tag_1">
                     <button type="submit" name="tagName" value="가성비맛집">가성비맛집</button>
                 </span>
@@ -42,7 +40,6 @@
                 </span>
             </div>
             <div id = "menu_tag" class= "menu_tag">
-                <span>메  뉴:</span>
                 <span id = "menu_tag_1">
                     <button type="submit" name="tagName" value="아메리카노">아메리카노</button>
                 </span>
@@ -60,9 +57,6 @@
                 </span>
             </div>
         </div>
-        {{#tagName}}
-        <h2><b>#{{tagName}}</b></h2>
-        {{/tagName}}
     </form>
 
 

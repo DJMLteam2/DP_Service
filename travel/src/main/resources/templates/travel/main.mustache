@@ -3,11 +3,6 @@
 
 
 
-
-
-
-
-
 <form id="imageForm" method="post" action="/create">
     <section class="tiles">
         <article class="style1">
@@ -51,8 +46,33 @@
             </span>
         </article> }}
     </section>
+    
     <input type="hidden" id="imageValueInput" name="imageValue" value="" />
 </form>
+
+
+
+
+
+<div class = "window">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a href="#" onclick="submitForm('주말엔 가족 나들이')"><img src="nad.jpg" alt="Slide 1"></div>
+            <div class="swiper-slide"><a href="#" onclick="submitForm('친구들과 바다 여행')"><img src="ocean.jpg" alt="Slide 2"></div>
+            <div class="swiper-slide"><a href="#" onclick="submitForm('해돋이 보러 가자')"><img src="sunrise.jpg" alt="Slide 3"></div>
+        </div>  
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    autoplay: {
+      delay: 5000, // 5초마다 자동으로 슬라이드
+    }
+  });
+</script>
 
 
 
@@ -65,4 +85,3 @@ function submitForm(imageValue) {
 }
 </script>
 
-{{>layouts/footer}}

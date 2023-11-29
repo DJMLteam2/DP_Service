@@ -1,0 +1,38 @@
+{{>layouts/detailHeader}}
+<div class="wrapper">
+    <div class="three">
+        <a href="/" id="header"><h1>My Travel</h1></a>
+    </div>
+<div class="product">
+    {{#travelDto}}
+    <div class="detail" style="float:left;">
+        <div class="header">
+        <h1>{{spotTitle}}</h1>
+    </div>
+    <div class="content">
+        <Span class="price">{{spotCatchTitle}}</Span>
+        <p id="description">{{spotOverview}}</p><br>
+        <span>{{spotDetail}}<span>
+    </p>
+    <div class="property">
+        <div class="item">
+            <div class="key">전화번호 : </div>
+            <div class="value">{{spotInfoCenter}}</div>
+        </div>
+        <div class="item">
+            <div class="key">주소 : </div>
+            <div class="value">{{spotAddr}}</div>
+        </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="btn-dark btn-block btn-small-text">지도보기</button>
+    </div>
+    </div>
+    <div class="image" style="float:right;">
+        <img id="dynamicImage" src="{{spotImgPath}}" />
+        <div class="arrows">
+    </div>
+    </div>
+    {{/travelDto}}
+</div>

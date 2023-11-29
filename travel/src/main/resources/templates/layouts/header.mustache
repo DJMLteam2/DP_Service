@@ -5,15 +5,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- 검색바 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Bootstrap search box or search panel like amazon.com"/>
+    <meta name="robots" content="index, follow"/>
+    <meta name="author" content="Satyendra Kumar Singh"/>
+
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <!-- 구글 폰트 api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
+    
+    <!-- pagination -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- 아이콘 api -->
+    <script src="https://use.fontawesome.com/releases/v6.4.2/js/all.js"></script>
+    <title>DP Travel</title>
+
+    
 
 <!-- Costom CSS -->
     <style>
+
+
 body {
-            background-color: #FFDFDE;          
+            background-color: white;
         }
 
 * {
@@ -21,68 +43,453 @@ body {
     color: #6A7BA2;
 }
 
+/* 로고 */
+.logo {
+    margin-top: 2%;
+    margin-left: 4%;
+    text-align: left;
+}
+
+.logo img {
+    width: 8%; /* 이미지가 부모 요소의 크기를 넘지 않도록 설정 */
+    height: auto;
+    opacity:0.7 /* 가로 세로 비율을 유지하면서 크기 조절 */
+}
+.btn-secondary {
+  height: 3rem;
+  background-color: #FFFFFF; /* 배경 색상을 변경할 부분 */
+  color: #333333;
+}
+.btn-secondary:hover {
+  background-color: #fbf0ff; /* 배경 색상을 변경할 부분 */
+  color: #333333; /* 텍스트 색상을 변경할 부분 */
+}
+.dropdown-item {
+    background-color: #fbf0ff;
+    color: #333333;
+}
+.dropdown-item:hover {
+    background-color: #fbf0ff;
+    color: #333333;
+}
+
+
+.btn-secondary.active,
+.btn-secondary:active,
+.btn-secondary:focus {
+  background-color: #fbf0ff; /* 클릭 시 배경 색상 변경 */
+  color: #333333; /* 클릭 시 텍스트 색상 변경 */
+}
+
+
 .btn-outline-success {
     min-width: 100px;
-    color: #6c757d;
-    border-color: #6c757d;
+    background-color: white;
+    color: #333333;
+    border-color: #333333;
+    border-width: 0.5px;
+    border-radius: 5px;
+    
+}
+#searchArea {
+    width: 60rem; /* 가로 크기 */
+    height: 3rem; /* 세로 크기 */
+    margin-right: 5px; /* 인풋 창과 검색 버튼 사이의 간격을 조절 */
+    margin-left: 5px;
 }
 
 .btn-outline-success:hover {
-    background-color: #000000;
-    border-color: #04B45F;
+    background-color: #fbf0ff;
+    color: #333333;
+    border-color: #333333;
+    border-width: 1px;
+}
+
+
+
+.error-message {
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin: 20px; /* 상하좌우 여백 조절 */
+    padding: 10px; /* 내부 여백 조절 */
+    border: 1px solid #ff0000; /* 테두리 스타일 및 색상 설정 */
+    background-color: #ffeeee; /* 배경색 설정 */
+    font-size: 20px;
+}
+
+
+/* 태그 배치 및 태그 버튼 스타일 */
+.Tag.Container {
+    text-align: center;
+    display: flex;
+    justify-content: center; /* 또는 다른 정렬 방법을 선택하세요 */
+}
+
+.Tag.Container button {
+    margin: 5px; /* 여백을 조절하려면 이 값을 조정하세요. */
+    display: inline-block;
+}
+
+.tag-group {
+    display: flex;
+    gap: 8px; /* 태그 간격 조절 */
+}
+
+#spot_tag button,
+#rest_tag button,
+#menu_tag button {
+    background-color: white; /* 배경색 */
+    color: #6A7BA2; /* 텍스트색 */
+    border: #333333; /* 테두리 없음 */
+    padding: 8px 8px; /* 내부 여백 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    text-decoration: none; /* 텍스트에 밑줄 없음 */
+    display: inline-block; /* 인라인 요소로 표시 */
+    font-size: 14px; /* 폰트 크기 */
+    margin: 4px 2px; /* 마진 설정 */
+    cursor: pointer; /* 커서 스타일 설정 */
+    border-radius: 10px; /* 둥근 테두리 */
+}
+/* 호버 효과 */
+#spot_tag button:hover{
+    background-color: #FFDFDE; /* 호버 시 배경색 변경 */
+}
+#rest_tag button:hover{
+    background-color: #EF4DA0; /* 호버 시 배경색 변경 */
+}
+#menu_tag button:hover {
+    background-color: #CBCE91; /* 호버 시 배경색 변경 */
+} 
+
+
+
+
+
+/* 검색바 */
+.searchcontainer {
+    margin-top: 2%;
+}
+
+
+  /* Style to create scroll bar in dropdown */
+.scrollable-dropdown {
+    /*width: 100%;  100% 너비로 조정 */
+    height: 100%
+    max-height: 360px;
+    overflow-x: hidden;
+}
+
+
+h2 {
+    
+    font-size: 2rem;
+	padding: 0;
+	margin: 15px 0 5px 5px;
+	color: black;
+    font-weight: bold;
+
+}
+h3 {
+	font-size: 1.4rem;
+	padding: 0;
+	margin: 0 0 5px 5px;
+	color: darkred;
+}
+p {
+	padding: 0;
+	margin: 0;
+	font-size: 0.7rem;
+	color: graytext;
+    overflow: hidden; /* 넘치는 부분을 감출 수 있도록 설정 */
+    text-overflow: ellipsis; 
+}
+
+h4 {
+	padding: 0;
+	margin-top: 10px;
+	font-size: 0.9rem;
+	color: graytext;
+    
+}
+
+span {
+    font-size: 0.9rem;
+}
+
+
+
+#imageForm {
+    display: flex;
+    justify-content: center;
+}
+/* 그리드 컨테이너 스타일 */
+#imageForm .tiles {
+    max-width:70%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 1px;
+    justify-content: center;
+    
+    margin-top: 50px;
+    grid-gap: 0.5px; /* 간격을 조절할 값으로 변경 */
+}
+#imageForm .tiles article {
+    position: relative;
+}
+
+#imageForm .tiles article h3 {
+    position: absolute;
+    top: 85%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+#imageForm .image img {
+    width: 90%;
+    height: 100%;
+    border-radius: 8px; /* 테두리의 둥글기 정도를 조절할 수 있습니다. */
+    overflow: hidden;
+    display: block; /* 가운데 정렬을 위해 블록 요소로 설정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 좌우 마진을 auto로 설정 */
+    transition: opacity 0.5s; /* 투명도 전환 효과를 부드럽게 적용 */
+        /* 이미지 어둡게 만들기 */
+    filter: brightness(0.7); /* 0.8은 어두운 정도를 나타내며, 1이 기본값입니다. 조절 가능 */
+
+    /* 이미지에 핑크빛 색조 추가 */
+    background-color: pink; /* 핑크빛 색조를 얻기 위해 배경색을 핑크로 설정 */
+    mix-blend-mode: multiply; /* 핑크 배경색을 이미지에 곱함으로써 핑크빛 효과 생성 */
+}
+
+
+/* hover 효과 추가 */
+#imageForm .image:hover img {
+    opacity: 0.3; /* 마우스 오버 시 투명도 조절 */
+}
+
+#imageForm h3 {
+    font-size: 1.9rem;
+    padding: 3px;
+    margin: 0px 0 10px 0;
+    font-weight: bold; /* 굵은 글씨 설정 */
     color: white;
-}
-
-.btn-outline-success.button {
-    min-width: 100px;
-    border-color: #6A7BA2;
-    background-color: #6A7BA2;
-}
-
-.no-underline {
+    text-align: center;
     text-decoration: none;
 }
 
-.bold-text {
-    font-weight: bold;
+nav {
+	margin: 15px auto 0;
+
+	position: relative;
+	width: 50rem;
+	height: 50px;
+	background-color: #949DDB;
+	border-radius: 8px;
+	font-size: 0;
+}
+nav a {
+	line-height: 50px;
+	height: 100%;
+	font-size: 15px;
+	display: inline-block;
+	position: relative;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+	z-index: 1;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+}
+nav .animation {
+	position: absolute;
+	height: 100%;
+	top: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+	z-index: 0;
+	transition: all .5s ease 0s;
+	border-radius: 8px;
+}
+a:nth-child(1) {
+	width: 100px;
+}
+a:nth-child(2) {
+	width: 110px;
+}
+a:nth-child(3) {
+	width: 100px;
+}
+a:nth-child(4) {
+	width: 160px;
+}
+a:nth-child(5) {
+	width: 120px;
+}
+nav .start-home, a:nth-child(1):hover~.animation {
+	width: 100px;
+	left: 0;
+	background-color: #1abc9c;
+}
+nav .start-about, a:nth-child(2):hover~.animation {
+	width: 110px;
+	left: 9rem;
+	background-color: #e74c3c;
+}
+nav .start-blog, a:nth-child(3):hover~.animation {
+	width: 100px;
+	left: 18rem;
+	background-color: #3498db;
+}
+nav .start-portefolio, a:nth-child(4):hover~.animation {
+	width: 160px;
+	left: 26rem;
+	background-color: #9b59b6;
+}
+nav .start-contact, a:nth-child(5):hover~.animation {
+	width: 120px;
+	left: 39rem;
+	background-color: #e67e22;
 }
 
-.intro-logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-    text-align: center;
+/* mid pagination 컨테이너 스타일 */
+
+.swiper-container {
+	width: 100%;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
-.intro-logo-container p {
-    margin: 5px 0;
-    font-size: 22px;
+.swiper-slide {
+	width: 400px;
+	height: 500px;
+	padding: 5px;
+    border-radius: 4px;
+}
+.swiper-head {
+    background-color: #fff;
+    width: 100%;
+    height: 40%;
 }
 
-.intro-logo-container img {
-    margin-top: 10px;
+.swiper-content {
+    background-color: #fff;
+    width: 100%;
+    height: 60%;
+    padding: 10px;
+}
+.swiper-container .slide-link {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크의 색상을 상속받음 */
 }
 
-table.table th,
-table.table td {
-    border: none;
+/* main 하단 슬라이드 틀 */
+.window {
+  display: block;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%; /* 부모 요소에 맞게 너비를 조절합니다 */
+  max-width: 1190px; /* 최대 너비를 1000px로 제한합니다 */
+  height: auto;
+  overflow: hidden; /* overflow 속성을 hidden으로 변경하여 스크롤바를 감춥니다 */
+  border-radius: 8px;
 }
 
-table.table th {
-    border-top: 2px solid #dee2e6;
+.window img {
+  width: 100%; /* 이미지가 부모 요소에 맞게 너비를 조절하도록 합니다 */
+  height: auto;
+  display: block; /* 이미지를 블록 요소로 만들어 가로 중앙 정렬을 쉽게 합니다 */
+  margin: 0 auto; /* 가로 중앙 정렬을 위해 margin을 사용합니다 */
+  border-radius: 8px;
 }
-    </style>
 
+
+/* 지도 CSS */
+.title-info-header .info-header {
+    font-size: 150%;
+    font-weight: bolder;
+    color: #6A7BA2;
+    margin-left: 8%; 
+}
+#map_div {
+    width: 50%; /* 부모 요소의 너비의 50% 사용 */
+    height: 675px; /* 지도 높이 */
+    left: 25%;
+    margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
+}
+#map_div2 {
+    width: 50%; /* 부모 요소의 너비의 50% 사용 */
+    height: 675px; /* 지도 높이 */
+    left: 25%;
+    margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
+}
+
+
+</style>
 </head>
 <body>
 
+<div class="logo">
+    <img src="logo.png" alt="" />
+</div>
 
-{{#msg}}
-<div class="alert alert-primary alert-dismissible">
-    {{msg}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"
+{{#errorMessage}}
+<div class="error-message">
+    {{errorMessage}}
+    <button type="button" class="btn-close m-1" data-bs-dismiss="alert"
             aria-label="Close"></button>
 </div>
-{{/msg}}
+{{/errorMessage}}
+
+
+
+
+<nav>
+	<a href="/">Home</a>
+	<a href="#">Like top5</a>
+	<a href="#">Dashboard</a>
+	<a href="https://github.com/DJMLteam2" target='_blank'>Github</a>
+	<a href="https://korean.visitkorea.or.kr/main/main.do" target='_blank'>Thanks to</a>
+	<div class="animation start-home"></div>
+</nav>
+
+
+
+
+
+
+
+
+    <form method="post" action="/create">
+        <div class="searchcontainer">
+            <section id="Search" class="Search-intro">
+                    <div class="form-group" style="display: flex; justify-content: center;">
+                    <div class="dropdown-center">
+                        <select class="btn btn-secondary dropdown-toggle" id="Area_Spot" name="area" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            지역선택
+                            <option class="dropdown-item" value="전체">전체</option>
+                            <option class="dropdown-item" value="서울">서울</option>
+                            <option class="dropdown-item" value="부산">부산</option>
+                            <option class="dropdown-item" value="인천">인천</option>
+                            <option class="dropdown-item" value="대전">대전</option>
+                            <option class="dropdown-item" value="대구">대구</option>
+                            <option class="dropdown-item" value="광주">광주</option>
+                            <option class="dropdown-item" value="울산">울산</option>
+                            <option class="dropdown-item" value="세종시">세종시</option>
+                            <option class="dropdown-item" value="경기">경기</option>
+                            <option class="dropdown-item" value="강원">강원</option>
+                            <option class="dropdown-item" value="충북">충북</option>
+                            <option class="dropdown-item" value="충남">충남</option>
+                            <option class="dropdown-item" value="경북">경북</option>
+                            <option class="dropdown-item" value="경남">경남</option>
+                            <option class="dropdown-item" value="전북">전북</option>
+                            <option class="dropdown-item" value="전남">전남</option>
+                            <option class="dropdown-item" value="제주">제주</option>                    
+                        </select>
+                    </div> 
+                        <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">                                    
+                    <button type="submit" class="btn-outline-success" >검색</button>
+                    </div>                
+            </section>
+        </div>
+    </form>

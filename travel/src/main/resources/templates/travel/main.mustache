@@ -1,0 +1,86 @@
+{{>layouts/header}}
+
+
+
+
+<form id="imageForm" method="post" action="/create">
+    <section class="tiles">
+        <article class="style1">
+            <span class="image">
+                <a href="#" onclick="submitForm('문화재')">
+                    <img src="mun.jpg" alt="" />
+                    <h3 class="caption">문화재</h3>
+                </a>
+            </span>
+        </article>
+        <article class="style2">
+            <span class="image">
+                <a href="#" onclick="submitForm('야경 좋은 곳')">
+                    <img src="night.jpg" alt="" />
+                    <h3 class="caption">야경</h3>
+                </a>
+            </span>
+        </article>
+        <article class="style3">
+            <span class="image">
+                <a href="#" onclick="submitForm('휴식하기 좋은 곳')">
+                    <img src="rest.jpg" alt="" />
+                    <h3 class="caption">휴식</h3>
+                </a>
+            </span>
+        </article>
+        <article class="style4">
+            <span class="image">
+                <a href="#" onclick="submitForm('산책하기 좋은 곳')">
+                    <img src="walk.jpg" alt="" />
+                    <h3 class="caption">산책</h3>
+                </a>
+            </span>
+        </article>
+        {{! <article class="style5">
+            <span class="image">
+                <a href="#" onclick="submitForm('해돋이')">
+                    <img src="sun.jpg" alt="" />
+                    <h3 class="caption">해돋이</h3>
+                </a>
+            </span>
+        </article> }}
+    </section>
+    
+    <input type="hidden" id="imageValueInput" name="imageValue" value="" />
+</form>
+
+
+
+
+
+<div class = "window">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><a href="#" onclick="submitForm('주말에는 나들이')"><img src="nad.jpg" alt="Slide 1"></div>
+            <div class="swiper-slide"><a href="#" onclick="submitForm('가족들과 바다 여행')"><img src="ocean.jpg" alt="Slide 2"></div>
+            <div class="swiper-slide"><a href="#" onclick="submitForm('새해맞이 해돋이')"><img src="sunrise.jpg" alt="Slide 3"></div>
+        </div>  
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    autoplay: {
+      delay: 5000, // 5초마다 자동으로 슬라이드
+    }
+  });
+</script>
+
+
+
+<script>
+function submitForm(imageValue) {
+    // 클릭한 이미지에 대한 값을 hidden 필드에 설정
+    document.getElementById('imageValueInput').value = imageValue;
+    // 폼 제출
+    document.getElementById('imageForm').submit();
+}
+</script>

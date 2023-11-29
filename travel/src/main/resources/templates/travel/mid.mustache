@@ -1,0 +1,557 @@
+{{>layouts/header}}
+    
+    
+    <form method="post" action="tagAdd">
+        <input type="hidden" name="question" value="{{questionForm.question}}" />
+        <input type="hidden" name="area" value="{{questionForm.area}}" />
+        <div class="Tag Container">
+            <div id = "spot_tag" class= "spot_tag">
+                <span id = "spot_tag_1">
+                    <button type="submit" name="tagName" value="쇼핑">쇼핑</button>
+                </span>
+                <span id = "spot_tag_2">
+                    <button type="submit" name="tagName" value="이색체험">이색체험</button>
+                </span>
+                <span id = "spot_tag_3">
+                    <button type="submit" name="tagName" value="역사">역사</button>
+                </span>
+                <span id = "spot_tag_4">
+                    <button type="submit" name="tagName" value="자연좋은곳">자연좋은곳</button>
+                </span>
+                <span id = "spot_tag_5">
+                    <button type="submit" name="tagName" value="휴식공간">휴식공간</button>
+                </span>
+            </div>
+            <div id = "rest_tag" class= "rest_tag">
+                <span id = "rest_tag_1">
+                    <button type="submit" name="tagName" value="가성비맛집">가성비맛집</button>
+                </span>
+                <span id = "rest_tag_2">
+                    <button type="submit" name="tagName" value="가족외식추천">가족외식추천</button>
+                </span>
+                <span id = "rest_tag_3">
+                    <button type="submit" name="tagName" value="데이트코스">데이트코스</button>
+                </span>
+                <span id = "rest_tag_4">
+                    <button type="submit" name="tagName" value="분위기좋은">분위기좋은</button>
+                </span>
+                <span id = "rest_tag_5">
+                    <button type="submit" name="tagName" value="나들이">나들이</button>
+                </span>
+            </div>
+            <div id = "menu_tag" class= "menu_tag">
+                <span id = "menu_tag_1">
+                    <button type="submit" name="tagName" value="아메리카노">아메리카노</button>
+                </span>
+                <span id = "menu_tag_2">
+                    <button type="submit" name="tagName" value="정식">정식</button>
+                </span>
+                <span id = "menu_tag_3">
+                    <button type="submit" name="tagName" value="파스타">파스타</button>
+                </span>
+                <span id = "menu_tag_4">
+                    <button type="submit" name="tagName" value="한우">한우</button>
+                </span>
+                <span id = "menu_tag_5">
+                    <button type="submit" name="tagName" value="갈비탕">갈비탕</button>
+                </span>
+            </div>
+        </div>
+    </form>
+
+
+
+<!-- Swiper 1 -->
+<div class="title-info-header">
+    <p class="info-header">여행지 ▼</p>
+</div>
+<div class="swiper-container">
+
+	<div class="swiper-wrapper">
+
+		<div class="swiper-slide">
+            {{#searchResult_1}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{title}}</h2>
+                    <h3>{{catchtitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                            <p style="text-align: left;">이용시간: {{useTime}}</p>
+                        </div>
+                    <h4 id="myText">{{overView}}...더보기</h4>
+                    <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_1}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_2}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{title}}</h2>
+                    <h3>{{catchtitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                            <p style="text-align: left;">이용시간: {{useTime}}</p>
+                        </div>
+                    <h4 id="myText">{{overView}}...더보기</h4>
+                    <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_2}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_3}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{title}}</h2>
+                    <h3>{{catchtitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                            <p style="text-align: left;">이용시간: {{useTime}}</p>
+                        </div>
+                    <h4 id="myText">{{overView}}...더보기</h4>
+                    <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_3}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_4}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{title}}</h2>
+                    <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                    <h4 id="myText">{{overView}}...더보기</h4>
+                    <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_4}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_5}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{title}}</h2>
+                    <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                    <h4 id="myText">{{overView}}...더보기</h4>
+                    <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_5}}
+		</div>
+
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+</div>
+<div id="map_div"></div>
+
+<!-- Swiper 2-->
+<hr>
+<div class="title-info-header">
+    <p class="info-header">맛집 ▼</p>
+</div>
+<div class="swiper-container">
+
+	<div class="swiper-wrapper">
+
+		<div class="swiper-slide">
+            {{#searchResult_6}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                    <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                <h2>{{title}}</h2>
+                <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                <h4 id="myText">{{overView}}...더보기</h4>
+                <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_6}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_7}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                    <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                <h2>{{title}}</h2>
+                <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                <h4 id="myText">{{overView}}...더보기</h4>
+                <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_7}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_8}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                    <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                <h2>{{title}}</h2>
+                <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                <h4 id="myText">{{overView}}...더보기</h4>
+                <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_8}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_9}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                    <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                <h2>{{title}}</h2>
+                <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                <h4 id="myText">{{overView}}...더보기</h4>
+                <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_9}}
+		</div>
+
+        
+		<div class="swiper-slide">
+            {{#searchResult_10}}
+            <div class="swiper-head" style="background: url({{imgPath}});
+                    background-size: cover;
+                    background-position: center;">
+            </div>
+            
+			<div class="swiper-content">
+                    <a href="/search/{{id}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{conLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{conRead}}</span>
+                        </div>
+                    </div>
+                <h2>{{title}}</h2>
+                <h3>{{catchtitle}}</h3>
+                    <div>
+                        <p style="display:inline; text-align: left;">주소: {{addr}}</p>
+                        <p style="display:inline; text-align: right; padding-left:30px">유사도:{{similarity}}</p>
+                        <p style="text-align: left;">이용시간: {{useTime}}</p>
+                    </div>
+                <h4 id="myText">{{overView}}...더보기</h4>
+                <p>{{treatMenu}}</p>
+                </a>
+            </div>
+            {{/searchResult_10}}
+		</div>
+
+
+
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+</div>
+<div id="map_div2"></div>
+</div>
+
+	<script> // pagination 자바 스크립트
+    document.addEventListener('DOMContentLoaded', function () {
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            autoplay: {
+            // 자동재생 여부
+                delay: 4000, // 시작시간 설정
+            },
+      
+            coverflowEffect: {
+                rotate: 35,
+                stretch: 0,
+                depth: 50,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    });
+
+    // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
+    var slideLinks = document.querySelectorAll('.swiper-container .slide-link');
+    slideLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            // 클릭 시에 기본 동작(링크 이동) 방지
+            event.preventDefault();
+            // 링크의 href 속성 값으로 페이지 이동
+            window.location.href = link.getAttribute('href');
+        });
+     });
+
+
+    </script>
+
+
+<script>  // 검색 값 남겨두기
+var newPlaceholder = "{{{questionForm.question}}}" || null;
+var newSpotarea = "{{{questionForm.area}}}" || null;
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ensure that the element is found
+        var areaSpot = document.getElementById("Area_Spot");
+        var searchArea = document.getElementById("searchArea");
+        console.log("js areaSpot:", areaSpot);
+        console.log("js newSpotarea:", newSpotarea);
+
+        // Set the value and check if it works
+        if (newSpotarea !== null && newSpotarea !== undefined) {
+            areaSpot.value = newSpotarea;
+            areaSpot.placeholder = newSpotarea;
+            searchArea.value = newPlaceholder;
+            searchArea.placeholder = newPlaceholder;
+            console.log("js Value set successfully.");
+        }
+    });
+</script>
+
+<!-- 위도/경도 데이터 입력받기 -->
+{{#locations}}
+    <input type="hidden" name="question" id="lon" value="{{lon}}" />
+    <input type="hidden" name="question" id="lat" value="{{lat}}" />
+{{/locations}}
+<script>
+  // 자바스크립트 코드 작성
+  const lonInputs = document.querySelectorAll('#lon');
+  const latInputs = document.querySelectorAll('#lat');
+
+  // 각 입력 요소의 값을 배열로 추출
+  const lonArray = Array.from(lonInputs).map(input => parseFloat(input.value));
+  const latArray = Array.from(latInputs).map(input => parseFloat(input.value));
+
+  // 생성된 배열(lonArray, latArray) 출력
+  console.log(lonArray);
+  console.log(latArray);
+
+  // 위도와 경도를 결합하여 locations 배열 생성
+  const locations = lonArray.map((lon, index) => {
+    return {lat: latArray[index], lon: lon};
+  });
+
+  // 생성된 배열(locations) 출력
+  console.log(locations);
+
+  // 배열 분할 → locationsTravel, locationsRestaruant
+  const locationsTravel = locations.slice(0, 5);
+  const locationsRestaruant = locations.slice(5, 10);
+
+  console.log(locationsTravel);
+  console.log(locationsRestaruant);
+</script>
+
+<!-- 구글 지도 API -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ&callback=initMap"></script>
+  <script type="text/javascript">
+    function initMap() {
+        var mapOptions = {
+          zoom: 13,
+          center: {lat: 33.51411, lng: 126.489125}  // 제주도 중심
+        };
+
+      var map = new google.maps.Map(document.getElementById('map_div'), mapOptions);
+      var map2 = new google.maps.Map(document.getElementById('map_div2'), mapOptions);
+
+
+        // 여행지 마커에 대한 옵션
+        var travelMarkerOptions = {
+            url: '/blue_icon.png',
+            scaledSize: new google.maps.Size(50, 50) // 마커 크기 조정
+        };
+
+        // 음식점 마커에 대한 옵션
+        var restaurantMarkerOptions = {
+            url: '/red_icon.png',
+            scaledSize: new google.maps.Size(50, 50) // 마커 크기 조정
+        };
+
+        var bounds1 = new google.maps.LatLngBounds();
+        var bounds2 = new google.maps.LatLngBounds();
+        
+        // 여행지 마커 생성
+        for (var i = 0; i < locationsTravel.length; i++) {
+            var position = new google.maps.LatLng(locationsTravel[i].lat, locationsTravel[i].lon);
+            var marker = new google.maps.Marker({
+                position: position,
+                icon: travelMarkerOptions,
+                label: (i + 1).toString(),
+                map: map
+            });
+            bounds1.extend(marker.position);
+        }
+        map.fitBounds(bounds1); // 모든 마커가 보이도록 첫 번째 지도 뷰포트 조정
+
+        // 음식점 마커 생성
+        for (var i = 0; i < locationsRestaruant.length; i++) {
+            var position = new google.maps.LatLng(locationsRestaruant[i].lat, locationsRestaruant[i].lon);
+            var marker = new google.maps.Marker({
+                position: position,
+                icon: restaurantMarkerOptions,
+                label: (i + 1).toString(),
+                map: map2
+            });
+            bounds2.extend(marker.position);
+        }
+        map2.fitBounds(bounds2); // 모든 마커가 보이도록 두 번째 지도 뷰포트 조정
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+  </script>

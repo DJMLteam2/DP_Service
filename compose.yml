@@ -18,12 +18,13 @@ services:
       context: ./travel
       dockerfile: Dockerfile
     image: spring_boot
-    volumes:
-      - ./travel/target:/app
+    # volumes:
+    #   - ./travel/target:/app
     ports:
       - "8080:8080"
     # depends_on:
     #   - mysql
+    container_name: spring_boot
     networks:
       - dp_service_backend_network
 
@@ -35,9 +36,10 @@ services:
     # volumes:
     #   - ./python:/app
     ports:
-      - "3000:3000"
+      - "4000:4000"
     depends_on:
       - spring_boot_app
+    container_name: fast_api
     networks:
       - dp_service_backend_network
 

@@ -45,7 +45,7 @@ body {
 
 /* 로고 */
 .logo {
-    margin-top: 3%;
+    margin-top: 2%;
     margin-left: 4%;
     text-align: left;
 }
@@ -131,7 +131,7 @@ body {
 
 .tag-group {
     display: flex;
-    gap: 10px; /* 태그 간격 조절 */
+    gap: 8px; /* 태그 간격 조절 */
 }
 
 #spot_tag button,
@@ -161,16 +161,13 @@ body {
 } 
 
 
-.form-group {
-    width: 100%;
-    display: flex;
+
+
+
+/* 검색바 */
+.searchcontainer {
+    margin-top: 2%;
 }
-
-
-.container {
-    margin-top: 3%;
-}
-
 
 
   /* Style to create scroll bar in dropdown */
@@ -385,13 +382,12 @@ nav .start-contact, a:nth-child(5):hover~.animation {
     color: inherit; /* 링크의 색상을 상속받음 */
 }
 
-
+/* main 하단 슬라이드 틀 */
 .window {
   display: block;
-  margin-top: 20px;
+  margin-top: 0px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px:
   width: 100%; /* 부모 요소에 맞게 너비를 조절합니다 */
   max-width: 1190px; /* 최대 너비를 1000px로 제한합니다 */
   height: auto;
@@ -405,6 +401,26 @@ nav .start-contact, a:nth-child(5):hover~.animation {
   display: block; /* 이미지를 블록 요소로 만들어 가로 중앙 정렬을 쉽게 합니다 */
   margin: 0 auto; /* 가로 중앙 정렬을 위해 margin을 사용합니다 */
   border-radius: 8px;
+}
+
+
+/* 지도 CSS */
+.title-info-header .info-header {
+    font-size: 150%;
+    font-weight: bolder;
+    margin-left: 8%; 
+}
+#map_div {
+    width: 50%; /* 부모 요소의 너비의 50% 사용 */
+    height: 675px; /* 지도 높이 */
+    left: 25%;
+    margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
+}
+#map_div2 {
+    width: 50%; /* 부모 요소의 너비의 50% 사용 */
+    height: 675px; /* 지도 높이 */
+    left: 25%;
+    margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
 }
 
 
@@ -443,12 +459,10 @@ nav .start-contact, a:nth-child(5):hover~.animation {
 
 
 
-
-
     <form method="post" action="/create">
-        <div class="search container">
+        <div class="searchcontainer">
             <section id="Search" class="Search-intro">
-                    <div class="form-group" style="display: flex;">
+                    <div class="form-group" style="display: flex; justify-content: center;">
                     <div class="dropdown-center">
                         <select class="btn btn-secondary dropdown-toggle" id="Area_Spot" name="area" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             지역선택
@@ -469,11 +483,7 @@ nav .start-contact, a:nth-child(5):hover~.animation {
                             <option class="dropdown-item" value="경남">경남</option>
                             <option class="dropdown-item" value="전북">전북</option>
                             <option class="dropdown-item" value="전남">전남</option>
-                            <option class="dropdown-item" value="제주">제주</option>
-                            
-
-                       
-
+                            <option class="dropdown-item" value="제주">제주</option>                    
                         </select>
                     </div> 
                         <input type="text" class="form-control" id="searchArea" name="question" placeholder="어떤 곳을 찾고 있나요?">                                    
@@ -482,7 +492,3 @@ nav .start-contact, a:nth-child(5):hover~.animation {
             </section>
         </div>
     </form>
-
-
-
-

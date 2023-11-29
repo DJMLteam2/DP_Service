@@ -1,6 +1,5 @@
 {{>layouts/header}}
     
-    
     <form method="post" action="tagAdd">
         <input type="hidden" name="question" value="{{questionForm.question}}" />
         <input type="hidden" name="area" value="{{questionForm.area}}" />
@@ -64,15 +63,6 @@
         <h2><b>#{{tagName}}</b></h2>
         {{/tagName}}
     </form>
-
-
-
-
-
-
-
-
-
 
 <!-- Swiper 1 -->
 <div class="swiper-container">
@@ -140,7 +130,6 @@
             {{/searchResult_2}}
 		</div>
 
-        
 		<div class="swiper-slide">
             {{#searchResult_3}}
             <div class="swiper-head" style="background: url({{imgPath}});

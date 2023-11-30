@@ -12,7 +12,18 @@ services:
     #   - ./mysql_data:/var/lib/mysql
     # networks:
     #   - dp_service_backend_network
+  airflow_app:
+    build:
+      context: ./airflow
+      dockerfile: Dockerfile
+    image: airflow
+    ports:
+      5000:5000
+    container_name: airflow
+    networks:
+      - dp_service_backend_network
 
+      
   spring_boot_app:
     build:
       context: ./travel

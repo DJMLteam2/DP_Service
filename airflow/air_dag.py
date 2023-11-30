@@ -146,12 +146,15 @@ def crawl_and_insert_to_db():
                     continue
 
             result = pd.concat([result, pd.DataFrame(bag)], ignore_index=True)
+            result2 = pd.concat([result, pd.DataFrame(bag)], ignore_index=True)
     print('crawling done!')
 
 
     df = result
-    df2 = result.copy()
+    df2 = result2
     df2['city'] = '전체'
+    df2['id'] = df2['id'].apply(lambda x: x*10) # 전체의 id는 기본값 *10으로 구분
+
     joined_df = pd.concat([df,df2], axis=0, ignore_index=True)
 
     port = PORT
@@ -159,6 +162,7 @@ def crawl_and_insert_to_db():
     user = USER
     password = PASSWD
     database = NAME
+    charset = 'utf8mb4'
     
     conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
 

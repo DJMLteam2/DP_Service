@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
+import com.dp.travel.data.dto.TagDTO;
 import com.dp.travel.data.dto.TravelDTO;
 import com.dp.travel.service.SearchService;
 
@@ -40,7 +41,9 @@ public class ViewController {
     }
     // second 페이지
     @GetMapping("/search")
-    public String search() {
+    public String search(Model model) {
+        List<TagDTO> tagDTOs = searchService.randomTag();
+        model.addAttribute("Tags", tagDTOs);
         return "travel/mid";
     }
     // 상세 페이지

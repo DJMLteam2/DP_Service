@@ -13,21 +13,43 @@ import os
 import time
 import random
 import dijkstra
+import pymysql
 
 # 둘중 하나만 사용
 
-
+# file path
 ###################################################################################
-# path 
+
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
-df_path = os.path.join(current_dir, 'travel_spot_v1.csv')
+# df_path = os.path.join(current_dir, 'travel_spot_v1.csv') sql로 변경
+
 model_path = os.path.join(current_dir, 'travel_model_v4.pkl')
+info_path = os.path.join(current_dir, 'DB_INFO.pkl')
 
 ###################################################################################
 
+with open(info_path, "rb") as file:
+    USER = pickle.load(file)
+    PASSWD = pickle.load(file)
+    HOST = pickle.load(file)
+    PORT = pickle.load(file)
+    NAME = pickle.load(file)
 
+# pymysql로 dataFrame 호출
 
-df = pd.read_csv(df_path, index_col=0)
+host = HOST
+user = USER
+password = PASSWD
+database = NAME
+charset = 'utf8mb4'
+
+conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
+sql = "select * from TRAVEL_SPOT"
+cursor = conn.cursor()
+cursor.execute(sql)
+df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
+
 
 okt = Okt()
 app = FastAPI()

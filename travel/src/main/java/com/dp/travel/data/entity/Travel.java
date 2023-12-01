@@ -80,8 +80,7 @@ public class Travel {
     @Column(name = "SPOT_LAT")
     private Double SPOT_LAT;
 
-
-     // TravelDTO로 변환하는 메서드
+    // TravelDTO로 변환하는 메서드
     public TravelDTO toDTO(Travel travel) {
         TravelDTO dto = new TravelDTO();
         dto.setSpotId(this.SPOT_ID);
@@ -131,5 +130,9 @@ public class Travel {
         entity.SPOT_LON = dto.getSpotLon();
         entity.SPOT_LAT = dto.getSpotLat();
         return entity;
+    }
+
+    public Object toDTO() {
+        return null;
     }
 }

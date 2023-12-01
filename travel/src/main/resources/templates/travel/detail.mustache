@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="footer">
-        <button class="btn-dark btn-block btn-small-text">지도보기</button>
+        <button id="openMap" data-spot-id="{{spotId}}" class="btn btn-dark btn-block" onclick="openMap(this)">지도 보기</button>
     </div>
     </div>
     <div class="image" style="float:right;">
@@ -36,3 +36,16 @@
     </div>
     {{/travelDto}}
 </div>
+
+<script>
+    function openMap(button) {
+        // 버튼의 data-spot-id 속성 값 읽기
+        let spotId = button.getAttribute('data-spot-id');
+    
+        let popOption = "width=650px, height=550px, top=300px, left=300px, scrollbars=no";
+        let openUrl = "/travel/search/map/" + spotId;
+    
+        window.open(openUrl, "pop", popOption);
+        console.log("메시지: 클릭됨");
+    }
+</script>

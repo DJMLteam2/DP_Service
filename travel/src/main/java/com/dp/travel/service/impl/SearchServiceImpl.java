@@ -41,11 +41,11 @@ public class SearchServiceImpl implements SearchService{
     private TagRepository tagRepository;
 
     // 로컬용
-    // private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
+    private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
     // 도커 컴포즈용
     // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
     // 도커 AWS용
-    private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
+    // private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
 
     @Autowired
     public SearchServiceImpl(TravelRepository travelRepository, TagRepository tagRepository){

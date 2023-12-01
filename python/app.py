@@ -13,43 +13,28 @@ import os
 import time
 import random
 import dijkstra
-import pymysql
+import datetime
+
+now = datetime.datetime.now()
+month = now.month
+day = now.day
+date = month+day
+
 
 # 둘중 하나만 사용
 
-# file path
+
 ###################################################################################
-
-
+# path 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# df_path = os.path.join(current_dir, 'travel_spot_v1.csv') sql로 변경
-
-model_path = os.path.join(current_dir, 'travel_model_v4.pkl')
-info_path = os.path.join(current_dir, 'DB_INFO.pkl')
+df_path = os.path.join(current_dir, f'travel_model_{date}.pkl')
+model_path = os.path.join(current_dir, f'travel_data_{date}.pkl')
 
 ###################################################################################
 
-with open(info_path, "rb") as file:
-    USER = pickle.load(file)
-    PASSWD = pickle.load(file)
-    HOST = pickle.load(file)
-    PORT = pickle.load(file)
-    NAME = pickle.load(file)
 
-# pymysql로 dataFrame 호출
 
-host = HOST
-user = USER
-password = PASSWD
-database = NAME
-charset = 'utf8mb4'
-
-conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
-sql = "select * from TRAVEL_SPOT"
-cursor = conn.cursor()
-cursor.execute(sql)
-df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
-
+df = pd.read_csv(df_path, index_col=0)
 
 okt = Okt()
 app = FastAPI()
@@ -139,7 +124,9 @@ def getAnswer(question: Question):
     cos_similarities_food = linear_kernel(question_food, city_food)
     sorted_indices_food = np.argsort(cos_similarities_food[0])[::-1][:5]
 
-     
+    
+    print(len(cos_similarities_spot[0]))
+    print(len(cos_similarities_food[0]))
     # 결과를 저장할 리스트 초기화
     similar_tags = []
 

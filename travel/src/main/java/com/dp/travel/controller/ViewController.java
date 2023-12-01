@@ -111,9 +111,18 @@ public class ViewController {
         for (int i =0; i < fastAPIAnswerDTOs.size(); i++){
             FastAPIAnswerDTO searchResult = fastAPIAnswerDTOs.get(i);
             redirectAttributes.addFlashAttribute("searchResult_"+(i+1), searchResult);
-            
-                
         }
+        
+        // 지도
+        List<HashMap<String, Object>> locations = new ArrayList<>();
+        for (FastAPIAnswerDTO dto : fastAPIAnswerDTOs) {
+            HashMap<String, Object> location = new HashMap<>();
+            location.put("lat", dto.getLat());
+            location.put("lon", dto.getLon());
+            locations.add(location);
+        }
+        redirectAttributes.addFlashAttribute("locations", locations);
+        System.out.println("jsonRecommendations created.");
 
         return "redirect:/search";
     }

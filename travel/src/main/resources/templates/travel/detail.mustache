@@ -34,5 +34,56 @@
         <div class="arrows">
     </div>
     </div>
+    
     {{/travelDto}}
 </div>
+<div id="map_div3"></div>
+
+{{#travelDto}}
+    <input type="hidden" name="question" id="long" value="{{spotLon}}" />
+    <input type="hidden" name="question" id="lati" value="{{spotLat}}" />
+{{/travelDto}}
+
+<script>
+    const lonInput = document.getElementById('long');
+    const latInput = document.getElementById('lati');
+    
+    // 입력 요소의 값을 추출
+    var longitude = parseFloat(lonInput.value);
+    var latitude = parseFloat(latInput.value);
+    
+    console.log(longitude, latitude);
+</script>
+
+<!-- 구글 지도 API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ&callback=initMap"></script>
+<script type="text/javascript">
+function initMap() {
+    var mapOptions = {
+        zoom: 13,
+        center: {lat: 33.51411, lng: 126.489125}  // 제주도 중심
+    };
+
+    var map = new google.maps.Map(document.getElementById('map_div3'), mapOptions);
+    
+    // 마커에 대한 옵션
+    var markerOptions = {
+        url: '/red_icon2.png',
+        scaledSize: new google.maps.Size(50, 50) // 마커 크기 조정
+    };
+    
+    console.log(latitude, longitude);
+
+    var bounds1 = new google.maps.LatLngBounds();
+    var position = new google.maps.LatLng(latitude, longitude);
+    var marker = new google.maps.Marker({
+        position: position,
+        icon: markerOptions,
+        map: map
+    });
+    bounds1.extend(marker.position);
+    map.fitBounds(bounds1); // 모든 마커가 보이도록 첫 번째 지도 뷰포트 조정
+
+}
+google.maps.event.addDomListener(window, 'load', initMap);
+</script>

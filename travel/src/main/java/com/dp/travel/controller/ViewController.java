@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
+import com.dp.travel.data.dto.TagDTO;
 import com.dp.travel.data.dto.TravelDTO;
 import com.dp.travel.service.SearchService;
 
@@ -40,7 +41,9 @@ public class ViewController {
     }
     // second 페이지
     @GetMapping("/search")
-    public String search() {
+    public String search(Model model) {
+        List<TagDTO> tagDTOs = searchService.randomTag();
+        model.addAttribute("Tags", tagDTOs);
         return "travel/mid";
     }
     // 상세 페이지
@@ -94,6 +97,16 @@ public class ViewController {
         return "redirect:/search";
     }
 
+    // 지도 팝업
+    @GetMapping("/travel/search/map/{id}")
+    public String map(Model model, @PathVariable Long id) {
+        TravelDTO map = searchService.searchInfo(id);
+        model.addAttribute("travelDto", map);
+        System.out.println(map);
+        return "travel/map";
+    }
+
+
     @PostMapping("/tagAdd")
     public String tagAnswer(QuestionForm questionForm, String tagName, RedirectAttributes redirectAttributes){
 
@@ -126,22 +139,6 @@ public class ViewController {
 
         return "redirect:/search";
     }
-
-    @PostMapping("/mainImg")
-    public String imgAnswer(@RequestParam("imageValue") String imageText, RedirectAttributes redirectAttributes) {
-
-        QuestionForm questionForm = new QuestionForm(imageText, "전체");
-        log.info(questionForm.getArea());
-        log.info(questionForm.getQuestion());
-
-        List<FastAPIAnswerDTO> fastAPIAnswerDTOs = searchService.searchViewController(questionForm, null);
-
-        // Flash 속성 추가
-        redirectAttributes.addFlashAttribute("searchResults", fastAPIAnswerDTOs);
-        redirectAttributes.addFlashAttribute("questionForm", questionForm);
-        // 리디렉션
-        return "redirect:/search";
-    }
-
+  
     
 }

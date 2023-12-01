@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #map_div3 {
+            width: 700px;
+            height: 700px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="map_div3"></div>
+</body>
+</html>
+
+{{#travelDto}}
+    <input type="hidden" name="question" id="long" value="{{spotLon}}" />
+    <input type="hidden" name="question" id="lati" value="{{spotLat}}" />
+
+
+<script>
+    const lonInput = document.getElementById('long');
+    const latInput = document.getElementById('lati');
+    
+    // 입력 요소의 값을 추출
+    var longitude = parseFloat(lonInput.value);
+    var latitude = parseFloat(latInput.value);
+    
+    console.log(longitude, latitude);
+</script>
+
+<script>
+    const mapDiv = document.getElementById('map_div3');
+    console.log(mapDiv);
+</script>
+
+<!-- 구글 지도 API -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4W5ZK4DTY0KlG6e7-gVAQdWY0yGdoseQ&callback=initMap"></script>
+<script type="text/javascript">
+function initMap() {
+    // Mustache 템플릿에서 사용하는 변수
+    var latitude = parseFloat("{{spotLat}}");
+    var longitude = parseFloat("{{spotLon}}");
+    var mapOptions = {
+        zoom: 13,
+        center: {lat: 33.51411, lng: 126.489125}  // 제주도 중심
+    };
+    var map = new google.maps.Map(document.getElementById('map_div3'), mapOptions);
+    
+    // 마커에 대한 옵션
+    var markerOptions = {
+        url: '/red_icon.png',
+        scaledSize: new google.maps.Size(50, 50) // 마커 크기 조정
+    };
+    
+    console.log(latitude, longitude);
+    var bounds1 = new google.maps.LatLngBounds();
+    var position = new google.maps.LatLng(latitude, longitude);
+    var marker = new google.maps.Marker({
+        position: position,
+        icon: markerOptions,
+        map: map
+    });
+    bounds1.extend(marker.position);
+    // 원하는 확대 수준으로 직접 지정
+    map.setZoom(18);
+    map.panTo(position); // 모든 마커가 보이도록 뷰포트 조정 
+}
+google.maps.event.addDomListener(window, 'load', initMap);
+</script>
+{{/travelDto}}

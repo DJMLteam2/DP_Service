@@ -1,12 +1,12 @@
 package com.dp.travel.data.repository;
 
-import org.springframework.data.domain.PageRequest;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import com.dp.travel.data.entity.Travel;
 
-import java.util.List;
+import com.dp.travel.data.entity.Travel;
 
 public interface TravelRepository extends JpaRepository<Travel, Long> {
 
@@ -18,6 +18,7 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     @Query("Select t FROM Travel t where t.SPOT_TITLE=:SpotTitle")
     Travel queryBySpotTitle(@Param("SpotTitle") String SpotTitle);
 
-    @Query("SELECT DISTINCT t FROM Travel t WHERE t.SPOT_TAGNAME LIKE %:tag% ORDER BY t.SPOT_CONLIKE DESC")
-    List<Travel> findtop5(@Param("tag") String tag, PageRequest pageable);
+    @Query(value = "SELECT * FROM TRAVEL_SPOT t ORDER BY t.SPOT_CONREAD DESC, t.SPOT_CONLIKE DESC LIMIT 12", nativeQuery = true)
+    List<Travel> queryByTop10();
+
 }

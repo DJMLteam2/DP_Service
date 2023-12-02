@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,4 +30,8 @@ public class TravelDTO {
     private String spotDetail;
     private Double spotLon;
     private Double spotLat;
+
+    public TravelDTO get(int i) {
+        return null;
+    }
 }

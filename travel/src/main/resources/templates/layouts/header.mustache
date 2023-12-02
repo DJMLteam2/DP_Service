@@ -105,8 +105,6 @@ body {
     border-width: 1px;
 }
 
-
-
 .error-message {
     text-align: center; /* 텍스트 가운데 정렬 */
     margin: 20px; /* 상하좌우 여백 조절 */
@@ -115,7 +113,6 @@ body {
     background-color: #ffeeee; /* 배경색 설정 */
     font-size: 20px;
 }
-
 
 /* 태그 배치 및 태그 버튼 스타일 */
 .Tag.Container {
@@ -158,11 +155,7 @@ body {
 }
 #menu_tag button:hover {
     background-color: #CBCE91; /* 호버 시 배경색 변경 */
-} 
-
-
-
-
+}
 
 /* 검색바 */
 .searchcontainer {
@@ -360,8 +353,8 @@ nav .start-contact, a:nth-child(5):hover~.animation {
 }
 
 .swiper-slide {
-	width: 400px;
-	height: 500px;
+	width: 300px;
+	height: 400px;
 	padding: 5px;
     border-radius: 4px;
 }
@@ -423,7 +416,28 @@ nav .start-contact, a:nth-child(5):hover~.animation {
     left: 25%;
     margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
 }
-
+.text-wrapper {
+            width : 350px;
+        }
+        .text {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 보여줄 최대 줄 수 */
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis; /* 텍스트가 자르는 부분에 "..." 추가 */
+        }
+        .more-text {
+            font-size: 16px;
+            color: pink;
+            cursor: pointer;
+            display: none;
+        }
+        .less-text {
+            font-size: 16px;
+            color: blue;
+            cursor: pointer;
+            display: none;
+        }
 
 </style>
 </head>

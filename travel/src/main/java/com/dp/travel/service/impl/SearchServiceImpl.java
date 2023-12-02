@@ -3,20 +3,18 @@ package com.dp.travel.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.data.domain.Sort;
 
 import com.dp.travel.data.dto.FastAPIAnswerDTO;
 import com.dp.travel.data.dto.QuestionForm;
@@ -32,19 +30,14 @@ import lombok.extern.slf4j.Slf4j;
 public class SearchServiceImpl implements SearchService {
 
     private final TravelRepository travelRepository;
+    private final ConversionService conversionService;
 
     @Autowired
-    public SearchServiceImpl(TravelRepository travelRepository) {
+    public SearchServiceImpl(TravelRepository travelRepository, ConversionService conversionService) {
         this.travelRepository = travelRepository;
+        this.conversionService = conversionService;
     }
 
-    // 로컬용
-    // private static final String FASTAPI_MODEL_URL =
-    // "http://localhost:4000/getAnswer";
-    // 도커 컴포즈용
-    // private static final String FASTAPI_MODEL_URL =
-    // "http://fast_api_app:4000/getAnswer";
-    // 도커 AWS용
     private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
 
     @Override
@@ -57,18 +50,33 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public List<TravelDTO> findtop5_Info(String tag) {
-        // 상위 5개의 정보를 가져오기 위한 Pageable 객체 생성
-        PageRequest pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "SPOT_CONLIKE"));
+    public List<TravelDTO> queryByTop10() {
+        List<Travel> travels = travelRepository.queryByTop10();
+        List<TravelDTO> travelDTOs = new ArrayList<>();
 
-        // 태그에 해당하는 여행 정보를 데이터베이스에서 검색
-        List<Travel> travels = travelRepository.findtop5(tag, pageable);
+        for (Travel travel : travels) {
+            TravelDTO travelDTO = new TravelDTO();
+            travelDTO.setSpotId(travel.getSPOT_ID());
+            travelDTO.setSpotCity(travel.getSPOT_CITY());
+            travelDTO.setSpotCityCode(travel.getSPOT_CITY_CODE());
+            travelDTO.setSpotCityContentType(travel.getSPOT_CITY_CONTENT_TYPE());
+            travelDTO.setSpotTitle(travel.getSPOT_TITLE());
+            travelDTO.setSpotCatchTitle(travel.getSPOT_CATCHTITLE());
+            travelDTO.setSpotOverview(travel.getSPOT_OVERVIEW());
+            travelDTO.setSpotTreatMenu(travel.getSPOT_TREATMENU());
+            travelDTO.setSpotConLike(travel.getSPOT_CONLIKE());
+            travelDTO.setSpotConRead(travel.getSPOT_CONREAD());
+            travelDTO.setSpotConShare(travel.getSPOT_CONSHARE());
+            travelDTO.setSpotImgPath(travel.getSPOT_IMGPATH());
+            travelDTO.setSpotAddr(travel.getSPOT_ADDR());
+            travelDTO.setSpotInfoCenter(travel.getSPOT_INFOCENTER());
+            travelDTO.setSpotParking(travel.getSPOT_PARKING());
+            travelDTO.setSpotUseTime(travel.getSPOT_USETIME());
+            travelDTO.setSpotTagName(travel.getSPOT_TAGNAME());
+            travelDTO.setSpotDetail(travel.getSPOT_DETAIL());
 
-        // 검색 결과를 TravelDTO 객체 리스트로 변환
-        List<TravelDTO> travelDTOs = travels.stream()
-                .map(travel -> (TravelDTO) travel.toDTO())
-                .collect(Collectors.toList());
-
+            travelDTOs.add(travelDTO);
+        }
         return travelDTOs;
     }
 

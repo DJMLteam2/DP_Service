@@ -12,5 +12,6 @@ public interface SearchService {
 
     TravelDTO searchInfo(Long id);
 
-    List<TravelDTO> findtop5_Info(String tag);
+    List<TravelDTO> queryByTop10();
+
 }

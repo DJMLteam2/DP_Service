@@ -46,13 +46,349 @@
     
     <input type="hidden" id="imageValueInput" name="imageValue" value="" />
 </form>
+<!-- 데이터 베이스 추천 -->
+<div class="title-info-header">
+    <p class="info-header">여행지 1~10위 ▼</p>
+</div>
+<div class="swiper-container">
 
+	<div class="swiper-wrapper">
+        <div class="swiper-slide">
+            {{#top10_1}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_1}}
+		</div>
+    
+		<div class="swiper-slide">
+            {{#top10_2}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_2}}
+		</div>
 
+		<div class="swiper-slide">
+            {{#top10_3}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_3}}
+		</div>
 
+		<div class="swiper-slide">
+            {{#top10_4}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_4}}
+		</div>
 
+		<div class="swiper-slide">
+            {{#top10_5}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_5}}
+		</div>
+
+		<div class="swiper-slide">
+            {{#top10_6}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_6}}
+		</div>
+
+		<div class="swiper-slide">
+            {{#top10_7}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_7}}
+		</div>
+
+		<div class="swiper-slide">
+            {{#top10_8}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_8}}
+		</div>
+
+		<div class="swiper-slide">
+            {{#top10_9}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_9}}
+		</div>
+
+		<div class="swiper-slide">
+            {{#top10_10}}
+            <div class="swiper-head" style="background: url({{spotImgPath}});
+            background-size: cover;
+            background-position: center;">
+            </div>
+            <div class="swiper-content">
+                <a href="/search/{{spotId}}" class="slide-link">
+                    <div class="icon" style="text-align: right; margin-top:-10px;">
+                        <div>
+                            <i class="fa-regular fa-thumbs-up" style="font-size: 0.9rem; margin-right: 4px;"></i><span>{{spotConLike}}</span>
+                            <i class="fa-solid fa-share-nodes" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConShare}}</span>
+                            <i class="fa-regular fa-eye" style="font-size: 0.9rem; margin-left: 7px; margin-right: 4px;"></i><span>{{spotConRead}}</span>
+                        </div>
+                    </div>
+                    <h2>{{spotTitle}}</h2>
+                    <h3>{{spotCatchTitle}}</h3>
+                        <div>
+                            <p style="display:inline; text-align: left;">주소: {{spotAddr}}</p>
+                            <p style="display:inline; text-align: right; padding-left:30px"></p>
+                            <p style="text-align: left;">이용시간: {{spotUseTime}}</p>
+                        </div>
+                        <div class="text-wrapper">
+                        <span class="text"><h4>{{spotOverview}}</h4></span>
+                        <!-- 더보기, 줄이기 텍스트 -->
+                        <span class="more-text">더보기</span>
+                        <span class="less-text">줄이기</span>
+                        </div>
+                </a>
+            </div>
+            {{/top10_10}}
+		</div>
+	</div>
+	<!-- Add Pagination -->
+	<div class="swiper-pagination"></div>
+</div>
 
 <div class = "window">
-    <div class="swiper-container">
+    <div class="swiper-container my-window">
         <div class="swiper-wrapper">
             <div class="swiper-slide"><a href="#" onclick="submitForm('주말에는 나들이')"><img src="nad.jpg" alt="Slide 1"></div>
             <div class="swiper-slide"><a href="#" onclick="submitForm('가족들과 바다 여행')"><img src="ocean.jpg" alt="Slide 2"></div>
@@ -64,14 +400,13 @@
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-  var swiper = new Swiper('.swiper-container', {
+    var swiper = new Swiper('.my-window', {
     autoplay: {
       delay: 5000, // 5초마다 자동으로 슬라이드
     }
-  });
+});
+
 </script>
-
-
 
 <script>
 function submitForm(imageValue) {
@@ -81,3 +416,64 @@ function submitForm(imageValue) {
     document.getElementById('imageForm').submit();
 }
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            autoplay: {
+            // 자동재생 여부
+                delay: 4000, // 시작시간 설정
+            },
+
+            coverflowEffect: {
+                rotate: 35,
+                stretch: 0,
+                depth: 50,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    });
+
+    // Swiper 슬라이드 내의 링크 요소에 대한 클릭 이벤트 처리
+    var slideLinks = document.querySelectorAll('.swiper-container .slide-link');
+    slideLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            // 클릭 시에 기본 동작(링크 이동) 방지
+            event.preventDefault();
+            // 링크의 href 속성 값으로 페이지 이동
+            window.location.href = link.getAttribute('href');
+        });
+    });
+
+    const textWrapper = document.querySelector('.text-wrapper');
+    const text = document.querySelector('.text');
+    const moreText = document.querySelector('.more-text');
+    const lessText = document.querySelector('.less-text');
+
+    // 더보기 텍스트 클릭시 이벤트
+    moreText.addEventListener('click', () => {
+
+    moreText.style.display = 'none'; // 더보기 텍스트 삭제
+    lessText.style.display = 'inline-block'; // 줄이기 텍스트 표시
+    text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
+    });
+
+    // 줄이기 텍스트 클릭시 이벤트
+    lessText.addEventListener('click', () => {
+
+    lessText.style.display = 'none'; // 줄이기 텍스트 삭제
+    moreText.style.display = 'inline-block'; // 더보기 텍스트 표시
+    text.style.display = '-webkit-box'; // 텍스트의 속성을 다시 -webkit-box로 표시
+    });
+    </script>
+
+    

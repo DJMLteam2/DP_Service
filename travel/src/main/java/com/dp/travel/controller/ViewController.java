@@ -1,7 +1,6 @@
 package com.dp.travel.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,33 +32,16 @@ public class ViewController {
         this.searchService = searchService;
     }
 
-    // main 페이지
     @GetMapping("/")
     public String main(Model model) {
+        List<TravelDTO> top10Travels = searchService.queryByTop10();
+
+        for (int i = 0; i < top10Travels.size(); i++) {
+            TravelDTO top10Travel = top10Travels.get(i);
+            model.addAttribute("top10_" + (i + 1), top10Travel); // 뷰에 전달
+        }
         model.addAttribute("questionForm", new QuestionForm());
         return "travel/main";
-    }
-
-    @GetMapping("/top5")
-    public String getTop5RecordsForAllTags(Model model) {
-        List<String> tags = Arrays.asList("문화재", "야경", "휴식", "산책", "데이트");
-        List<TravelDTO> allTop5Records = new ArrayList<>();
-
-        for (String tag : tags) {
-            List<TravelDTO> top5Records = searchService.findtop5_Info(tag);
-            allTop5Records.addAll(top5Records);
-        }
-
-        // 각각의 top_5에 해당하는 속성으로 추가
-        for (int i = 0; i < allTop5Records.size(); i++) {
-            TravelDTO top_5 = allTop5Records.get(i);
-            String attributeName = "top_" + (i + 1);
-            model.addAttribute(attributeName, top_5);
-        }
-
-        // 모든 top_5를 리스트로 추가
-
-        return "travel/top_5";
     }
 
     // 검색 페이지

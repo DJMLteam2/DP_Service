@@ -18,7 +18,7 @@ public interface TravelRepository extends JpaRepository<Travel, Long> {
     @Query("Select t FROM Travel t where t.SPOT_TITLE=:SpotTitle")
     Travel queryBySpotTitle(@Param("SpotTitle") String SpotTitle);
 
-    @Query(value = "SELECT * FROM TRAVEL_SPOT t ORDER BY t.SPOT_CONREAD DESC, t.SPOT_CONLIKE DESC LIMIT 12", nativeQuery = true)
+    @Query(value = "SELECT * FROM TRAVEL_SPOT t ORDER BY t.SPOT_CONREAD DESC, t.SPOT_CONLIKE DESC LIMIT 10", nativeQuery = true)
     List<Travel> queryByTop10();
 
 }

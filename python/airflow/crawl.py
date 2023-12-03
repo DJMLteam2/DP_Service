@@ -203,6 +203,10 @@ def crawl_and_insert_to_db():
     charset = 'utf8mb4'
     
     conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
+    sql = "select * from TRAVEL_SPOT"
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
 
     print('sending to mysql')
     joined_df = joined_df.fillna('')
@@ -271,4 +275,16 @@ def crawl_and_insert_to_db():
         conn.commit()
         conn.close()
         print('crawling done')
+
+        sql = "select * from TRAVEL_SPOT"
+        cursor.execute(sql)
+        new_df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
+        print('length of,, old df = ', len(df), 'new df = ', len(new_df))
+        # 업데이트 여부 확인
+        updated_rows = new_df[~new_df.isin(df)].dropna()
+        if not updated_rows.empty:
+            print('Updated Rows:')
+            print(updated_rows)
+        else:
+            print('No Updates Detected')
     

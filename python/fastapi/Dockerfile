@@ -11,16 +11,13 @@ RUN apt-get update && apt-get install -y default-jre default-jdk
 ENV JAVA_HOME /usr/lib/jvm/default-java
 ENV PATH $PATH:$JAVA_HOME/bin
 
-# Copy the requirements file into the container at /app
-COPY requirements.txt /app/
+# Copy the current directory contents into the container at /app
+COPY . .
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the current directory contents into the container at /app
-COPY . /app/
-
-# Make port 8000 available to the world outside this container
+# Make port 4000 available to the world outside this container
 EXPOSE 4000
 
 # Run app.py when the container launches

@@ -42,9 +42,11 @@ public class ViewController {
     // second 페이지
     @GetMapping("/search")
     public String search(Model model) {
-        List<TagDTO> tagDTOs = searchService.randomTag();
+
+        // 랜덤 태그 추가 
+        List<TagDTO> tagDTOs = searchService.queryRandomTags();
         model.addAttribute("Tags", tagDTOs);
-        return "travel/mid";
+        return "travel/mid";        
     }
     // 상세 페이지
     @GetMapping("/search/{id}")

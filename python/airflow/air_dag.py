@@ -32,9 +32,9 @@ with open(info_path, "rb") as file:
 
 # Airflow DAG 정의
 default_args = {
-    'owner': 'airflow',
+    'owner': 'dp_service',
     'depends_on_past': False,
-    'start_date': datetime(2023, 11, 29),
+    'start_date': now,
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,

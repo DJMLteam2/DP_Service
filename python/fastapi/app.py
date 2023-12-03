@@ -27,15 +27,18 @@ date = month+'_'+day
 # path 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-try:
-    df_path = os.path.join(current_dir, f'data/data_{date}.csv')
-    model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
-    print('today\'s model exists')
-except Exception as e:
-    print(e)
-    df_path = os.path.join(current_dir, f'data/data_basic.csv')
-    model_path = os.path.join(current_dir, f'data/model_basic.pkl')
-    print('today\'s model non exists')
+df_path = os.path.join(current_dir, f'data/data_{date}.csv')
+model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
+
+
+
+
+if not os.path.exists(df_path) and not os.path.exists(model_path):
+    df_path = os.path.join(current_dir, f'_data_basic.csv')
+    model_path = os.path.join(current_dir, f'_model_basic.pkl')
+    print('executed with basic model')
+else:
+    print('executed with today\'s model')
 
 
 ###################################################################################

@@ -16,7 +16,7 @@ services:
 
   fast_api_app:
     build:
-      context: ./python
+      context: ./fastapi
       dockerfile: Dockerfile
     image: fast_api
     volumes:
@@ -30,4 +30,5 @@ services:
       - dp_service_backend_network
 
 networks:
-  - dp_service_backend_network
+  dp_service_backend_network:
+    driver: bridge

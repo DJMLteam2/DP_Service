@@ -54,6 +54,18 @@ public class ViewController {
 
         return "travel/detail";
     }   
+    // top10 페이지
+    @GetMapping("/top")
+    public String top(Model model) {
+        List<TravelDTO> top10Travels = searchService.queryByTop10();
+
+        for (int i = 0; i < top10Travels.size(); i++) {
+            TravelDTO top10Travel = top10Travels.get(i);
+            model.addAttribute("top10_" + (i + 1), top10Travel); // 뷰에 전달
+        }
+        model.addAttribute("questionForm", new QuestionForm());
+        return "travel/top";
+    }
 
 
     // fastapi 연동하여 모델값 받아오기

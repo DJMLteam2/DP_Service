@@ -14,5 +14,6 @@ public interface SearchService {
 
     TravelDTO searchInfo(Long id);
     List<TagDTO> randomTag();
+    List<TravelDTO> queryByTop10();
 
 }

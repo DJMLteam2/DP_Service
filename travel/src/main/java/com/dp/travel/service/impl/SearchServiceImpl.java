@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
@@ -14,6 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -39,6 +39,7 @@ public class SearchServiceImpl implements SearchService{
     @Autowired
     private TravelRepository travelRepository;
     private TagRepository tagRepository;
+    private ConversionService conversionService;
 
     // 로컬용
     // private static final String FASTAPI_MODEL_URL = "http://localhost:4000/getAnswer";
@@ -48,9 +49,10 @@ public class SearchServiceImpl implements SearchService{
     private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
 
     @Autowired
-    public SearchServiceImpl(TravelRepository travelRepository, TagRepository tagRepository){
+    public SearchServiceImpl(TravelRepository travelRepository, TagRepository tagRepository, ConversionService conversionService){
         this.travelRepository = travelRepository;
         this.tagRepository = tagRepository;
+        this.conversionService = conversionService;
     }
 
     @Override
@@ -193,5 +195,37 @@ public class SearchServiceImpl implements SearchService{
         }
 
         return fastAPIAnswerDTOs;
+    }
+
+    // top 10
+    @Override
+    public List<TravelDTO> queryByTop10() {
+        List<Travel> travels = travelRepository.queryByTop10();
+        List<TravelDTO> travelDTOs = new ArrayList<>();
+
+        for (Travel travel : travels) {
+            TravelDTO travelDTO = new TravelDTO();
+            travelDTO.setSpotId(travel.getSPOT_ID());
+            travelDTO.setSpotCity(travel.getSPOT_CITY());
+            travelDTO.setSpotCityCode(travel.getSPOT_CITY_CODE());
+            travelDTO.setSpotCityContentType(travel.getSPOT_CITY_CONTENT_TYPE());
+            travelDTO.setSpotTitle(travel.getSPOT_TITLE());
+            travelDTO.setSpotCatchTitle(travel.getSPOT_CATCHTITLE());
+            travelDTO.setSpotOverview(travel.getSPOT_OVERVIEW());
+            travelDTO.setSpotTreatMenu(travel.getSPOT_TREATMENU());
+            travelDTO.setSpotConLike(travel.getSPOT_CONLIKE());
+            travelDTO.setSpotConRead(travel.getSPOT_CONREAD());
+            travelDTO.setSpotConShare(travel.getSPOT_CONSHARE());
+            travelDTO.setSpotImgPath(travel.getSPOT_IMGPATH());
+            travelDTO.setSpotAddr(travel.getSPOT_ADDR());
+            travelDTO.setSpotInfoCenter(travel.getSPOT_INFOCENTER());
+            travelDTO.setSpotParking(travel.getSPOT_PARKING());
+            travelDTO.setSpotUseTime(travel.getSPOT_USETIME());
+            travelDTO.setSpotTagName(travel.getSPOT_TAGNAME());
+            travelDTO.setSpotDetail(travel.getSPOT_DETAIL());
+
+            travelDTOs.add(travelDTO);
+        }
+        return travelDTOs;
     }
 }

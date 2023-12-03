@@ -424,6 +424,20 @@ nav .start-contact, a:nth-child(5):hover~.animation {
     margin: 50 auto; /* 상하 마진을 50, 좌우 마진을 자동(auto)으로 설정해 가운데 정렬 */
 }
 
+/*top.mustache에 적용 */
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+}
+
+.grid-item {
+    border: 1px solid #ddd; /* 그리드 항목 테두리 스타일 */
+    border-radius: 10px; /* 테두리에 라운드를 주는 부분 */
+    padding: 20px;
+    text-align: center;
+    min-height: 300px; /* 그리드 항목의 높이 지정 */
+}
 
 </style>
 </head>
@@ -446,8 +460,8 @@ nav .start-contact, a:nth-child(5):hover~.animation {
 
 <nav>
 	<a href="/">Home</a>
-	<a href="#">Like top5</a>
-	<a href="#">Dashboard</a>
+	<a href="/top">top 10</a>
+	<a href="http://43.201.35.128:5601/goto/11d72d60-9180-11ee-8ff9-1968e2c444af" target='_blank'>Dashboard</a>
 	<a href="https://github.com/DJMLteam2" target='_blank'>Github</a>
 	<a href="https://korean.visitkorea.or.kr/main/main.do" target='_blank'>Thanks to</a>
 	<div class="animation start-home"></div>

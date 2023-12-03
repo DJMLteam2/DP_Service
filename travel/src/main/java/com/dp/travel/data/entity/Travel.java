@@ -132,4 +132,8 @@ public class Travel {
         entity.SPOT_LAT = dto.getSpotLat();
         return entity;
     }
+
+    public Object toDTO() {
+        return null;
+    }
 }

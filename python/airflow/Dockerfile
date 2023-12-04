@@ -34,7 +34,8 @@ RUN rm -rf ${AIRFLOW_USER_HOME}/dags/*
 # 필요한 파일들을 복사
 COPY . ${AIRFLOW_USER_HOME}/dags
 
-RUN chmod -R 777 ${AIRFLOW_USER_HOME}
+USER root
+RUN chmod -R 777 ${AIRFLOW_USER_HOME}/dags/data
 
 # 에어플로우 설정 파일 수정: dags_folder 변경
 

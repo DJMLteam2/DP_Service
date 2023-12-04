@@ -89,7 +89,6 @@ def crawl_and_insert_to_db():
         "제주":39
     }
     sido_code = {v:k for k,v in sido_code.items()}
-    sido = list(range(1,9))+ list(range(31,40))
 
     sido = list(range(1,9))+ list(range(31,40))
     sort = ['MAIN_B','MAIN_A']

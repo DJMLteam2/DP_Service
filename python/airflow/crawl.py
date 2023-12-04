@@ -215,69 +215,74 @@ def crawl_and_insert_to_db():
     print('sending to mysql')
     joined_df = joined_df.fillna('')
     try:
-        with conn.cursor() as cursor:
-            for inx, row in joined_df.iterrows():
-                # 모든 레코드를 업데이트하고, 없는 경우에는 새로 삽입
-                query = f"""
-                    INSERT INTO TRAVEL_SPOT (
-                        SPOT_ID, SPOT_CITY, SPOT_CITY_CODE, SPOT_CITY_CONTENT_TYPE,
-                        SPOT_TITLE, SPOT_CATCHTITLE, SPOT_OVERVIEW, SPOT_TREATMENU,
-                        SPOT_CONLIKE, SPOT_CONREAD, SPOT_CONSHARE, SPOT_IMGPATH,
-                        SPOT_ADDR, SPOT_INFOCENTER, SPOT_PARKING, SPOT_USETIME,
-                        SPOT_TAGNAME, SPOT_DETAIL, SPOT_LON, SPOT_LAT
-                    )
-                    VALUES (
-                        %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
-                    )
-                    ON DUPLICATE KEY UPDATE
-                        SPOT_CITY = VALUES(SPOT_CITY),
-                        SPOT_CITY_CODE = VALUES(SPOT_CITY_CODE),
-                        SPOT_CITY_CONTENT_TYPE = VALUES(SPOT_CITY_CONTENT_TYPE),
-                        SPOT_TITLE = VALUES(SPOT_TITLE),
-                        SPOT_CATCHTITLE = VALUES(SPOT_CATCHTITLE),
-                        SPOT_OVERVIEW = VALUES(SPOT_OVERVIEW),
-                        SPOT_TREATMENU = VALUES(SPOT_TREATMENU),
-                        SPOT_CONLIKE = VALUES(SPOT_CONLIKE),
-                        SPOT_CONREAD = VALUES(SPOT_CONREAD),
-                        SPOT_CONSHARE = VALUES(SPOT_CONSHARE),
-                        SPOT_IMGPATH = VALUES(SPOT_IMGPATH),
-                        SPOT_ADDR = VALUES(SPOT_ADDR),
-                        SPOT_INFOCENTER = VALUES(SPOT_INFOCENTER),
-                        SPOT_PARKING = VALUES(SPOT_PARKING),
-                        SPOT_USETIME = VALUES(SPOT_USETIME),
-                        SPOT_TAGNAME = VALUES(SPOT_TAGNAME),
-                        SPOT_DETAIL = VALUES(SPOT_DETAIL),
-                        SPOT_LON = VALUES(SPOT_LON),
-                        SPOT_LAT = VALUES(SPOT_LAT)
-                """
-                cursor.execute(query, (
-                    row['id'],
-                    row['city'],
-                    row['cityCode'],
-                    row['contentType'],
-                    row['title'],
-                    row['catchtitle'],
-                    row['overView'],
-                    row['treatMenu'],
-                    row['conLike'],
-                    row['conRead'],
-                    row['conShare'],
-                    row['imgPath'],
-                    row['addr'],
-                    row['info'],
-                    row['parking'],
-                    row['useTime'],
-                    row['tagName'],
-                    row['detail'],
-                    row['lon'],
-                    row['lat']
-                ))
+        
+        for inx, row in joined_df.iterrows():
+            # 모든 레코드를 업데이트하고, 없는 경우에는 새로 삽입
+            query = f"""
+                INSERT INTO TRAVEL_SPOT (
+                    SPOT_ID, SPOT_CITY, SPOT_CITY_CODE, SPOT_CITY_CONTENT_TYPE,
+                    SPOT_TITLE, SPOT_CATCHTITLE, SPOT_OVERVIEW, SPOT_TREATMENU,
+                    SPOT_CONLIKE, SPOT_CONREAD, SPOT_CONSHARE, SPOT_IMGPATH,
+                    SPOT_ADDR, SPOT_INFOCENTER, SPOT_PARKING, SPOT_USETIME,
+                    SPOT_TAGNAME, SPOT_DETAIL, SPOT_LON, SPOT_LAT
+                )
+                VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                )
+                ON DUPLICATE KEY UPDATE
+                    SPOT_CITY = VALUES(SPOT_CITY),
+                    SPOT_CITY_CODE = VALUES(SPOT_CITY_CODE),
+                    SPOT_CITY_CONTENT_TYPE = VALUES(SPOT_CITY_CONTENT_TYPE),
+                    SPOT_TITLE = VALUES(SPOT_TITLE),
+                    SPOT_CATCHTITLE = VALUES(SPOT_CATCHTITLE),
+                    SPOT_OVERVIEW = VALUES(SPOT_OVERVIEW),
+                    SPOT_TREATMENU = VALUES(SPOT_TREATMENU),
+                    SPOT_CONLIKE = VALUES(SPOT_CONLIKE),
+                    SPOT_CONREAD = VALUES(SPOT_CONREAD),
+                    SPOT_CONSHARE = VALUES(SPOT_CONSHARE),
+                    SPOT_IMGPATH = VALUES(SPOT_IMGPATH),
+                    SPOT_ADDR = VALUES(SPOT_ADDR),
+                    SPOT_INFOCENTER = VALUES(SPOT_INFOCENTER),
+                    SPOT_PARKING = VALUES(SPOT_PARKING),
+                    SPOT_USETIME = VALUES(SPOT_USETIME),
+                    SPOT_TAGNAME = VALUES(SPOT_TAGNAME),
+                    SPOT_DETAIL = VALUES(SPOT_DETAIL),
+                    SPOT_LON = VALUES(SPOT_LON),
+                    SPOT_LAT = VALUES(SPOT_LAT)
+            """
+            cursor.execute(query, (
+                row['id'],
+                row['city'],
+                row['cityCode'],
+                row['contentType'],
+                row['title'],
+                row['catchtitle'],
+                row['overView'],
+                row['treatMenu'],
+                row['conLike'],
+                row['conRead'],
+                row['conShare'],
+                row['imgPath'],
+                row['addr'],
+                row['info'],
+                row['parking'],
+                row['useTime'],
+                row['tagName'],
+                row['detail'],
+                row['lon'],
+                row['lat']
+            ))
+            conn.commit()
 
     except Exception as e:
         print(f"Error: {e}")
     finally:
+        conn.commit()
+        conn.close()
         print('crawling done')
-
+        
+        conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
+        cursor = conn.cursor()
         sql = "select * from TRAVEL_SPOT"
         cursor.execute(sql)
         new_df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
@@ -291,5 +296,3 @@ def crawl_and_insert_to_db():
         else:
             print('No Updates Detected')
             print('------------------')
-        conn.commit()
-        conn.close()

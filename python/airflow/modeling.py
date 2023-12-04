@@ -43,15 +43,16 @@ with open(info_path, "rb") as file:
     HOST = pickle.load(file)
     PORT = pickle.load(file)
     NAME = pickle.load(file)
-    
+
 print('------------------')
 def modeling():
-    # okt = Okt()
-    # current_dir = os.path.dirname(os.path.abspath(__file__))
-    # code = os.path.join(current_dir,'DB_INFO.pkl')
-    # model = os.path.join(current_dir,'model.pkl')
-
-    # pymysql로 dataFrame 호출
+    print('modeling.py--------')
+    if os.path.exists(os.path.dirname(model_path)):
+        print('path exists')
+    else:
+        print('path non exists')
+        
+    
     okt = Okt()
     host = HOST
     user = USER
@@ -153,3 +154,4 @@ def modeling():
                     "city_matrices": city_matrices_food
             }}, file)
     print('modeling done')
+    print('------------------')

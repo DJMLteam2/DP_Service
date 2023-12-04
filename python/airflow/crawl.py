@@ -56,7 +56,11 @@ print('------------------')
 
 
 def crawl_and_insert_to_db():
-
+    print('crawling.py--------')
+    if os.path.exists(os.path.dirname(data_path)):
+        print('path exists')
+    else:
+        print('path non exists')
     sido_code ={
         "서울":1,
         "인천":2,
@@ -285,6 +289,8 @@ def crawl_and_insert_to_db():
         if not updated_rows.empty:
             print('Updated Rows:')
             print(updated_rows)
+            print('------------------')
         else:
             print('No Updates Detected')
+            print('------------------')
     

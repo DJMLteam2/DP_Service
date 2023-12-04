@@ -17,6 +17,8 @@ COPY . .
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN chmod -R 777 /app
+
 # Make port 4000 available to the world outside this container
 EXPOSE 4000
 

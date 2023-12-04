@@ -37,10 +37,9 @@ model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
 glob(f'{current_dir}data/data*')[-1]
 
 if not os.path.exists(df_path) and not os.path.exists(model_path):
-    # df_path = os.path.join(current_dir, f'_data_basic.csv')
-    df_path = glob(f'{current_dir}/data/data*')[-1]
-    # model_path = os.path.join(current_dir, f'_model_basic.pkl')
-    model_path = glob(f'{current_dir}/data/model*')[-1]
+    df_path = os.path.join(current_dir, f'_data_basic.csv')
+    model_path = os.path.join(current_dir, f'_model_basic.pkl')
+    
     print('executed with basic model')
 else:
     print('executed with today\'s model')

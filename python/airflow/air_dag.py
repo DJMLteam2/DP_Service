@@ -62,7 +62,7 @@ modeling_task = PythonOperator(
     dag=dag,
 )
 # Task 간의 의존성 설정
-modeling_task >> crawl_task
+crawl_task >> modeling_task
 
 if __name__ == "__main__":
     dag.cli()

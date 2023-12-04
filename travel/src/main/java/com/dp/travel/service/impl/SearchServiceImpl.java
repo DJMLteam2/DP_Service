@@ -41,8 +41,8 @@ public class SearchServiceImpl implements SearchService{
     // 도커 컴포즈용
     // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
     // 도커 AWS용
-    private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
-
+    private static final String FASTAPI_MODEL_URL = "http://3.35.25.125:4000/getAnswer";
+    
     @Autowired
     public SearchServiceImpl(TravelRepository travelRepository, TagRepository tagRepository){
         this.travelRepository = travelRepository;

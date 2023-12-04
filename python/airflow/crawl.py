@@ -276,8 +276,6 @@ def crawl_and_insert_to_db():
     except Exception as e:
         print(f"Error: {e}")
     finally:
-        conn.commit()
-        conn.close()
         print('crawling done')
 
         sql = "select * from TRAVEL_SPOT"
@@ -293,4 +291,5 @@ def crawl_and_insert_to_db():
         else:
             print('No Updates Detected')
             print('------------------')
-    
+        conn.commit()
+        conn.close()

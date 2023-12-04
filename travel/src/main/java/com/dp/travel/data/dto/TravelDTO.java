@@ -31,4 +31,8 @@ public class TravelDTO {
     private String spotDetail;
     private Double spotLon;
     private Double spotLat;
+
+    public TravelDTO get(int i) {
+        return null;
+    }
 }

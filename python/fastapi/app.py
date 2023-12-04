@@ -12,14 +12,21 @@ from pydantic import BaseModel
 import os
 import dijkstra
 from datetime import datetime
+import pytz
 
+# 현재 시간
+now_utc = datetime.now(pytz.utc)
+
+# 서울 시간대로 변환
+seoul_timezone = pytz.timezone('Asia/Seoul')
+now = now_utc.astimezone(seoul_timezone)
 
 
 # date
-now = datetime.now()
 month = str(now.month)
 day = str(now.day)
 date = month+'_'+day
+
 
 
 ###################################################################################
@@ -42,11 +49,10 @@ else:
 ###################################################################################
 
 
-
-df = pd.read_csv(df_path, index_col=0)
-
 okt = Okt()
 app = FastAPI()
+
+df = pd.read_csv(df_path, index_col=0)
 df = df.fillna('')
 
 spot_df = df[df['contentType'] != 39]
@@ -111,6 +117,15 @@ def add_to_similar_tags(df, sorted_indices, cos_similarities, similar_tags):
 
 @app.post("/getAnswer", response_model=OutputData)
 def getAnswer(question: Question):
+
+    if os.path.exists(df_path) and os.path.exists(model_path):
+        df_path = os.path.join(current_dir, f'data/data_{date}.csv')
+        model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
+
+        df = pd.read_csv(df_path, index_col=0)
+        spot_df = df[df['contentType'] != 39]
+        food_df = df[df['contentType'] == 39]
+
     print('model =',model_path[model_path.rfind('/')+1:])
     print('df =', df_path[df_path.rfind('/')+1:])
 

@@ -6,9 +6,17 @@ import pymysql
 from datetime import datetime
 import requests
 import json
+import pytz
+
+# 현재 시간
+now_utc = datetime.now(pytz.utc)
+
+# 서울 시간대로 변환
+seoul_timezone = pytz.timezone('Asia/Seoul')
+now = now_utc.astimezone(seoul_timezone)
 
 print('crawling.py--------')
-now = datetime.now()
+
 month = str(now.month)
 day = str(now.day)
 date = month+'_'+day

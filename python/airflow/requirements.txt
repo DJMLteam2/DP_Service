@@ -8,3 +8,4 @@ scikit-learn==0.24.2
 konlpy==0.6.0
 tweepy==3.10.0
 apache-airflow
+pytz

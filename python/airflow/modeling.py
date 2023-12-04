@@ -6,11 +6,18 @@ import os
 import pymysql
 from konlpy.tag import Okt
 from datetime import datetime
+import pytz
 
+# 현재 시간
+now_utc = datetime.now(pytz.utc)
+
+# 서울 시간대로 변환
+seoul_timezone = pytz.timezone('Asia/Seoul')
+now = now_utc.astimezone(seoul_timezone)
 
 
 print('modeling.py--------')
-now = datetime.now()
+
 month = str(now.month)
 day = str(now.day)
 date = month+'_'+day
@@ -48,29 +55,33 @@ print('------------------')
 def modeling():
     print('modeling.py--------')
     if os.path.exists(os.path.dirname(model_path)):
-        print('path exists')
+        print('saving path exists')
     else:
-        print('path non exists')
-        
+        print('saving path non exists')
     
+    if os.path.exists(data_path):
+        df =  pd.read_csv(data_path, index_col=0)
+        df2 =  pd.read_csv(data_path, index_col=0)
+        print('build from csv')
+    else:
+        host = HOST
+        user = USER
+        password = PASSWD
+        database = NAME
+        charset = 'utf8mb4'
+
+        conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
+        sql = "select * from TRAVEL_SPOT"
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
+        cursor.execute(sql)
+        df2 = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
+        df = df.fillna('')
+        df2 = df2.fillna('')
+        print('build from database')
+
     okt = Okt()
-    host = HOST
-    user = USER
-    password = PASSWD
-    database = NAME
-    charset = 'utf8mb4'
-
-    conn = pymysql.connect(host=host,user=user,password=password,database=database,charset=charset)
-    sql = "select * from TRAVEL_SPOT"
-    cursor = conn.cursor()
-    cursor.execute(sql)
-    df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
-    cursor.execute(sql)
-    df2 = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
-    df = df.fillna('')
-    df2 = df2.fillna('')
-
-
     df2['SPOT_CITY'] = '전체'
     joined_df = pd.concat([df,df2], axis=0, ignore_index=True)
     len(df),len(df2),len(joined_df)

@@ -14,6 +14,7 @@ import time
 import random
 import dijkstra
 from datetime import datetime
+from glob import glob
 
 
 # date
@@ -33,9 +34,13 @@ model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
 
 
 
+glob(f'{current_dir}data/data*')[-1]
+
 if not os.path.exists(df_path) and not os.path.exists(model_path):
-    df_path = os.path.join(current_dir, f'_data_basic.csv')
-    model_path = os.path.join(current_dir, f'_model_basic.pkl')
+    # df_path = os.path.join(current_dir, f'_data_basic.csv')
+    df_path = glob(f'{current_dir}/data/data*')[-1]
+    # model_path = os.path.join(current_dir, f'_model_basic.pkl')
+    model_path = glob(f'{current_dir}/data/model*')[-1]
     print('executed with basic model')
 else:
     print('executed with today\'s model')
@@ -113,6 +118,8 @@ def add_to_similar_tags(df, sorted_indices, cos_similarities, similar_tags):
 
 @app.post("/getAnswer", response_model=OutputData)
 def getAnswer(question: Question):
+    print('model =',model_path[model_path.rfind('/')+1:])
+    print('df =', df_path[df_path.rfind('/')+1:])
 
     
     # 미리 계산된 해당 지역의 TF-IDF 행렬 사용
@@ -136,8 +143,11 @@ def getAnswer(question: Question):
     sorted_indices_food = np.argsort(cos_similarities_food[0])[::-1][:5]
 
     
-    print(len(cos_similarities_spot[0]))
-    print(len(cos_similarities_food[0]))
+    print('spot_df_len =', len(spot_city_df))
+    print('spot_similarites =', len(cos_similarities_spot[0]))
+
+    print('food_df_len =', len(food_city_df))
+    print('food_similarites =', len(cos_similarities_food[0]))
     # 결과를 저장할 리스트 초기화
     similar_tags = []
 

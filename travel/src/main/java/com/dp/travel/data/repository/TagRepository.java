@@ -1,12 +1,16 @@
 package com.dp.travel.data.repository;
 
+import com.dp.travel.data.entity.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import com.dp.travel.data.entity.Tag;
 
-public interface TagRepository extends JpaRepository<Tag, Long>{
-    @Query("Select t FROM Tag t where t.TagID=:TagId")
-    Tag ququeryByTag(@Param("TagId") Long TagId);
+import java.util.List;
+
+public interface TagRepository extends JpaRepository<Tag, Long> {
+    // 랜덤 태그
+    @Query
+    (value = "SELECT * FROM TRAVEL_TAG_LIST ORDER BY RAND()", nativeQuery = true)
+    List<Tag> queryRandomTags();
 }
+

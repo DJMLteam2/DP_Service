@@ -1,0 +1,34 @@
+version: '3'
+services:
+  airflow_app:
+    build:
+      context: ./airflow
+      dockerfile: Dockerfile
+    image: airflow
+    volumes:
+      - ./data_log:/usr/local/airflow/dags/data
+    ports:
+      - "5000:5000"
+    container_name: airflow
+    restart: on-failure:5
+    networks:
+      - dp_service_backend_network
+
+  fast_api_app:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    image: fast_api
+    volumes:
+      - ./data_log:/app/data
+    ports:
+      - "4000:4000"
+    depends_on:
+      - airflow_app
+    container_name: fast_api
+    networks:
+      - dp_service_backend_network
+
+networks:
+  dp_service_backend_network:
+    driver: bridge

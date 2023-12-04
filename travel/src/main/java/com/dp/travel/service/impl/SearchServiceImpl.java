@@ -1,12 +1,8 @@
 package com.dp.travel.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
@@ -45,8 +41,8 @@ public class SearchServiceImpl implements SearchService{
     // 도커 컴포즈용
     // private static final String FASTAPI_MODEL_URL = "http://fast_api_app:4000/getAnswer";
     // 도커 AWS용
-    private static final String FASTAPI_MODEL_URL = "http://3.35.47.48:4000/getAnswer";
-
+    private static final String FASTAPI_MODEL_URL = "http://3.35.25.125:4000/getAnswer";
+    
     @Autowired
     public SearchServiceImpl(TravelRepository travelRepository, TagRepository tagRepository){
         this.travelRepository = travelRepository;
@@ -99,45 +95,16 @@ public class SearchServiceImpl implements SearchService{
    
     }
 
-
-    // 태그 랜덤으로 주는 함수 생성: randomTag, convertTagDTO, RandomTagIdList
+    // 랜덤 태그 생성
     @Override
-    public List<TagDTO> randomTag(){
-        List<Tag> tags = new ArrayList<>();
-        Set<Long> TagIdList = RandomTagIdList(10);
-        for(Long TagId : TagIdList){
-            Tag tag = tagRepository.ququeryByTag(TagId);
-            tags.add(tag);
-        }
-        return tags.stream().map(this::convertTagDTO).collect(Collectors.toList());
+    public List<TagDTO> queryRandomTags(){
+        List<Tag> tags = tagRepository.queryRandomTags();
+        return tags.stream()
+                .map(Tag::convertTagDTO)
+                .limit(10)
+                .collect(Collectors.toList());
     }
-    private TagDTO convertTagDTO(Tag tag){
-        TagDTO tagDTO = new TagDTO();
-        tagDTO.setTagID(tag.getTagID());
-        tagDTO.setTagName(tag.getTagName());
-        tagDTO.setTagTheme(tag.getTagTheme());
-        return tagDTO;
-    }
-    private Set<Long> RandomTagIdList(int count){
-        Set<Long> uniqueNumbers = new HashSet<>();
-        Random random = new Random();
-        int partition = (count / 2);
-        long minfirst = 1L;
-        long maxfirst = 20L;
-        long minsecond = 21L;
-        long maxsecond = 60L;
-        while(uniqueNumbers.size() < count){
-            if(uniqueNumbers.size() < partition){
-                long randomNumber = minfirst + (long) (random.nextDouble() * (maxfirst - minfirst + 1));
-                uniqueNumbers.add(randomNumber);
-            }
-            else{
-                long randomNumber = minsecond + (long) (random.nextDouble() * (maxsecond - minsecond + 1));
-                uniqueNumbers.add(randomNumber);
-            }
-        }
-        return uniqueNumbers;
-    }
+    
 
     
     private List<FastAPIAnswerDTO> parseFastAPIResponse(String response) {

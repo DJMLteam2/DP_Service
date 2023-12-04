@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.dp.travel.data.dto.TagDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +26,13 @@ public class Tag {
 
     @Column(name = "SPOT_TAG_THEME")
     private String TagTheme;
+
+
+    public static TagDTO convertTagDTO(Tag tag){
+        TagDTO tagDTO = new TagDTO();
+        tagDTO.setTagID(tag.getTagID());
+        tagDTO.setTagName(tag.getTagName());
+        tagDTO.setTagTheme(tag.getTagTheme());
+        return tagDTO;
+    }
 }

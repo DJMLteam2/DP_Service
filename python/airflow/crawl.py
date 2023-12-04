@@ -199,7 +199,7 @@ def crawl_and_insert_to_db():
     df = result
     df2 = result2
     df2['city'] = '전체'
-    df2['id'] = df2['id'].apply(lambda x: x*10) # 전체의 id는 기본값 *10으로 구분
+    df2['id'] = df2['id'].apply(lambda x: int(x)*10) # 전체의 id는 기본값 *10으로 구분
 
     joined_df = pd.concat([df,df2], axis=0, ignore_index=True)
 

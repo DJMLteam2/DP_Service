@@ -94,7 +94,7 @@ def crawl_and_insert_to_db():
     sort = ['MAIN_B','MAIN_A']
     result = pd.DataFrame()
 
-    for idx, code in enumerate(sido):
+    for idx, code in enumerate(sido[:1]):
         print('crawlling...(', idx,'/', len(sido), ')')
         for main in sort:
             offset = 1

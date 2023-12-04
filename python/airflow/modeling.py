@@ -86,11 +86,11 @@ def modeling():
     joined_df = pd.concat([df,df2], axis=0, ignore_index=True)
     len(df),len(df2),len(joined_df)
 
-    joined_df['vec'] = joined_df['SPOT_CATCHTITLE'].apply(lambda x: x[:100]) + joined_df['SPOT_TREATMENU'].apply(lambda x: x[:200]) + joined_df['SPOT_TAGNAME'].apply(lambda x: x[:200]) + joined_df['SPOT_OVERVIEW'].apply(lambda x: x[:200])
-    joined_df['vec_f'] = joined_df['SPOT_CATCHTITLE'].apply(lambda x: x[:100]) + joined_df['SPOT_TREATMENU'].apply(lambda x: x[:200]) + joined_df['SPOT_TAGNAME'].apply(lambda x: x[:200])
+    joined_df['vec'] = joined_df['catchtitle'].apply(lambda x: x[:100]) + joined_df['treatMenu'].apply(lambda x: x[:200]) + joined_df['tagName'].apply(lambda x: x[:200]) + joined_df['overView'].apply(lambda x: x[:200])
+    joined_df['vec_f'] = joined_df['catchtitle'].apply(lambda x: x[:100]) + joined_df['treatMenu'].apply(lambda x: x[:200]) + joined_df['tagName'].apply(lambda x: x[:200])
 
-    spot_df = joined_df[joined_df['SPOT_CITY_CONTENT_TYPE'] != 39]
-    food_df = joined_df[joined_df['SPOT_CITY_CONTENT_TYPE'] == 39]
+    spot_df = joined_df[joined_df['contentType'] != 39]
+    food_df = joined_df[joined_df['contentType'] == 39]
     spot_df.__len__(), food_df.__len__()
 
 
@@ -104,7 +104,7 @@ def modeling():
     print('spot modeling...(1/3)')
     # 전체 도시에 대한 TF-IDF 행렬 계산
     tag_list_all = []
-    for i in spot_df[spot_df['SPOT_CITY'] != '전체']['vec'].tolist():
+    for i in spot_df[spot_df['city'] != '전체']['vec'].tolist():
         tag_list_all.append(' '.join(list(set([j for j in okt.nouns(i) if len(j) > 1 and any(char.isalpha() and not char.isascii() for char in j)]))))
         # print(' '.join(list(set([j for j in okt.nouns(i) if len(j) > 1 and any(char.isalpha() and not char.isascii() for char in j)]))))
         # print(len(tag_list_all))
@@ -113,9 +113,9 @@ def modeling():
 
     # 각 도시에 대한 TF-IDF 행렬 계산
     city_matrices_spot = {}
-    for city in spot_df['SPOT_CITY'].unique():
+    for city in spot_df['city'].unique():
         tag_list_city = []
-        city_df = spot_df[spot_df['SPOT_CITY'] == city]
+        city_df = spot_df[spot_df['city'] == city]
         
         for i in city_df['vec'].tolist():
             tag_list_city.append(' '.join(list(set([j for j in okt.nouns(i) if len(j) > 1 and any(char.isalpha() and not char.isascii() for char in j)]))))
@@ -130,7 +130,7 @@ def modeling():
     print('food modeling...(2/3)')
     # 전체 도시에 대한 TF-IDF 행렬 계산
     tag_list_all_food = []
-    for i in food_df[food_df['SPOT_CITY'] != '전체']['vec'].tolist():
+    for i in food_df[food_df['city'] != '전체']['vec'].tolist():
         tag_list_all_food.append(' '.join(list(set([j for j in okt.nouns(i) if len(j) > 1 and any(char.isalpha() and not char.isascii() for char in j)]))))
         # print(' '.join(list(set([j for j in okt.nouns(i) if len(j) > 1 and any(char.isalpha() and not char.isascii() for char in j)]))))
         # print(len(tag_list_all_food))
@@ -140,9 +140,9 @@ def modeling():
 
     # 각 도시에 대한 TF-IDF 행렬 계산
     city_matrices_food = {}
-    for city in food_df['SPOT_CITY'].unique():
+    for city in food_df['city'].unique():
         tag_list_city_food = []
-        city_df = food_df[food_df['SPOT_CITY'] == city]
+        city_df = food_df[food_df['city'] == city]
         
         for i in city_df['vec'].tolist():
             tag_list_city_food.append(' '.join(list(set([j for j in okt.nouns(i) if len(j) > 1 and any(char.isalpha() and not char.isascii() for char in j)]))))

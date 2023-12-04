@@ -54,7 +54,7 @@ public class ViewController {
 
         return "travel/detail";
     }   
-    // top8 페이지
+    // top10 페이지
     @GetMapping("/top")
     public String top(Model model) {
         List<TravelDTO> top10Travels = searchService.queryByTop10();

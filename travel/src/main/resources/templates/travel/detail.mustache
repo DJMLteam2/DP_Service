@@ -11,8 +11,14 @@
     </div>
     <div class="content">
         <Span class="price">{{spotCatchTitle}}</Span>
-        <p id="description">{{spotOverview}}</p><br>
-        <span>{{spotDetail}}<span>
+        <div class="text-wrapper">
+            <span class="text" id = "description"><p>{{spotOverview}}</p></span>
+            <!-- 더보기, 줄이기 텍스트 -->
+            <span class="more-text">더보기</span>
+            <span class="less-text">줄이기</span>
+        </div>
+        <br>
+        <span>{{spotDetail}}</span>
     </p>
     <div class="property">
         <div class="item">
@@ -30,11 +36,10 @@
     </div>
     </div>
     <div class="image" style="float:right;">
-        <img id="dynamicImage" src="{{spotImgPath}}" />
+        <img id="dynamicImage" src="{{spotImgPath}}"/>
         <div class="arrows">
     </div>
     </div>
-    
     {{/travelDto}}
 </div>
 
@@ -49,4 +54,24 @@
         window.open(openUrl, "pop", popOption);
         console.log("메시지: 클릭됨");
     }
+    const textWrapper = document.querySelector('.text-wrapper');
+    const text = document.querySelector('.text');
+    const moreText = document.querySelector('.more-text');
+    const lessText = document.querySelector('.less-text');
+
+    // 더보기 텍스트 클릭시 이벤트
+    moreText.addEventListener('click', () => {
+
+    moreText.style.display = 'none'; // 더보기 텍스트 삭제
+    lessText.style.display = 'inline-block'; // 줄이기 텍스트 표시
+    text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
+    });
+
+    // 줄이기 텍스트 클릭시 이벤트
+    lessText.addEventListener('click', () => {
+
+    lessText.style.display = 'none'; // 줄이기 텍스트 삭제
+    moreText.style.display = 'inline-block'; // 더보기 텍스트 표시
+    text.style.display = '-webkit-box'; // 텍스트의 속성을 다시 -webkit-box로 표시
+    });
 </script>

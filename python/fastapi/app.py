@@ -32,10 +32,6 @@ df_path = os.path.join(current_dir, f'data/data_{date}.csv')
 model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
 
 
-
-
-glob(f'{current_dir}data/data*')[-1]
-
 if not os.path.exists(df_path) and not os.path.exists(model_path):
     df_path = os.path.join(current_dir, f'_data_basic.csv')
     model_path = os.path.join(current_dir, f'_model_basic.pkl')

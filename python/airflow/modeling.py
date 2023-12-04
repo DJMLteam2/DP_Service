@@ -84,6 +84,7 @@ def modeling():
     okt = Okt()
     df2['SPOT_CITY'] = '전체'
     joined_df = pd.concat([df,df2], axis=0, ignore_index=True)
+    joined_df.fillna('', inplace=True)
     len(df),len(df2),len(joined_df)
 
     joined_df['vec'] = joined_df['catchtitle'].apply(lambda x: x[:100]) + joined_df['treatMenu'].apply(lambda x: x[:200]) + joined_df['tagName'].apply(lambda x: x[:200]) + joined_df['overView'].apply(lambda x: x[:200])

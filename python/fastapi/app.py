@@ -118,14 +118,6 @@ def add_to_similar_tags(df, sorted_indices, cos_similarities, similar_tags):
 @app.post("/getAnswer", response_model=OutputData)
 def getAnswer(question: Question):
 
-    if os.path.exists(df_path) and os.path.exists(model_path):
-        df_path = os.path.join(current_dir, f'data/data_{date}.csv')
-        model_path = os.path.join(current_dir, f'data/model_{date}.pkl')
-
-        df = pd.read_csv(df_path, index_col=0)
-        spot_df = df[df['contentType'] != 39]
-        food_df = df[df['contentType'] == 39]
-
     print('model =',model_path[model_path.rfind('/')+1:])
     print('df =', df_path[df_path.rfind('/')+1:])
 

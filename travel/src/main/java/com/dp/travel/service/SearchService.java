@@ -13,8 +13,6 @@ public interface SearchService {
     List<FastAPIAnswerDTO> searchViewController(QuestionForm questionForm, String TagName);
 
     TravelDTO searchInfo(Long id);
-    
-    // List<TagDTO> randomTag();
 
     List<TagDTO> queryRandomTags();
 

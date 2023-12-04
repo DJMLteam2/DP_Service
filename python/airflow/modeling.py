@@ -61,7 +61,7 @@ def modeling():
     
     if os.path.exists(data_path):
         df =  pd.read_csv(data_path, index_col=0)
-        df2 =  pd.read_csv(data_path, index_col=0)
+        df = df.fillna('')
         print('build from csv')
     else:
         host = HOST
@@ -75,23 +75,18 @@ def modeling():
         cursor = conn.cursor()
         cursor.execute(sql)
         df = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
-        cursor.execute(sql)
-        df2 = pd.DataFrame(cursor.fetchall(), columns= [i[0] for i in cursor.description])
         df = df.fillna('')
-        df2 = df2.fillna('')
         print('build from database')
 
     okt = Okt()
-    df2['SPOT_CITY'] = '전체'
-    joined_df = pd.concat([df,df2], axis=0, ignore_index=True)
-    joined_df.fillna('', inplace=True)
-    len(df),len(df2),len(joined_df)
 
-    joined_df['vec'] = joined_df['catchtitle'].apply(lambda x: x[:100]) + joined_df['treatMenu'].apply(lambda x: x[:200]) + joined_df['tagName'].apply(lambda x: x[:200]) + joined_df['overView'].apply(lambda x: x[:200])
-    joined_df['vec_f'] = joined_df['catchtitle'].apply(lambda x: x[:100]) + joined_df['treatMenu'].apply(lambda x: x[:200]) + joined_df['tagName'].apply(lambda x: x[:200])
+    len(df)
 
-    spot_df = joined_df[joined_df['contentType'] != 39]
-    food_df = joined_df[joined_df['contentType'] == 39]
+    df['vec'] = df['catchtitle'].apply(lambda x: x[:100]) + df['treatMenu'].apply(lambda x: x[:200]) + df['tagName'].apply(lambda x: x[:200]) + df['overView'].apply(lambda x: x[:200])
+    df['vec_f'] = df['catchtitle'].apply(lambda x: x[:100]) + df['treatMenu'].apply(lambda x: x[:200]) + df['tagName'].apply(lambda x: x[:200])
+
+    spot_df = df[df['contentType'] != 39]
+    food_df = df[df['contentType'] == 39]
     spot_df.__len__(), food_df.__len__()
 
 

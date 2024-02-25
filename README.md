@@ -2,15 +2,6 @@
 ## System Architecture
 ![image](https://github.com/DJMLteam2/DP_Service/assets/135206912/f5c20aab-0eaf-477f-a796-24e912dced18)
 
-### dockerfile
-https://github.com/Sam1000won/dp_docker 
-## Docker Hub
-### Python
-python 주소 : https://hub.docker.com/r/jiugnim/dp_python
-docker pull jiugnim/dp_mysql
-### Mysql
-mysql 주소 : https://hub.docker.com/r/jiugnim/dp_mysql
-docker pull jiugnim/dp_python
 ## Docker Compose
 ### Compose.yml
 git clone 사용시 

@@ -1,6 +1,6 @@
 # DP_Service
 ## System Architecture
-![image](https://github.com/DJMLteam2/DP_Service/assets/135206912/f5c20aab-0eaf-477f-a796-24e912dced18)
+![image](https://github.com/DJMLteam2/DP_Service/assets/80250150/68b98b89-b0bb-415e-9f89-3801909506fa)  
 
 ## Docker Compose
 ### Compose.yml
